@@ -74,17 +74,17 @@ export default function Register() {
         <div
           className="absolute inset-0 opacity-10"
           style={{
-            backgroundImage: `linear-gradient(#2563EB 1px, transparent 1px), linear-gradient(90deg, #2563EB 1px, transparent 1px)`,
+            backgroundImage: `linear-gradient(#6366F1 1px, transparent 1px), linear-gradient(90deg, #6366F1 1px, transparent 1px)`,
             backgroundSize: "50px 50px",
           }}
         />
         <div className="relative">
           <Link to="/" className="flex items-center gap-2.5">
-            <div className="w-9 h-9 rounded-xl bg-primary-600 flex items-center justify-center shadow-blue">
+            <div className="w-9 h-9 rounded-xl bg-gradient-primary flex items-center justify-center shadow-indigo">
               <Monitor className="w-5 h-5 text-white" />
             </div>
             <span className="font-heading font-bold text-xl text-white">
-              Compu<span className="text-primary-300">Point</span>
+              Compu<span className="text-accent">Point</span>
             </span>
           </Link>
         </div>
@@ -121,11 +121,11 @@ export default function Register() {
           {/* Mobile Logo */}
           <div className="lg:hidden flex justify-center mb-8">
             <Link to="/" className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-lg bg-primary-600 flex items-center justify-center">
+              <div className="w-8 h-8 rounded-lg bg-gradient-primary flex items-center justify-center shadow-indigo">
                 <Monitor className="w-4 h-4 text-white" />
               </div>
               <span className="font-heading font-bold text-lg text-slate-900 dark:text-white">
-                Compu<span className="text-primary-600">Point</span>
+                Compu<span className="text-primary">Point</span>
               </span>
             </Link>
           </div>
@@ -161,8 +161,8 @@ export default function Register() {
                     className={cn(
                       "px-3 py-2.5 rounded-xl text-xs font-semibold border transition-all duration-200",
                       form.role === r.value
-                        ? "bg-primary-600 border-primary-600 text-white"
-                        : "bg-background border-border text-slate-600 dark:text-slate-300 hover:border-primary-300"
+                        ? "bg-primary border-primary text-white shadow-indigo"
+                        : "bg-background border-border text-slate-600 dark:text-slate-300 hover:border-primary/50"
                     )}
                   >
                     {r.label}
@@ -294,20 +294,20 @@ export default function Register() {
                 type="checkbox"
                 checked={form.agree}
                 onChange={(e) => update("agree", e.target.checked)}
-                className="w-4 h-4 rounded border-border text-primary-600 focus:ring-primary-500 mt-0.5"
+                className="w-4 h-4 rounded border-border text-primary focus:ring-primary/50 mt-0.5"
               />
               <span className="text-sm text-slate-600 dark:text-slate-400">
                 I agree to the{" "}
-                <Link to="/terms" className="text-primary-600 dark:text-primary-400 hover:underline">Terms of Service</Link>
+                <Link to="/terms" className="text-primary dark:text-primary-400 hover:underline">Terms of Service</Link>
                 {" "}and{" "}
-                <Link to="/privacy" className="text-primary-600 dark:text-primary-400 hover:underline">Privacy Policy</Link>
+                <Link to="/privacy" className="text-primary dark:text-primary-400 hover:underline">Privacy Policy</Link>
               </span>
             </label>
 
             <button
               type="submit"
               disabled={loading}
-              className="btn-primary w-full py-3.5 text-base"
+              className="btn-primary w-full py-3.5 text-base shadow-indigo-lg"
             >
               {loading ? (
                 <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
@@ -319,7 +319,7 @@ export default function Register() {
 
           <p className="text-center text-sm text-slate-500 dark:text-slate-400 mt-6">
             Already have an account?{" "}
-            <Link to="/login" className="text-primary-600 dark:text-primary-400 font-semibold hover:underline">
+            <Link to="/login" className="text-primary dark:text-primary-400 font-semibold hover:underline">
               Sign in
             </Link>
           </p>

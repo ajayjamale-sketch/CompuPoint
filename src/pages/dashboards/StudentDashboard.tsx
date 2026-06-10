@@ -52,8 +52,8 @@ export default function StudentDashboard() {
       activeTab={activeTab}
       onTabChange={setActiveTab}
       title="Student Dashboard"
-      roleColor="text-blue-600 dark:text-blue-400"
-      roleBg="bg-blue-50 dark:bg-blue-900/20"
+      roleColor="text-primary dark:text-primary-400"
+      roleBg="bg-primary-50 dark:bg-primary-900/20"
     >
       {activeTab === "overview" && <OverviewTab user={user} />}
       {activeTab === "courses" && <CoursesTab />}
@@ -112,13 +112,13 @@ function OverviewTab({ user }: { user: NonNullable<ReturnType<typeof useAuth>["u
               <AreaChart data={weeklyData}>
                 <defs>
                   <linearGradient id="actGrad" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#2563EB" stopOpacity={0.3} />
-                    <stop offset="95%" stopColor="#2563EB" stopOpacity={0} />
+                    <stop offset="5%" stopColor="#6366F1" stopOpacity={0.3} />
+                    <stop offset="95%" stopColor="#6366F1" stopOpacity={0} />
                   </linearGradient>
                 </defs>
                 <XAxis dataKey="day" tick={{ fontSize: 9 }} axisLine={false} tickLine={false} />
                 <Tooltip contentStyle={{ fontSize: "11px", background: "hsl(var(--card))", border: "1px solid hsl(var(--border))", borderRadius: "8px" }} />
-                <Area type="monotone" dataKey="hours" stroke="#2563EB" strokeWidth={2} fill="url(#actGrad)" />
+                <Area type="monotone" dataKey="hours" stroke="#6366F1" strokeWidth={2} fill="url(#actGrad)" />
               </AreaChart>
             </ResponsiveContainer>
           </div>
@@ -268,14 +268,14 @@ function AnalyticsTab() {
             <AreaChart data={weeklyData}>
               <defs>
                 <linearGradient id="anaGrad" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#2563EB" stopOpacity={0.3} />
-                  <stop offset="95%" stopColor="#2563EB" stopOpacity={0} />
+                  <stop offset="5%" stopColor="#6366F1" stopOpacity={0.3} />
+                  <stop offset="95%" stopColor="#6366F1" stopOpacity={0} />
                 </linearGradient>
               </defs>
               <XAxis dataKey="day" tick={{ fontSize: 10 }} axisLine={false} tickLine={false} />
               <YAxis tick={{ fontSize: 10 }} axisLine={false} tickLine={false} />
               <Tooltip contentStyle={{ fontSize: "11px", background: "hsl(var(--card))", border: "1px solid hsl(var(--border))", borderRadius: "8px" }} />
-              <Area type="monotone" dataKey="hours" stroke="#2563EB" strokeWidth={2} fill="url(#anaGrad)" />
+              <Area type="monotone" dataKey="hours" stroke="#6366F1" strokeWidth={2} fill="url(#anaGrad)" />
             </AreaChart>
           </ResponsiveContainer>
         </div>
@@ -285,7 +285,7 @@ function AnalyticsTab() {
             <div className="relative w-24 h-24 flex-shrink-0">
               <svg className="w-24 h-24 -rotate-90" viewBox="0 0 36 36">
                 <circle cx="18" cy="18" r="15" fill="none" stroke="currentColor" strokeWidth="3" className="text-slate-100 dark:text-slate-700" />
-                <circle cx="18" cy="18" r="15" fill="none" stroke="#2563EB" strokeWidth="3" strokeDasharray="68 100" strokeLinecap="round" />
+                <circle cx="18" cy="18" r="15" fill="none" stroke="#6366F1" strokeWidth="3" strokeDasharray="68 100" strokeLinecap="round" />
               </svg>
               <div className="absolute inset-0 flex items-center justify-center">
                 <span className="text-lg font-bold text-slate-900 dark:text-white">68%</span>

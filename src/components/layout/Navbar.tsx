@@ -83,24 +83,29 @@ export default function Navbar() {
     <>
       <header
         className={cn(
-          "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
-          scrolled || !isHeroPage
-            ? "bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 shadow-sm"
-            : "bg-transparent border-b border-transparent"
+          "fixed top-0 left-0 right-0 z-50 transition-all duration-300 w-full px-4 sm:px-6 lg:px-8",
+          scrolled || !isHeroPage ? "pt-3" : "pt-5"
         )}
       >
-        <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
+        <nav
+          className={cn(
+            "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 transition-all duration-350 rounded-2xl",
+            scrolled || !isHeroPage
+              ? "bg-white/95 dark:bg-slate-950/75 backdrop-blur-xl border border-slate-200/50 dark:border-white/5 shadow-glass h-14"
+              : "bg-transparent border border-transparent h-16"
+          )}
+        >
+          <div className="flex items-center justify-between h-full">
             {/* Logo */}
             <Link to="/" className="flex items-center gap-2.5 flex-shrink-0">
-              <div className="w-8 h-8 rounded-lg bg-primary-600 flex items-center justify-center shadow-sm">
+              <div className="w-8 h-8 rounded-lg bg-gradient-primary flex items-center justify-center shadow-indigo">
                 <Monitor className="w-4 h-4 text-white" />
               </div>
               <span className={cn(
                 "font-heading font-bold text-lg transition-colors duration-300",
                 isTransparent ? "text-white" : "text-slate-900 dark:text-white"
               )}>
-                Compu<span className={isTransparent ? "text-primary-300" : "text-primary-600"}>Point</span>
+                Compu<span className={isTransparent ? "text-accent-400" : "text-primary"}>Point</span>
               </span>
             </Link>
 
@@ -224,7 +229,7 @@ export default function Navbar() {
                       "text-sm font-semibold px-4 py-2 rounded-lg transition-all duration-200",
                       isTransparent
                         ? "text-white/80 hover:text-white hover:bg-white/10"
-                        : "text-slate-600 dark:text-slate-300 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-900/20"
+                        : "text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-950/20"
                     )}
                   >
                     Sign In
@@ -232,10 +237,10 @@ export default function Navbar() {
                   <Link
                     to="/register"
                     className={cn(
-                      "text-sm font-semibold px-5 py-2.5 rounded-xl transition-all duration-200 inline-flex items-center gap-1.5",
+                      "text-sm font-semibold px-5 py-2.5 rounded-xl transition-all duration-300 inline-flex items-center gap-1.5",
                       isTransparent
-                        ? "bg-white text-primary-700 hover:bg-blue-50 shadow-sm"
-                        : "bg-primary-600 hover:bg-primary-700 text-white shadow-sm hover:-translate-y-0.5"
+                        ? "bg-white text-primary hover:bg-indigo-50/50 shadow-indigo"
+                        : "bg-primary hover:bg-primary-600 text-white shadow-indigo hover:-translate-y-0.5"
                     )}
                   >
                     Get Started
@@ -339,7 +344,7 @@ export default function Navbar() {
                   <Link to="/login" className="flex items-center justify-center w-full border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800 font-semibold py-2.5 rounded-xl text-sm transition-colors">
                     Sign In
                   </Link>
-                  <Link to="/register" className="flex items-center justify-center w-full bg-primary-600 hover:bg-primary-700 text-white font-semibold py-2.5 rounded-xl text-sm transition-colors">
+                  <Link to="/register" className="flex items-center justify-center w-full bg-primary hover:bg-primary/90 text-white font-semibold py-2.5 rounded-xl text-sm transition-colors shadow-indigo">
                     Get Started Free
                   </Link>
                 </div>

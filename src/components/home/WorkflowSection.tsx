@@ -69,7 +69,7 @@ export default function WorkflowSection() {
         {/* Steps */}
         <div className="relative">
           {/* Connector Line - Desktop */}
-          <div className="hidden lg:block absolute top-12 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-primary-200 dark:via-primary-800 to-transparent mx-20 z-0" />
+          <div className="hidden lg:block absolute top-12 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-primary/30 to-transparent mx-20 z-0" />
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 relative">
             {steps.map((step, index) => {
@@ -78,10 +78,10 @@ export default function WorkflowSection() {
                 <div key={step.step} className="flex flex-col items-center text-center group" style={{ animationDelay: `${index * 0.1}s` }}>
                   {/* Step Circle */}
                   <div className="relative mb-6">
-                    <div className="w-24 h-24 rounded-2xl bg-gradient-to-br from-primary-600 to-accent-500 flex items-center justify-center shadow-blue group-hover:shadow-blue-lg transition-all duration-300 group-hover:-translate-y-1 relative z-10">
+                    <div className="w-24 h-24 rounded-2xl bg-gradient-primary flex items-center justify-center shadow-indigo group-hover:shadow-indigo-lg transition-all duration-300 group-hover:-translate-y-1 relative z-10">
                       <Icon className="w-8 h-8 text-white" />
                     </div>
-                    <div className="absolute -top-2 -right-2 w-7 h-7 bg-slate-900 dark:bg-white rounded-full flex items-center justify-center border-2 border-primary-500 z-20">
+                    <div className="absolute -top-2 -right-2 w-7 h-7 bg-slate-900 dark:bg-white rounded-full flex items-center justify-center border-2 border-primary z-20">
                       <span className="text-xs font-bold text-white dark:text-slate-900">{step.step}</span>
                     </div>
                   </div>
@@ -98,8 +98,8 @@ export default function WorkflowSection() {
                   <div className="space-y-1.5 w-full">
                     {step.details.map((detail) => (
                       <div key={detail} className="flex items-center gap-2 text-left">
-                        <div className="w-4 h-4 rounded-full bg-primary-50 dark:bg-primary-900/30 flex items-center justify-center flex-shrink-0">
-                          <Check className="w-2.5 h-2.5 text-primary-600 dark:text-primary-400" />
+                        <div className="w-4 h-4 rounded-full bg-primary-50 dark:bg-primary-950/45 flex items-center justify-center flex-shrink-0">
+                          <Check className="w-2.5 h-2.5 text-primary" />
                         </div>
                         <span className="text-xs text-slate-600 dark:text-slate-300">{detail}</span>
                       </div>
@@ -113,7 +113,7 @@ export default function WorkflowSection() {
 
         {/* Bottom CTA */}
         <div className="text-center mt-16">
-          <div className="inline-flex flex-col sm:flex-row items-center gap-4 p-6 bg-gradient-to-br from-primary-50 to-cyan-50 dark:from-primary-900/20 dark:to-cyan-900/20 rounded-2xl border border-primary-100 dark:border-primary-800">
+          <div className="inline-flex flex-col sm:flex-row items-center gap-4 p-6 bg-gradient-card rounded-2xl border border-primary-100/50 dark:border-primary-900/50">
             <div className="text-center sm:text-left">
               <p className="font-semibold text-slate-900 dark:text-white">Ready to start your IT journey?</p>
               <p className="text-sm text-slate-500 dark:text-slate-400">Join 125,000+ learners who have transformed their careers with CompuPoint.</p>

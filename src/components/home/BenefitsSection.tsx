@@ -25,8 +25,8 @@ export default function BenefitsSection() {
   return (
     <section className="section-padding bg-slate-900 relative overflow-hidden">
       {/* Background decoration */}
-      <div className="absolute top-0 right-0 w-96 h-96 bg-primary-600/10 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-64 h-64 bg-cyan-500/10 rounded-full blur-2xl pointer-events-none" />
+      <div className="absolute top-0 right-0 w-96 h-96 bg-primary/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-64 h-64 bg-accent/10 rounded-full blur-2xl pointer-events-none" />
 
       <div className="max-w-7xl mx-auto relative">
         {/* Stats Row */}
@@ -35,8 +35,8 @@ export default function BenefitsSection() {
             const Icon = stat.icon;
             return (
               <div key={stat.label} className="text-center p-6 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/8 hover:border-white/20 transition-all duration-300">
-                <div className="w-12 h-12 rounded-xl bg-primary-600/20 flex items-center justify-center mx-auto mb-3">
-                  <Icon className="w-6 h-6 text-primary-400" />
+                <div className="w-12 h-12 rounded-xl bg-primary/20 flex items-center justify-center mx-auto mb-3">
+                  <Icon className="w-6 h-6 text-primary" />
                 </div>
                 <div className="text-3xl font-heading font-bold text-white mb-1">
                   <AnimatedCounter value={stat.value} suffix={stat.suffix} />
@@ -50,14 +50,14 @@ export default function BenefitsSection() {
         {/* Header + Content */}
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-primary-900/40 border border-primary-700 rounded-full mb-6">
-              <TrendingUp className="w-4 h-4 text-primary-400" />
-              <span className="text-sm font-semibold text-primary-400">Why CompuPoint?</span>
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-primary-900/20 border border-primary/30 rounded-full mb-6">
+              <TrendingUp className="w-4 h-4 text-primary" />
+              <span className="text-sm font-semibold text-primary-300">Why CompuPoint?</span>
             </div>
             <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight">
               Built for Real-World
               <br />
-              <span className="bg-gradient-to-r from-primary-400 to-cyan-400 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-primary-400 to-accent-400 bg-clip-text text-transparent">
                 IT Success
               </span>
             </h2>
@@ -71,8 +71,8 @@ export default function BenefitsSection() {
                 { icon: BadgeCheck, text: "Certificates verified and trusted by 5000+ companies" },
               ].map(({ icon: Icon, text }) => (
                 <div key={text} className="flex items-start gap-3">
-                  <div className="w-8 h-8 rounded-lg bg-primary-600/20 flex items-center justify-center flex-shrink-0 mt-0.5">
-                    <Icon className="w-4 h-4 text-primary-400" />
+                  <div className="w-8 h-8 rounded-lg bg-primary/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <Icon className="w-4 h-4 text-primary-300" />
                   </div>
                   <p className="text-slate-300 text-sm leading-relaxed">{text}</p>
                 </div>
@@ -84,13 +84,14 @@ export default function BenefitsSection() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {benefits.map((benefit) => {
               const Icon = iconMap[benefit.icon];
+              const isPrimaryColor = benefit.color === "blue";
               return (
                 <div
                   key={benefit.title}
                   className="p-5 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/8 hover:border-white/20 transition-all duration-300 group hover:-translate-y-0.5"
                 >
-                  <div className={`w-10 h-10 rounded-xl flex items-center justify-center mb-3 group-hover:scale-110 transition-transform duration-300 ${benefit.color === "blue" ? "bg-primary-600/20" : "bg-cyan-600/20"}`}>
-                    <Icon className={`w-5 h-5 ${benefit.color === "blue" ? "text-primary-400" : "text-cyan-400"}`} />
+                  <div className={`w-10 h-10 rounded-xl flex items-center justify-center mb-3 group-hover:scale-110 transition-transform duration-300 ${isPrimaryColor ? "bg-primary/25" : "bg-accent/20"}`}>
+                    <Icon className={`w-5 h-5 ${isPrimaryColor ? "text-primary" : "text-accent"}`} />
                   </div>
                   <h3 className="text-sm font-semibold text-white mb-2">{benefit.title}</h3>
                   <p className="text-xs text-slate-400 leading-relaxed">{benefit.description}</p>

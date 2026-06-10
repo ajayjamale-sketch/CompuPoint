@@ -22,9 +22,9 @@ export default function FAQ() {
     <div className="min-h-screen bg-background pt-16">
       {/* Hero */}
       <section className="py-16 px-4 bg-gradient-hero relative overflow-hidden">
-        <div className="absolute inset-0 opacity-5" style={{ backgroundImage: `linear-gradient(#2563EB 1px, transparent 1px), linear-gradient(90deg, #2563EB 1px, transparent 1px)`, backgroundSize: "50px 50px" }} />
+        <div className="absolute inset-0 opacity-5" style={{ backgroundImage: `linear-gradient(#6366F1 1px, transparent 1px), linear-gradient(90deg, #6366F1 1px, transparent 1px)`, backgroundSize: "50px 50px" }} />
         <div className="max-w-3xl mx-auto text-center relative">
-          <div className="label-badge mb-4 inline-flex bg-primary-900/40 border-primary-700 text-primary-400">
+          <div className="label-badge mb-4 inline-flex">
             <HelpCircle className="w-4 h-4" />
             <span>Help Center</span>
           </div>
@@ -41,7 +41,7 @@ export default function FAQ() {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search questions..."
-              className="w-full pl-12 pr-4 py-3.5 bg-white/10 backdrop-blur-sm border border-white/20 text-white placeholder-slate-400 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 text-base"
+              className="w-full pl-12 pr-4 py-3.5 bg-white/10 backdrop-blur-sm border border-white/20 text-white placeholder-slate-400 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/50 text-base"
             />
           </div>
         </div>
@@ -57,8 +57,8 @@ export default function FAQ() {
               className={cn(
                 "px-3 py-1.5 rounded-full text-xs font-medium border transition-all",
                 activeCategory === cat
-                  ? "bg-primary-600 border-primary-600 text-white"
-                  : "bg-background border-border text-slate-600 dark:text-slate-300 hover:border-primary-300"
+                  ? "bg-primary border-primary text-white"
+                  : "bg-background border-border text-slate-600 dark:text-slate-300 hover:border-primary/50"
               )}
             >
               {cat}
@@ -79,7 +79,7 @@ export default function FAQ() {
                 key={item.id}
                 className={cn(
                   "card-base overflow-hidden transition-all duration-300",
-                  openId === item.id && "ring-2 ring-primary-200 dark:ring-primary-800"
+                  openId === item.id && "ring-2 ring-primary-100 dark:ring-primary-900/50"
                 )}
               >
                 <button
@@ -89,7 +89,7 @@ export default function FAQ() {
                 >
                   <div className={cn(
                     "w-7 h-7 rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5 transition-all",
-                    openId === item.id ? "bg-primary-600 text-white" : "bg-slate-100 dark:bg-slate-700"
+                    openId === item.id ? "bg-primary text-white" : "bg-slate-100 dark:bg-slate-700"
                   )}>
                     <HelpCircle className="w-4 h-4" />
                   </div>
@@ -120,7 +120,7 @@ export default function FAQ() {
 
         {/* Contact CTA */}
         <div className="mt-12 text-center card-base p-8">
-          <HelpCircle className="w-10 h-10 text-primary-600 dark:text-primary-400 mx-auto mb-3" />
+          <HelpCircle className="w-10 h-10 text-primary mx-auto mb-3" />
           <h3 className="text-lg font-heading font-bold text-slate-900 dark:text-white mb-2">
             Still need help?
           </h3>

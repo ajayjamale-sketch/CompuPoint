@@ -25,7 +25,7 @@ export default function About() {
     <div className="min-h-screen bg-background pt-16">
       {/* Hero */}
       <section className="py-20 px-4 bg-gradient-hero relative overflow-hidden">
-        <div className="absolute inset-0 opacity-5" style={{ backgroundImage: `linear-gradient(#2563EB 1px, transparent 1px), linear-gradient(90deg, #2563EB 1px, transparent 1px)`, backgroundSize: "50px 50px" }} />
+        <div className="absolute inset-0 opacity-5" style={{ backgroundImage: `linear-gradient(#6366F1 1px, transparent 1px), linear-gradient(90deg, #6366F1 1px, transparent 1px)`, backgroundSize: "50px 50px" }} />
         <div className="max-w-4xl mx-auto text-center relative">
           <div className="label-badge mb-4 inline-flex bg-primary-900/40 border-primary-700 text-primary-400">
             <Users className="w-4 h-4" />
@@ -192,7 +192,7 @@ export default function About() {
           <h2 className="font-heading text-3xl font-bold text-white mb-4">Join Our Growing Community</h2>
           <p className="text-blue-100 mb-8">Start your IT journey today with CompuPoint's comprehensive platform.</p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link to="/register" className="inline-flex items-center gap-2 px-8 py-3.5 bg-white text-primary-600 font-bold rounded-xl hover:bg-blue-50 transition-all">
+            <Link to="/register" className="inline-flex items-center gap-2 px-8 py-3.5 bg-white text-primary-600 font-bold rounded-xl hover:bg-slate-100 transition-all">
               Get Started Free <ArrowRight className="w-5 h-5" />
             </Link>
             <Link to="/contact" className="inline-flex items-center gap-2 px-8 py-3.5 bg-white/10 border border-white/30 text-white font-semibold rounded-xl hover:bg-white/20 transition-all">

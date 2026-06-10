@@ -107,11 +107,11 @@ export default function Footer() {
           {/* Brand */}
           <div className="lg:col-span-2">
             <Link to="/" className="flex items-center gap-2.5 mb-4">
-              <div className="w-9 h-9 rounded-xl bg-primary-600 flex items-center justify-center shadow-blue">
+              <div className="w-9 h-9 rounded-xl bg-gradient-primary flex items-center justify-center shadow-indigo">
                 <Monitor className="w-5 h-5 text-white" />
               </div>
               <span className="font-heading font-bold text-xl text-white">
-                Compu<span className="text-primary-400">Point</span>
+                Compu<span className="text-accent-400">Point</span>
               </span>
             </Link>
             <p className="text-sm text-slate-400 leading-relaxed mb-6 max-w-xs">
@@ -119,19 +119,19 @@ export default function Footer() {
             </p>
             <div className="space-y-2.5 mb-6">
               <div className="flex items-center gap-2.5 text-sm text-slate-400">
-                <Mail className="w-4 h-4 text-primary-400 flex-shrink-0" />
+                <Mail className="w-4 h-4 text-primary flex-shrink-0" />
                 <a href="mailto:hello@compupoint.in" className="hover:text-white transition-colors">
                   hello@compupoint.in
                 </a>
               </div>
               <div className="flex items-center gap-2.5 text-sm text-slate-400">
-                <Phone className="w-4 h-4 text-primary-400 flex-shrink-0" />
+                <Phone className="w-4 h-4 text-primary flex-shrink-0" />
                 <a href="tel:+918001234567" className="hover:text-white transition-colors">
                   +91 800 123 4567
                 </a>
               </div>
               <div className="flex items-start gap-2.5 text-sm text-slate-400">
-                <MapPin className="w-4 h-4 text-primary-400 flex-shrink-0 mt-0.5" />
+                <MapPin className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
                 <span>Bangalore, Karnataka, India</span>
               </div>
             </div>
@@ -141,7 +141,7 @@ export default function Footer() {
                   key={label}
                   href={href}
                   aria-label={label}
-                  className="w-8 h-8 rounded-lg bg-slate-800 hover:bg-primary-600 flex items-center justify-center transition-all duration-200 hover:-translate-y-0.5"
+                  className="w-8 h-8 rounded-lg bg-slate-900 border border-slate-800 hover:bg-primary hover:border-transparent flex items-center justify-center transition-all duration-200 hover:-translate-y-0.5"
                 >
                   <Icon className="w-3.5 h-3.5" />
                 </a>

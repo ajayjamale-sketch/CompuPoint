@@ -125,31 +125,32 @@ export default function FeaturesSection() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
           {features.map((feature, index) => {
             const Icon = feature.icon;
+            const isPrimaryColor = feature.color === "blue";
             return (
               <div
                 key={feature.title}
-                className="feature-card"
+                className="card-base p-6 hover:-translate-y-1 cursor-pointer group transition-all duration-300 relative overflow-hidden bg-card border border-border/60 hover:border-primary/20"
                 style={{ animationDelay: `${index * 0.05}s` }}
               >
                 <div className={`w-11 h-11 rounded-xl flex items-center justify-center mb-4 transition-all duration-300 group-hover:scale-110 ${
-                  feature.color === "blue"
-                    ? "bg-primary-50 dark:bg-primary-900/30"
-                    : "bg-cyan-50 dark:bg-cyan-900/30"
+                  isPrimaryColor
+                    ? "bg-primary-50 dark:bg-primary-900/20"
+                    : "bg-accent-50 dark:bg-accent/10"
                 }`}>
-                  <Icon className={`w-5 h-5 ${
-                    feature.color === "blue"
-                      ? "text-primary-600 dark:text-primary-400"
-                      : "text-cyan-600 dark:text-cyan-400"
+                  <Icon className={`w-5 h-5 transition-transform duration-300 group-hover:rotate-6 ${
+                    isPrimaryColor
+                      ? "text-primary"
+                      : "text-accent"
                   }`} />
                 </div>
                 <div className="flex items-start justify-between gap-2 mb-2">
-                  <h3 className="text-sm font-semibold text-slate-900 dark:text-white leading-snug">
+                  <h3 className="text-sm font-semibold text-slate-900 dark:text-white leading-snug group-hover:text-primary transition-colors duration-200">
                     {feature.title}
                   </h3>
-                  <span className={`tag text-xs flex-shrink-0 ${
-                    feature.color === "blue"
-                      ? "bg-primary-50 dark:bg-primary-900/30 text-primary-600 dark:text-primary-400"
-                      : "bg-cyan-50 dark:bg-cyan-900/30 text-cyan-600 dark:text-cyan-400"
+                  <span className={`tag text-[10px] uppercase tracking-wider px-2 py-0.5 rounded-full font-bold flex-shrink-0 ${
+                    isPrimaryColor
+                      ? "bg-primary-50 dark:bg-primary-900/20 text-primary"
+                      : "bg-accent-50 dark:bg-accent/10 text-accent-600 dark:text-accent-400"
                   }`}>
                     {feature.tag}
                   </span>

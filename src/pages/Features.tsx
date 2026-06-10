@@ -72,9 +72,9 @@ export default function Features() {
     <div className="min-h-screen bg-background pt-16">
       {/* Hero */}
       <section className="py-20 px-4 bg-gradient-hero relative overflow-hidden">
-        <div className="absolute inset-0 opacity-5" style={{ backgroundImage: `linear-gradient(#2563EB 1px, transparent 1px), linear-gradient(90deg, #2563EB 1px, transparent 1px)`, backgroundSize: "50px 50px" }} />
+        <div className="absolute inset-0 opacity-5" style={{ backgroundImage: `linear-gradient(#6366F1 1px, transparent 1px), linear-gradient(90deg, #6366F1 1px, transparent 1px)`, backgroundSize: "50px 50px" }} />
         <div className="max-w-4xl mx-auto text-center relative">
-          <div className="label-badge mb-4 inline-flex bg-primary-900/40 border-primary-700 text-primary-400">
+          <div className="label-badge mb-4 inline-flex">
             <Star className="w-4 h-4" />
             <span>Platform Features</span>
           </div>
@@ -103,8 +103,8 @@ export default function Features() {
                 className={cn(
                   "flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold border transition-all duration-200",
                   activeCategory === id
-                    ? "bg-primary-600 border-primary-600 text-white shadow-blue"
-                    : "bg-background border-border text-slate-600 dark:text-slate-300 hover:border-primary-300"
+                    ? "bg-primary border-primary text-white shadow-indigo"
+                    : "bg-background border-border text-slate-600 dark:text-slate-300 hover:border-primary/50"
                 )}
               >
                 <Icon className="w-4 h-4" />
@@ -117,8 +117,8 @@ export default function Features() {
           {activeFeature && (
             <div className="grid lg:grid-cols-2 gap-12 items-center">
               <div>
-                <div className="w-12 h-12 rounded-2xl bg-primary-50 dark:bg-primary-900/30 flex items-center justify-center mb-6">
-                  <activeFeature.icon className="w-6 h-6 text-primary-600 dark:text-primary-400" />
+                <div className="w-12 h-12 rounded-2xl bg-primary-50 dark:bg-primary-950/45 flex items-center justify-center mb-6">
+                  <activeFeature.icon className="w-6 h-6 text-primary" />
                 </div>
                 <h2 className="text-2xl font-heading font-bold text-slate-900 dark:text-white mb-4">
                   {activeFeature.title}
@@ -129,8 +129,8 @@ export default function Features() {
                 <div className="grid grid-cols-1 gap-2.5 mb-8">
                   {activeFeature.benefits.map((b) => (
                     <div key={b} className="flex items-center gap-2.5">
-                      <div className="w-5 h-5 rounded-full bg-primary-50 dark:bg-primary-900/30 flex items-center justify-center flex-shrink-0">
-                        <CheckCircle2 className="w-3 h-3 text-primary-600 dark:text-primary-400" />
+                      <div className="w-5 h-5 rounded-full bg-primary-50 dark:bg-primary-950/45 flex items-center justify-center flex-shrink-0">
+                        <CheckCircle2 className="w-3 h-3 text-primary" />
                       </div>
                       <span className="text-sm text-slate-700 dark:text-slate-300">{b}</span>
                     </div>
@@ -192,7 +192,7 @@ export default function Features() {
                   <div className="flex items-center gap-2 mb-2">
                     <span className="tag text-xs">{course.category}</span>
                   </div>
-                  <h3 className="font-semibold text-slate-900 dark:text-white mb-1.5 leading-snug group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
+                  <h3 className="font-semibold text-slate-900 dark:text-white mb-1.5 leading-snug group-hover:text-primary transition-colors">
                     {course.title}
                   </h3>
                   <p className="text-xs text-slate-500 dark:text-slate-400 mb-3 line-clamp-2">{course.description}</p>
@@ -207,7 +207,7 @@ export default function Features() {
                     </span>
                   </div>
                   <div className="flex items-center justify-between">
-                    <span className="text-lg font-bold text-primary-600 dark:text-primary-400">
+                    <span className="text-lg font-bold text-primary">
                       {formatCurrency(course.price)}
                     </span>
                     <button className="btn-primary text-xs px-4 py-2">Enroll Now</button>
@@ -237,8 +237,8 @@ export default function Features() {
               { icon: CheckCircle2, title: "Student Management", desc: "Track attendance, performance, assignments, and progress for individual students or batches." },
             ].map(({ icon: Icon, title, desc }) => (
               <div key={title} className="feature-card p-5">
-                <div className="w-9 h-9 rounded-xl bg-primary-50 dark:bg-primary-900/30 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
-                  <Icon className="w-4 h-4 text-primary-600 dark:text-primary-400" />
+                <div className="w-9 h-9 rounded-xl bg-primary-50 dark:bg-primary-950/45 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+                  <Icon className="w-4 h-4 text-primary" />
                 </div>
                 <h3 className="font-semibold text-xs text-slate-900 dark:text-white mb-1.5 leading-snug">{title}</h3>
                 <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">{desc}</p>
@@ -249,11 +249,11 @@ export default function Features() {
       </section>
 
       {/* CTA */}
-      <section className="py-16 px-4 bg-gradient-to-r from-primary-600 to-accent-600 text-center">
+      <section className="py-16 px-4 bg-gradient-primary text-center">
         <div className="max-w-2xl mx-auto">
           <h2 className="font-heading text-3xl font-bold text-white mb-4">Ready to Explore All Features?</h2>
           <p className="text-blue-100 mb-8">Start your free trial today and access everything CompuPoint has to offer.</p>
-          <Link to="/register" className="inline-flex items-center gap-2 px-8 py-3.5 bg-white text-primary-600 font-bold rounded-xl hover:bg-blue-50 transition-all">
+          <Link to="/register" className="inline-flex items-center gap-2 px-8 py-3.5 bg-white text-primary font-bold rounded-xl hover:bg-indigo-50/50 transition-all shadow-indigo">
             Start Free Trial <ArrowRight className="w-5 h-5" />
           </Link>
         </div>

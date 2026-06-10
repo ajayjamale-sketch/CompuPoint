@@ -56,7 +56,7 @@ const jobTypeData = [
   { name: "Network Setup", value: 18 },
   { name: "Data Recovery", value: 12 },
 ];
-const PIE_COLORS = ["#2563EB", "#06B6D4", "#16a34a", "#f59e0b"];
+const PIE_COLORS = ["#6366F1", "#06B6D4", "#16a34a", "#f59e0b"];
 
 const priorityMap: Record<string, string> = {
   urgent: "bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-400 border border-red-100",

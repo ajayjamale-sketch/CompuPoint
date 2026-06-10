@@ -20,9 +20,9 @@ const dashboardFeatures = [
 ];
 
 const mockCourses = [
-  { name: "Full-Stack Web Development", progress: 72, color: "bg-primary-600" },
+  { name: "Full-Stack Web Development", progress: 72, color: "bg-primary" },
   { name: "Python Programming", progress: 100, color: "bg-green-500" },
-  { name: "Digital Marketing", progress: 45, color: "bg-accent-500" },
+  { name: "Digital Marketing", progress: 45, color: "bg-accent" },
   { name: "Tally Prime & Accounting", progress: 88, color: "bg-purple-500" },
 ];
 
@@ -49,9 +49,9 @@ export default function DashboardPreviewSection() {
             {/* Features List */}
             <div className="space-y-4 mb-8">
               {dashboardFeatures.map(({ icon: Icon, label, desc }) => (
-                <div key={label} className="flex items-start gap-4 p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-border hover:border-primary-200 dark:hover:border-primary-700 transition-all duration-200 group">
-                  <div className="w-9 h-9 rounded-lg bg-primary-50 dark:bg-primary-900/30 flex items-center justify-center flex-shrink-0 group-hover:bg-primary-100 dark:group-hover:bg-primary-900/50 transition-colors">
-                    <Icon className="w-4 h-4 text-primary-600 dark:text-primary-400" />
+                <div key={label} className="flex items-start gap-4 p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-border hover:border-primary/20 transition-all duration-200 group">
+                  <div className="w-9 h-9 rounded-lg bg-primary-50 dark:bg-primary-950/45 flex items-center justify-center flex-shrink-0 group-hover:bg-primary-100 dark:group-hover:bg-primary-900/50 transition-colors">
+                    <Icon className="w-4 h-4 text-primary" />
                   </div>
                   <div>
                     <p className="font-semibold text-sm text-slate-900 dark:text-white">{label}</p>
@@ -61,7 +61,7 @@ export default function DashboardPreviewSection() {
               ))}
             </div>
 
-            <Link to="/dashboard" className="btn-primary px-7 py-3.5">
+            <Link to="/dashboard" className="btn-primary px-7 py-3.5 shadow-indigo-lg">
               View Dashboard
               <ArrowRight className="w-5 h-5" />
             </Link>
@@ -70,7 +70,7 @@ export default function DashboardPreviewSection() {
           {/* Right - Dashboard Preview */}
           <div className="relative">
             {/* Main Dashboard Preview */}
-            <div className="relative rounded-2xl overflow-hidden shadow-[0_24px_80px_rgba(37,99,235,0.2)] border border-border">
+            <div className="relative rounded-2xl overflow-hidden shadow-[0_24px_80px_rgba(99,102,241,0.2)] border border-border">
               <img
                 src={dashboardImg}
                 alt="CompuPoint Dashboard"
@@ -84,8 +84,8 @@ export default function DashboardPreviewSection() {
             {/* Floating Stats Card */}
             <div className="absolute -left-6 top-1/4 card-base p-4 w-48 shadow-card-hover animate-float hidden sm:block">
               <div className="flex items-center gap-2 mb-3">
-                <div className="w-7 h-7 rounded-lg bg-primary-50 dark:bg-primary-900/30 flex items-center justify-center">
-                  <Users className="w-3.5 h-3.5 text-primary-600 dark:text-primary-400" />
+                <div className="w-7 h-7 rounded-lg bg-primary-50 dark:bg-primary-950/45 flex items-center justify-center">
+                  <Users className="w-3.5 h-3.5 text-primary" />
                 </div>
                 <span className="text-xs font-semibold text-slate-900 dark:text-white">Course Progress</span>
               </div>

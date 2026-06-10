@@ -91,12 +91,12 @@ function PricingCard({ plan, isYearly }: { plan: typeof PRICING_PLANS[0]; isYear
 
   return (
     <div className={cn(
-      "pricing-card relative flex flex-col transition-all duration-300 hover:-translate-y-1",
-      plan.highlighted ? "pricing-card-featured shadow-blue-lg scale-105" : ""
+      "pricing-card relative flex flex-col transition-all duration-300 hover:-translate-y-1 bg-card border border-border",
+      plan.highlighted ? "bg-gradient-to-br from-primary to-primary-700 border-primary-500 text-white shadow-indigo-lg scale-105" : ""
     )}>
       {plan.badge && (
         <div className="absolute -top-3.5 left-1/2 -translate-x-1/2">
-          <span className="inline-flex items-center gap-1.5 px-4 py-1 bg-accent-500 text-white text-xs font-bold rounded-full shadow-cyan">
+          <span className="inline-flex items-center gap-1.5 px-4 py-1 bg-accent text-white text-xs font-bold rounded-full shadow-emerald">
             <Star className="w-3 h-3 fill-white" />
             {plan.badge}
           </span>
@@ -112,7 +112,7 @@ function PricingCard({ plan, isYearly }: { plan: typeof PRICING_PLANS[0]; isYear
         </h3>
         <p className={cn(
           "text-sm leading-relaxed",
-          plan.highlighted ? "text-blue-100" : "text-slate-500 dark:text-slate-400"
+          plan.highlighted ? "text-indigo-100" : "text-slate-500 dark:text-slate-400"
         )}>
           {plan.description}
         </p>
@@ -128,7 +128,7 @@ function PricingCard({ plan, isYearly }: { plan: typeof PRICING_PLANS[0]; isYear
           </span>
           <span className={cn(
             "text-sm",
-            plan.highlighted ? "text-blue-200" : "text-slate-500 dark:text-slate-400"
+            plan.highlighted ? "text-indigo-200" : "text-slate-500 dark:text-slate-400"
           )}>
             /month
           </span>
@@ -136,7 +136,7 @@ function PricingCard({ plan, isYearly }: { plan: typeof PRICING_PLANS[0]; isYear
         {isYearly && (
           <p className={cn(
             "text-xs mt-1",
-            plan.highlighted ? "text-blue-200" : "text-slate-500 dark:text-slate-400"
+            plan.highlighted ? "text-indigo-200" : "text-slate-500 dark:text-slate-400"
           )}>
             Billed annually — save {formatCurrency((plan.price - plan.yearlyPrice) * 12)}/year
           </p>
@@ -148,16 +148,16 @@ function PricingCard({ plan, isYearly }: { plan: typeof PRICING_PLANS[0]; isYear
           <li key={feature} className="flex items-start gap-2.5">
             <div className={cn(
               "w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5",
-              plan.highlighted ? "bg-white/20" : "bg-primary-50 dark:bg-primary-900/30"
+              plan.highlighted ? "bg-white/20" : "bg-primary-50 dark:bg-primary-950/45"
             )}>
               <Check className={cn(
                 "w-3 h-3",
-                plan.highlighted ? "text-white" : "text-primary-600 dark:text-primary-400"
+                plan.highlighted ? "text-white" : "text-primary"
               )} />
             </div>
             <span className={cn(
               "text-sm",
-              plan.highlighted ? "text-blue-50" : "text-slate-700 dark:text-slate-300"
+              plan.highlighted ? "text-indigo-50" : "text-slate-700 dark:text-slate-300"
             )}>
               {feature}
             </span>
@@ -170,7 +170,7 @@ function PricingCard({ plan, isYearly }: { plan: typeof PRICING_PLANS[0]; isYear
         className={cn(
           "flex items-center justify-center gap-2 w-full py-3 rounded-xl font-semibold text-sm transition-all duration-200",
           plan.highlighted
-            ? "bg-white text-primary-600 hover:bg-blue-50 shadow-lg hover:shadow-xl"
+            ? "bg-white text-primary hover:bg-indigo-50/50 shadow-lg hover:shadow-xl"
             : "btn-primary"
         )}
       >

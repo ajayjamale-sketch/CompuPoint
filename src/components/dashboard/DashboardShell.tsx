@@ -564,13 +564,13 @@ export function StatCard({
   color?: "blue" | "green" | "purple" | "orange" | "cyan" | "red" | "indigo"; sub?: string;
 }) {
   const colorMap = {
-    blue: { bg: "bg-blue-50 dark:bg-blue-900/20", text: "text-blue-600 dark:text-blue-400" },
-    green: { bg: "bg-green-50 dark:bg-green-900/20", text: "text-green-600 dark:text-green-400" },
-    purple: { bg: "bg-purple-50 dark:bg-purple-900/20", text: "text-purple-600 dark:text-purple-400" },
-    orange: { bg: "bg-orange-50 dark:bg-orange-900/20", text: "text-orange-600 dark:text-orange-400" },
-    cyan: { bg: "bg-cyan-50 dark:bg-cyan-900/20", text: "text-cyan-600 dark:text-cyan-400" },
-    red: { bg: "bg-red-50 dark:bg-red-900/20", text: "text-red-600 dark:text-red-400" },
-    indigo: { bg: "bg-indigo-50 dark:bg-indigo-900/20", text: "text-indigo-600 dark:text-indigo-400" },
+    blue: { bg: "bg-primary-50 dark:bg-primary/10", text: "text-primary dark:text-primary-400" },
+    green: { bg: "bg-emerald-50 dark:bg-emerald-950/30", text: "text-emerald-600 dark:text-emerald-400" },
+    purple: { bg: "bg-purple-50 dark:bg-purple-950/30", text: "text-purple-600 dark:text-purple-400" },
+    orange: { bg: "bg-orange-50 dark:bg-orange-950/30", text: "text-orange-600 dark:text-orange-400" },
+    cyan: { bg: "bg-accent-50 dark:bg-accent/10", text: "text-accent dark:text-accent-400" },
+    red: { bg: "bg-red-50 dark:bg-red-950/30", text: "text-red-600 dark:text-red-400" },
+    indigo: { bg: "bg-primary-50 dark:bg-primary/10", text: "text-primary dark:text-primary-400" },
   };
   const c = colorMap[color];
   return (

@@ -21,7 +21,7 @@ export default function Blog() {
     <div className="min-h-screen bg-background pt-16">
       {/* Hero */}
       <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-hero relative overflow-hidden">
-        <div className="absolute inset-0 opacity-5" style={{ backgroundImage: `linear-gradient(#2563EB 1px, transparent 1px), linear-gradient(90deg, #2563EB 1px, transparent 1px)`, backgroundSize: "50px 50px" }} />
+        <div className="absolute inset-0 opacity-5" style={{ backgroundImage: `linear-gradient(#6366F1 1px, transparent 1px), linear-gradient(90deg, #6366F1 1px, transparent 1px)`, backgroundSize: "50px 50px" }} />
         <div className="max-w-4xl mx-auto text-center relative">
           <div className="label-badge mb-4 inline-flex bg-primary-900/40 border-primary-700 text-primary-400">
             <BookOpen className="w-4 h-4" />
