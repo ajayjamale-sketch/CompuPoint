@@ -21,6 +21,7 @@ const features = [
     description: "280+ structured courses from Basic Computing to Advanced Programming, taught by industry experts.",
     color: "blue",
     tag: "Learn",
+    to: "/features#education",
   },
   {
     icon: Award,
@@ -28,6 +29,7 @@ const features = [
     description: "Industry-recognized certifications with online exams, practice tests, and verified digital badges.",
     color: "cyan",
     tag: "Certify",
+    to: "/features#certification",
   },
   {
     icon: Brain,
@@ -35,6 +37,7 @@ const features = [
     description: "Personalized AI tutor that answers questions, adapts learning paths, and provides career guidance 24/7.",
     color: "blue",
     tag: "AI-Powered",
+    to: "/features#ai",
   },
   {
     icon: Wrench,
@@ -42,6 +45,7 @@ const features = [
     description: "Complete computer maintenance, on-site support, AMC contracts, and spare parts marketplace.",
     color: "cyan",
     tag: "Services",
+    to: "/features#services",
   },
   {
     icon: Code2,
@@ -49,6 +53,7 @@ const features = [
     description: "Professional software setup, OS installation, remote support, and license management services.",
     color: "blue",
     tag: "Support",
+    to: "/features#services",
   },
   {
     icon: Globe,
@@ -56,6 +61,7 @@ const features = [
     description: "Connect with freelance IT professionals for web development, networking, and cloud setup services.",
     color: "cyan",
     tag: "Marketplace",
+    to: "/features#services",
   },
   {
     icon: ShoppingBag,
@@ -63,6 +69,7 @@ const features = [
     description: "Curated marketplace for laptops, accessories, networking equipment, and software licenses.",
     color: "blue",
     tag: "Shop",
+    to: "/features#services",
   },
   {
     icon: Briefcase,
@@ -70,6 +77,7 @@ const features = [
     description: "Resume builder, job portal, internship listings, interview prep, and dedicated placement assistance.",
     color: "cyan",
     tag: "Careers",
+    to: "/features#career",
   },
   {
     icon: Monitor,
@@ -77,6 +85,7 @@ const features = [
     description: "Complete management for training institutes: students, batches, attendance, fees, and performance.",
     color: "blue",
     tag: "Manage",
+    to: "/features#education",
   },
   {
     icon: BarChart3,
@@ -84,6 +93,7 @@ const features = [
     description: "Powerful insights on learning progress, certification status, service performance, and revenue.",
     color: "cyan",
     tag: "Insights",
+    to: "/features#education",
   },
   {
     icon: Shield,
@@ -91,6 +101,7 @@ const features = [
     description: "Ethical hacking, network security, and cybersecurity certification programs for professionals.",
     color: "blue",
     tag: "Security",
+    to: "/features#education",
   },
   {
     icon: GraduationCap,
@@ -98,6 +109,7 @@ const features = [
     description: "Comprehensive platform governance with user management, revenue monitoring, and support control.",
     color: "cyan",
     tag: "Admin",
+    to: "/features#education",
   },
 ];
 
@@ -127,9 +139,10 @@ export default function FeaturesSection() {
             const Icon = feature.icon;
             const isPrimaryColor = feature.color === "blue";
             return (
-              <div
+              <Link
                 key={feature.title}
-                className="card-base p-6 hover:-translate-y-1 cursor-pointer group transition-all duration-300 relative overflow-hidden bg-card border border-border/60 hover:border-primary/20"
+                to={feature.to}
+                className="card-base p-6 hover:-translate-y-1 cursor-pointer group transition-all duration-300 relative overflow-hidden bg-card border border-border/60 hover:border-primary/20 block"
                 style={{ animationDelay: `${index * 0.05}s` }}
               >
                 <div className={`w-11 h-11 rounded-xl flex items-center justify-center mb-4 transition-all duration-300 group-hover:scale-110 ${
@@ -158,7 +171,7 @@ export default function FeaturesSection() {
                 <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
                   {feature.description}
                 </p>
-              </div>
+              </Link>
             );
           })}
         </div>

@@ -23,7 +23,7 @@ const stats = [
 
 export default function BenefitsSection() {
   return (
-    <section className="section-padding bg-slate-900 relative overflow-hidden">
+    <section className="section-padding bg-slate-50 dark:bg-slate-950 relative overflow-hidden">
       {/* Background decoration */}
       <div className="absolute top-0 right-0 w-96 h-96 bg-primary/10 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-0 left-0 w-64 h-64 bg-accent/10 rounded-full blur-2xl pointer-events-none" />
@@ -34,14 +34,14 @@ export default function BenefitsSection() {
           {stats.map((stat) => {
             const Icon = stat.icon;
             return (
-              <div key={stat.label} className="text-center p-6 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/8 hover:border-white/20 transition-all duration-300">
-                <div className="w-12 h-12 rounded-xl bg-primary/20 flex items-center justify-center mx-auto mb-3">
+              <div key={stat.label} className="text-center p-6 rounded-2xl bg-white dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800/80 hover:shadow-sm dark:hover:bg-slate-800/50 transition-all duration-300">
+                <div className="w-12 h-12 rounded-xl bg-primary/10 dark:bg-primary/20 flex items-center justify-center mx-auto mb-3">
                   <Icon className="w-6 h-6 text-primary" />
                 </div>
-                <div className="text-3xl font-heading font-bold text-white mb-1">
+                <div className="text-3xl font-heading font-bold text-slate-900 dark:text-white mb-1">
                   <AnimatedCounter value={stat.value} suffix={stat.suffix} />
                 </div>
-                <p className="text-sm text-slate-400">{stat.label}</p>
+                <p className="text-sm text-slate-500 dark:text-slate-400">{stat.label}</p>
               </div>
             );
           })}
@@ -50,18 +50,18 @@ export default function BenefitsSection() {
         {/* Header + Content */}
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-primary-900/20 border border-primary/30 rounded-full mb-6">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-primary/10 dark:bg-primary-900/20 border border-primary/20 dark:border-primary/30 rounded-full mb-6">
               <TrendingUp className="w-4 h-4 text-primary" />
-              <span className="text-sm font-semibold text-primary-300">Why CompuPoint?</span>
+              <span className="text-sm font-semibold text-primary-700 dark:text-primary-300">Why CompuPoint?</span>
             </div>
-            <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight">
+            <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 dark:text-white mb-6 leading-tight">
               Built for Real-World
               <br />
               <span className="bg-gradient-to-r from-primary-400 to-accent-400 bg-clip-text text-transparent">
                 IT Success
               </span>
             </h2>
-            <p className="text-slate-400 leading-relaxed mb-8 text-lg">
+            <p className="text-slate-600 dark:text-slate-400 leading-relaxed mb-8 text-lg">
               CompuPoint is not just a learning platform — it's a complete ecosystem for computer education, IT services, career development, and business growth.
             </p>
             <div className="space-y-4">
@@ -71,10 +71,10 @@ export default function BenefitsSection() {
                 { icon: BadgeCheck, text: "Certificates verified and trusted by 5000+ companies" },
               ].map(({ icon: Icon, text }) => (
                 <div key={text} className="flex items-start gap-3">
-                  <div className="w-8 h-8 rounded-lg bg-primary/20 flex items-center justify-center flex-shrink-0 mt-0.5">
-                    <Icon className="w-4 h-4 text-primary-300" />
+                  <div className="w-8 h-8 rounded-lg bg-primary/10 dark:bg-primary/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <Icon className="w-4 h-4 text-primary dark:text-primary-300" />
                   </div>
-                  <p className="text-slate-300 text-sm leading-relaxed">{text}</p>
+                  <p className="text-slate-700 dark:text-slate-300 text-sm leading-relaxed">{text}</p>
                 </div>
               ))}
             </div>
@@ -88,13 +88,13 @@ export default function BenefitsSection() {
               return (
                 <div
                   key={benefit.title}
-                  className="p-5 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/8 hover:border-white/20 transition-all duration-300 group hover:-translate-y-0.5"
+                  className="p-5 rounded-2xl bg-white dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 hover:shadow-sm dark:hover:bg-slate-800/50 transition-all duration-300 group hover:-translate-y-0.5"
                 >
-                  <div className={`w-10 h-10 rounded-xl flex items-center justify-center mb-3 group-hover:scale-110 transition-transform duration-300 ${isPrimaryColor ? "bg-primary/25" : "bg-accent/20"}`}>
+                  <div className={`w-10 h-10 rounded-xl flex items-center justify-center mb-3 group-hover:scale-110 transition-transform duration-300 ${isPrimaryColor ? "bg-primary/10 dark:bg-primary/25" : "bg-accent/10 dark:bg-accent/20"}`}>
                     <Icon className={`w-5 h-5 ${isPrimaryColor ? "text-primary" : "text-accent"}`} />
                   </div>
-                  <h3 className="text-sm font-semibold text-white mb-2">{benefit.title}</h3>
-                  <p className="text-xs text-slate-400 leading-relaxed">{benefit.description}</p>
+                  <h3 className="text-sm font-semibold text-slate-900 dark:text-white mb-2">{benefit.title}</h3>
+                  <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">{benefit.description}</p>
                 </div>
               );
             })}

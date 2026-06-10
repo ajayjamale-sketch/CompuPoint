@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   GraduationCap, Award, Brain, Wrench, Code2, ShoppingBag, Briefcase,
   BarChart3, Monitor, Globe, Shield, Search, ArrowRight, CheckCircle2, Star
@@ -62,6 +62,43 @@ export default function Features() {
   const [activeCategory, setActiveCategory] = useState("education");
   const [searchTerm, setSearchTerm] = useState("");
 
+  useEffect(() => {
+    const handleHashChange = () => {
+      const hash = window.location.hash;
+      if (hash) {
+        const cleanHash = hash.replace("#", "");
+        let matched = false;
+        if (cleanHash === "certifications" || cleanHash === "certification") {
+          setActiveCategory("certification");
+          matched = true;
+        } else if (cleanHash === "services") {
+          setActiveCategory("services");
+          matched = true;
+        } else if (cleanHash === "career") {
+          setActiveCategory("career");
+          matched = true;
+        } else if (cleanHash === "education") {
+          setActiveCategory("education");
+          matched = true;
+        } else if (cleanHash === "ai") {
+          setActiveCategory("ai");
+          matched = true;
+        }
+
+        if (matched) {
+          setTimeout(() => {
+            const el = document.getElementById("features-tabs");
+            if (el) el.scrollIntoView({ behavior: "smooth" });
+          }, 100);
+        }
+      }
+    };
+
+    handleHashChange();
+    window.addEventListener("hashchange", handleHashChange);
+    return () => window.removeEventListener("hashchange", handleHashChange);
+  }, []);
+
   const activeFeature = allFeatures.find((f) => f.category === activeCategory);
 
   const filteredCourses = COURSES.filter((c) =>
@@ -92,7 +129,7 @@ export default function Features() {
       </section>
 
       {/* Feature Tabs */}
-      <section className="section-padding bg-white dark:bg-slate-900">
+      <section id="features-tabs" className="section-padding bg-white dark:bg-slate-900">
         <div className="max-w-7xl mx-auto">
           {/* Category Tabs */}
           <div className="flex flex-wrap justify-center gap-3 mb-12">

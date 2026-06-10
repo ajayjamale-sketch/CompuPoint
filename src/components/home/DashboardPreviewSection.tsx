@@ -28,7 +28,7 @@ const mockCourses = [
 
 export default function DashboardPreviewSection() {
   return (
-    <section className="section-padding bg-white dark:bg-slate-900 overflow-hidden">
+    <section id="dashboard-preview" className="section-padding bg-white dark:bg-slate-900 overflow-hidden">
       <div className="max-w-7xl mx-auto">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* Left Content */}

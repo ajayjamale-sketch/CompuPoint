@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { UserPlus, BookOpen, Monitor, Award, Rocket, ArrowRight, Check } from "lucide-react";
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
@@ -118,10 +119,10 @@ export default function WorkflowSection() {
               <p className="font-semibold text-slate-900 dark:text-white">Ready to start your IT journey?</p>
               <p className="text-sm text-slate-500 dark:text-slate-400">Join 125,000+ learners who have transformed their careers with CompuPoint.</p>
             </div>
-            <a href="/register" className="btn-primary flex-shrink-0">
+            <Link to="/register" className="btn-primary flex-shrink-0">
               Get Started Free
               <ArrowRight className="w-4 h-4" />
-            </a>
+            </Link>
           </div>
         </div>
       </div>
