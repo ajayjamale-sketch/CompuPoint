@@ -1,16 +1,34 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Search, Star, BookOpen, Clock, GraduationCap, ArrowRight, Zap, Award, CheckCircle, ShieldCheck } from "lucide-react";
+import { Search, Star, BookOpen, Clock, GraduationCap, ArrowRight, Zap, Award, CheckCircle, ShieldCheck, Phone, Mail } from "lucide-react";
 import { COURSES } from "@/constants";
 import { formatCurrency, cn } from "@/lib/utils";
 import { toast } from "sonner";
+import { useAuth } from "@/hooks/useAuth";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+} from "@/components/ui/dialog";
 
 export default function Courses() {
+  const { user } = useAuth();
   const [search, setSearch] = useState("");
   const [level, setLevel] = useState("All");
   const [category, setCategory] = useState("All");
   const [quizScore, setQuizScore] = useState<string | null>(null);
   const [selectedInterest, setSelectedInterest] = useState("");
+
+  // Enrollment Modal States
+  const [activeCourse, setActiveCourse] = useState<any>(null);
+  const [enrollName, setEnrollName] = useState("");
+  const [enrollEmail, setEnrollEmail] = useState("");
+  const [enrollPhone, setEnrollPhone] = useState("");
+  const [enrollType, setEnrollType] = useState("free-trial");
+  const [enrollLoading, setEnrollLoading] = useState(false);
 
   const categories = ["All", ...Array.from(new Set(COURSES.map((c) => c.category)))];
   const levels = ["All", "beginner", "intermediate", "advanced"];
@@ -39,6 +57,33 @@ export default function Courses() {
     } else {
       setQuizScore("Based on your interest, we recommend starting with computer essentials or web basics.");
     }
+  };
+
+  const handleEnrollClick = (course: any) => {
+    setActiveCourse(course);
+    if (user) {
+      setEnrollName(user.name || "");
+      setEnrollEmail(user.email || "");
+    } else {
+      setEnrollName("");
+      setEnrollEmail("");
+    }
+    setEnrollPhone("");
+    setEnrollType("free-trial");
+  };
+
+  const handleEnrollSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!enrollName.trim() || !enrollEmail.trim() || !enrollPhone.trim()) {
+      toast.error("Please fill all required fields.");
+      return;
+    }
+    setEnrollLoading(true);
+    setTimeout(() => {
+      setEnrollLoading(false);
+      setActiveCourse(null);
+      toast.success(`🎉 Successfully enrolled in ${activeCourse?.title}! Welcome to the class.`);
+    }, 1500);
   };
 
   return (
@@ -80,27 +125,29 @@ export default function Courses() {
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {COURSES.slice(0, 3).map((course) => (
-              <div key={`featured-${course.id}`} className="card-base p-5 hover:border-primary/20 transition-all border border-primary-100 dark:border-primary-950 bg-gradient-to-br from-primary-50/10 to-transparent dark:from-slate-950/20 relative overflow-hidden group">
-                <div className="absolute top-3 right-3 z-10">
-                  <span className="px-2.5 py-0.5 bg-accent text-white text-[10px] uppercase font-bold rounded-full shadow-emerald">
-                    Best Seller
-                  </span>
-                </div>
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="w-10 h-10 rounded-xl bg-primary-100 dark:bg-primary-950/45 flex items-center justify-center text-primary">
-                    <BookOpen className="w-5 h-5" />
+              <div key={`featured-${course.id}`} className="card-base p-5 hover:border-primary/20 transition-all border border-primary-100 dark:border-primary-950 bg-gradient-to-br from-primary-50/10 to-transparent dark:from-slate-950/20 relative overflow-hidden group flex flex-col justify-between">
+                <div>
+                  <div className="absolute top-3 right-3 z-10">
+                    <span className="px-2.5 py-0.5 bg-accent text-white text-[10px] uppercase font-bold rounded-full shadow-emerald">
+                      Best Seller
+                    </span>
                   </div>
-                  <div>
-                    <h3 className="font-heading font-bold text-slate-900 dark:text-white text-sm line-clamp-1">{course.title}</h3>
-                    <p className="text-[10px] text-slate-400">{course.category}</p>
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="w-10 h-10 rounded-xl bg-primary-100 dark:bg-primary-950/45 flex items-center justify-center text-primary">
+                      <BookOpen className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <h3 className="font-heading font-bold text-slate-900 dark:text-white text-sm line-clamp-1">{course.title}</h3>
+                      <p className="text-[10px] text-slate-400">{course.category}</p>
+                    </div>
                   </div>
+                  <p className="text-xs text-slate-500 dark:text-slate-400 mb-4 line-clamp-2">{course.description}</p>
                 </div>
-                <p className="text-xs text-slate-500 dark:text-slate-400 mb-4 line-clamp-2">{course.description}</p>
                 <div className="flex items-center justify-between border-t border-border/40 pt-3">
                   <span className="text-base font-bold text-primary">{formatCurrency(course.price)}</span>
-                  <Link to="/register" className="text-xs font-semibold text-primary hover:underline flex items-center gap-1">
+                  <button onClick={() => handleEnrollClick(course)} className="text-xs font-semibold text-primary hover:underline flex items-center gap-1">
                     Enroll Free <ArrowRight className="w-3.5 h-3.5" />
-                  </Link>
+                  </button>
                 </div>
               </div>
             ))}
@@ -197,9 +244,9 @@ export default function Courses() {
                         <span className="text-xl font-heading font-bold text-primary">
                           {formatCurrency(course.price)}
                         </span>
-                        <Link to="/register" className="btn-primary text-xs px-4 py-2">
+                        <button onClick={() => handleEnrollClick(course)} className="btn-primary text-xs px-4 py-2">
                           Enroll Now
-                        </Link>
+                        </button>
                       </div>
                     </div>
                   </div>
@@ -282,13 +329,111 @@ export default function Courses() {
             </div>
             
             <div className="w-full md:w-auto text-center">
-              <Link to="/register" className="btn-primary inline-flex items-center gap-2 py-3 px-6 shadow-indigo-lg text-sm w-full md:w-auto justify-center">
+              <button onClick={() => handleEnrollClick({ title: "Any Selected Course" })} className="btn-primary inline-flex items-center gap-2 py-3 px-6 shadow-indigo-lg text-sm w-full md:w-auto justify-center">
                 Start Learning Free <ArrowRight className="w-4 h-4" />
-              </Link>
+              </button>
             </div>
           </div>
         </div>
       </section>
+
+      {/* Course Enrollment Dialog Modal */}
+      <Dialog open={activeCourse !== null} onOpenChange={(open) => !open && setActiveCourse(null)}>
+        <DialogContent className="max-w-md p-6 rounded-2xl bg-white dark:bg-slate-900 border border-border">
+          <DialogHeader className="mb-2">
+            <DialogTitle className="text-lg font-heading font-bold text-slate-900 dark:text-white flex items-center gap-2">
+              <GraduationCap className="w-5 h-5 text-primary" />
+              Enroll in Course
+            </DialogTitle>
+            <DialogDescription className="text-xs text-slate-500 dark:text-slate-400">
+              Submit your request to enroll in <strong>{activeCourse?.title}</strong>.
+            </DialogDescription>
+          </DialogHeader>
+
+          <form onSubmit={handleEnrollSubmit} className="space-y-4">
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label htmlFor="enroll-name" className="block text-[11px] font-semibold text-slate-600 dark:text-slate-400 mb-1">Full Name *</label>
+                <input
+                  id="enroll-name"
+                  type="text"
+                  required
+                  value={enrollName}
+                  onChange={(e) => setEnrollName(e.target.value)}
+                  placeholder="e.g. Arjun Verma"
+                  className="w-full px-3 py-2 text-xs bg-background border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/50 text-slate-800 dark:text-slate-100 font-medium"
+                />
+              </div>
+              <div>
+                <label htmlFor="enroll-email" className="block text-[11px] font-semibold text-slate-600 dark:text-slate-400 mb-1">Email Address *</label>
+                <div className="relative">
+                  <Mail className="absolute left-2.5 top-2.5 w-3.5 h-3.5 text-slate-400" />
+                  <input
+                    id="enroll-email"
+                    type="email"
+                    required
+                    value={enrollEmail}
+                    onChange={(e) => setEnrollEmail(e.target.value)}
+                    placeholder="name@example.com"
+                    className="w-full pl-8 pr-3 py-2 text-xs bg-background border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/50 text-slate-800 dark:text-slate-100 font-medium"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <label htmlFor="enroll-phone" className="block text-[11px] font-semibold text-slate-600 dark:text-slate-400 mb-1">Phone Number *</label>
+              <div className="relative">
+                <Phone className="absolute left-2.5 top-2.5 w-3.5 h-3.5 text-slate-400" />
+                <input
+                  id="enroll-phone"
+                  type="tel"
+                  required
+                  value={enrollPhone}
+                  onChange={(e) => setEnrollPhone(e.target.value)}
+                  placeholder="98765 43210"
+                  className="w-full pl-8 pr-3 py-2 text-xs bg-background border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/50 text-slate-800 dark:text-slate-100 font-medium"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label htmlFor="enroll-type" className="block text-[11px] font-semibold text-slate-600 dark:text-slate-400 mb-1">Select Enrollment Track</label>
+              <select
+                id="enroll-type"
+                value={enrollType}
+                onChange={(e) => setEnrollType(e.target.value)}
+                className="w-full px-3 py-2 text-xs bg-background border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/50 text-slate-800 dark:text-slate-100 font-medium"
+              >
+                <option value="free-trial">Free 7-Day Trial (Access to base contents)</option>
+                <option value="premium">Premium Track (Includes assignments & projects)</option>
+                <option value="certified">Certification Fast-Track (Includes exam registration)</option>
+              </select>
+            </div>
+
+            <DialogFooter className="mt-6 gap-2">
+              <button
+                type="button"
+                onClick={() => setActiveCourse(null)}
+                className="px-4 py-2 text-xs font-bold rounded-xl border border-border text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                disabled={enrollLoading}
+                className="btn-primary text-xs px-5 py-2 font-bold flex items-center justify-center min-w-[100px]"
+              >
+                {enrollLoading ? (
+                  <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                ) : (
+                  "Enroll Class"
+                )}
+              </button>
+            </DialogFooter>
+          </form>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

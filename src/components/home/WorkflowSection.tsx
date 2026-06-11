@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { UserPlus, BookOpen, Monitor, Award, Rocket, ArrowRight, Check } from "lucide-react";
+import { useAuth } from "@/hooks/useAuth";
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   UserPlus,
@@ -48,6 +49,7 @@ const steps = [
 ];
 
 export default function WorkflowSection() {
+  const { isLoggedIn } = useAuth();
   return (
     <section className="section-padding bg-white dark:bg-slate-900">
       <div className="max-w-7xl mx-auto">
@@ -119,7 +121,7 @@ export default function WorkflowSection() {
               <p className="font-semibold text-slate-900 dark:text-white">Ready to start your IT journey?</p>
               <p className="text-sm text-slate-500 dark:text-slate-400">Join 125,000+ learners who have transformed their careers with CompuPoint.</p>
             </div>
-            <Link to="/register" className="btn-primary flex-shrink-0">
+            <Link to={isLoggedIn ? "/dashboard" : "/register"} className="btn-primary flex-shrink-0">
               Get Started Free
               <ArrowRight className="w-4 h-4" />
             </Link>

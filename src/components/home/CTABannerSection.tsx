@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { ArrowRight, Zap, Shield, Award, Users } from "lucide-react";
+import { useAuth } from "@/hooks/useAuth";
 
 const highlights = [
   { icon: Shield, text: "No credit card required" },
@@ -9,6 +10,7 @@ const highlights = [
 ];
 
 export default function CTABannerSection() {
+  const { isLoggedIn } = useAuth();
   return (
     <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-primary-600 via-primary-700 to-slate-800 relative overflow-hidden">
       {/* Background Decorations */}
@@ -45,7 +47,7 @@ export default function CTABannerSection() {
         {/* CTA Buttons */}
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
           <Link
-            to="/register"
+            to={isLoggedIn ? "/dashboard" : "/register"}
             className="inline-flex items-center gap-2 px-8 py-4 bg-white text-primary-600 hover:bg-blue-50 font-bold rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 hover:-translate-y-0.5 text-base"
           >
             Start Free Trial

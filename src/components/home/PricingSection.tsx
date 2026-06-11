@@ -1,14 +1,57 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
-import { Check, X, Zap, ArrowRight, Star } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
+import { Check, X, Zap, ArrowRight, Star, CreditCard, ShieldCheck } from "lucide-react";
 import { PRICING_PLANS } from "@/constants";
 import { formatCurrency, cn } from "@/lib/utils";
+import { useAuth } from "@/hooks/useAuth";
+import { toast } from "sonner";
 
 export default function PricingSection() {
+  const { isLoggedIn } = useAuth();
+  const navigate = useNavigate();
   const [isYearly, setIsYearly] = useState(false);
+  const [showPaymentModal, setShowPaymentModal] = useState(false);
+  const [selectedPlan, setSelectedPlan] = useState<any>(null);
+  
+  // Payment Form States
+  const [cardName, setCardName] = useState("");
+  const [cardNumber, setCardNumber] = useState("");
+  const [cardExpiry, setCardExpiry] = useState("");
+  const [cardCvv, setCardCvv] = useState("");
+  const [paymentLoading, setPaymentLoading] = useState(false);
+
+  const handlePlanSelect = (plan: typeof PRICING_PLANS[0]) => {
+    if (!isLoggedIn) {
+      toast.info("Please register or log in to select a plan.");
+      navigate("/register");
+    } else {
+      setSelectedPlan(plan);
+      setCardName("");
+      setCardNumber("");
+      setCardExpiry("");
+      setCardCvv("");
+      setShowPaymentModal(true);
+    }
+  };
+
+  const handlePaymentSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!cardName || !cardNumber || !cardExpiry || !cardCvv) {
+      toast.error("Please fill in all payment details.");
+      return;
+    }
+    setPaymentLoading(true);
+    setTimeout(() => {
+      setPaymentLoading(false);
+      setShowPaymentModal(false);
+      const price = isYearly ? selectedPlan.yearlyPrice : selectedPlan.price;
+      toast.success(`🎉 Payment of ${formatCurrency(price)} for ${selectedPlan.name} verified! Welcome to CompuPoint Premium.`);
+      setTimeout(() => navigate("/dashboard"), 1200);
+    }, 1500);
+  };
 
   return (
-    <section className="section-padding bg-white dark:bg-slate-900">
+    <section className="section-padding bg-white dark:bg-slate-900 relative">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-12">
@@ -58,7 +101,12 @@ export default function PricingSection() {
         {/* Pricing Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
           {PRICING_PLANS.map((plan) => (
-            <PricingCard key={plan.id} plan={plan} isYearly={isYearly} />
+            <PricingCard
+              key={plan.id}
+              plan={plan}
+              isYearly={isYearly}
+              onSelect={handlePlanSelect}
+            />
           ))}
         </div>
 
@@ -82,11 +130,120 @@ export default function PricingSection() {
           </div>
         </div>
       </div>
+
+      {/* Payment Modal */}
+      {showPaymentModal && selectedPlan && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md animate-fade-in">
+          <div className="relative w-full max-w-md bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-2xl p-6 overflow-hidden animate-scale-in">
+            <button
+              onClick={() => setShowPaymentModal(false)}
+              className="absolute top-4 right-4 p-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-400 hover:text-slate-600 dark:hover:text-white transition-colors"
+            >
+              <X className="w-5 h-5" />
+            </button>
+            <form onSubmit={handlePaymentSubmit} className="space-y-4">
+              <div className="flex items-center gap-2 mb-2">
+                <CreditCard className="w-5 h-5 text-primary animate-pulse" />
+                <h3 className="text-lg font-bold text-slate-900 dark:text-white font-heading">
+                  Secure Checkout
+                </h3>
+              </div>
+              <div className="p-3 bg-slate-50 dark:bg-slate-950 rounded-xl border flex justify-between items-center text-sm">
+                <div>
+                  <span className="font-semibold text-slate-900 dark:text-white">{selectedPlan.name} Plan</span>
+                  <span className="text-[10px] text-slate-400 dark:text-slate-500 block">{isYearly ? "Billed Annually" : "Billed Monthly"}</span>
+                </div>
+                <span className="text-lg font-black text-primary">
+                  {formatCurrency(isYearly ? selectedPlan.yearlyPrice : selectedPlan.price)}
+                </span>
+              </div>
+
+              <div>
+                <label className="text-[10px] font-bold uppercase text-slate-400">Cardholder Name *</label>
+                <input
+                  type="text"
+                  required
+                  value={cardName}
+                  onChange={(e) => setCardName(e.target.value)}
+                  placeholder="John Doe"
+                  className="w-full px-3 py-2 border rounded-lg bg-transparent text-sm"
+                />
+              </div>
+
+              <div>
+                <label className="text-[10px] font-bold uppercase text-slate-400">Card Number *</label>
+                <input
+                  type="text"
+                  required
+                  maxLength={19}
+                  value={cardNumber}
+                  onChange={(e) => {
+                    const val = e.target.value.replace(/\D/g, "").replace(/(.{4})/g, "$1 ").trim();
+                    setCardNumber(val);
+                  }}
+                  placeholder="4000 1234 5678 9010"
+                  className="w-full px-3 py-2 border rounded-lg bg-transparent text-sm"
+                />
+              </div>
+
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="text-[10px] font-bold uppercase text-slate-400">Expiration Date *</label>
+                  <input
+                    type="text"
+                    required
+                    maxLength={5}
+                    value={cardExpiry}
+                    onChange={(e) => {
+                      let val = e.target.value.replace(/\D/g, "");
+                      if (val.length > 2) {
+                        val = val.substring(0, 2) + "/" + val.substring(2);
+                      }
+                      setCardExpiry(val);
+                    }}
+                    placeholder="MM/YY"
+                    className="w-full px-3 py-2 border rounded-lg bg-transparent text-sm"
+                  />
+                </div>
+                <div>
+                  <label className="text-[10px] font-bold uppercase text-slate-400">CVV/CVC *</label>
+                  <input
+                    type="password"
+                    required
+                    maxLength={3}
+                    value={cardCvv}
+                    onChange={(e) => setCardCvv(e.target.value.replace(/\D/g, ""))}
+                    placeholder="123"
+                    className="w-full px-3 py-2 border rounded-lg bg-transparent text-sm"
+                  />
+                </div>
+              </div>
+
+              <div className="flex items-center gap-2 text-[10px] text-slate-400 justify-center py-1 bg-slate-50 dark:bg-slate-950 rounded-lg">
+                <ShieldCheck className="w-4 h-4 text-emerald-500" />
+                <span>Encrypted 256-bit SSL connection</span>
+              </div>
+
+              <button type="submit" disabled={paymentLoading} className="w-full btn-primary text-sm py-2">
+                {paymentLoading ? "Processing Payment..." : "Confirm Payment"}
+              </button>
+            </form>
+          </div>
+        </div>
+      )}
     </section>
   );
 }
 
-function PricingCard({ plan, isYearly }: { plan: typeof PRICING_PLANS[0]; isYearly: boolean }) {
+function PricingCard({
+  plan,
+  isYearly,
+  onSelect,
+}: {
+  plan: typeof PRICING_PLANS[0];
+  isYearly: boolean;
+  onSelect: (plan: typeof PRICING_PLANS[0]) => void;
+}) {
   const price = isYearly ? plan.yearlyPrice : plan.price;
 
   return (
@@ -165,10 +322,10 @@ function PricingCard({ plan, isYearly }: { plan: typeof PRICING_PLANS[0]; isYear
         ))}
       </ul>
 
-      <Link
-        to={plan.id === "enterprise" ? "/contact" : "/register"}
+      <button
+        onClick={() => onSelect(plan)}
         className={cn(
-          "flex items-center justify-center gap-2 w-full py-3 rounded-xl font-semibold text-sm transition-all duration-200",
+          "flex items-center justify-center gap-2 w-full py-3 rounded-xl font-semibold text-sm transition-all duration-200 active:scale-[0.98]",
           plan.highlighted
             ? "bg-white text-primary hover:bg-indigo-50/50 shadow-lg hover:shadow-xl"
             : "btn-primary"
@@ -176,7 +333,7 @@ function PricingCard({ plan, isYearly }: { plan: typeof PRICING_PLANS[0]; isYear
       >
         {plan.cta}
         <ArrowRight className="w-4 h-4" />
-      </Link>
+      </button>
     </div>
   );
 }

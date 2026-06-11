@@ -127,64 +127,67 @@ export default function Register() {
   };
 
   return (
-    <div className="min-h-screen flex">
-      {/* Left Panel */}
-      <div className="hidden lg:flex lg:w-2/5 bg-slate-50 dark:bg-gradient-hero relative overflow-hidden flex-col justify-between p-12 border-r border-slate-200 dark:border-slate-800">
-        <div
-          className="absolute inset-0 opacity-[0.4] dark:opacity-10"
-          style={{
-            backgroundImage: `linear-gradient(hsl(var(--primary)) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--primary)) 1px, transparent 1px)`,
-            backgroundSize: "50px 50px",
-          }}
-        />
+    <div className="min-h-screen flex bg-background">
+      {/* Left Panel - Branding */}
+      <div className="hidden xl:flex xl:w-5/12 bg-slate-50 dark:bg-slate-950 relative overflow-hidden flex-col justify-between p-12 border-r border-slate-200 dark:border-slate-800">
+        <div className="absolute inset-0" style={{ backgroundImage: `radial-gradient(circle at 20% 50%, rgba(37,99,235,0.08) 0%, transparent 60%), radial-gradient(circle at 80% 20%, rgba(6,182,212,0.05) 0%, transparent 50%)` }} />
+        <div className="absolute inset-0 opacity-[0.4] dark:opacity-[0.04]" style={{ backgroundImage: `linear-gradient(hsl(var(--border)) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--border)) 1px, transparent 1px)`, backgroundSize: "40px 40px" }} />
+
+        {/* Logo */}
         <div className="relative">
           <Link to="/" className="flex items-center gap-2.5">
-            <div className="w-9 h-9 rounded-xl bg-gradient-primary flex items-center justify-center shadow-indigo">
+            <div className="w-10 h-10 rounded-xl bg-primary-600 flex items-center justify-center shadow-lg">
               <Monitor className="w-5 h-5 text-white" />
             </div>
             <span className="font-heading font-bold text-xl text-slate-900 dark:text-white">
-              Compu<span className="text-primary dark:text-accent">Point</span>
+              Compu<span className="text-primary-600 dark:text-primary-400">Point</span>
             </span>
           </Link>
         </div>
-        <div className="relative">
-          <h2 className="font-heading text-3xl font-bold text-slate-900 dark:text-white mb-4 leading-tight">
-            Start Your Tech Journey Today
+
+        {/* Hero Text */}
+        <div className="relative space-y-6">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-primary-50 dark:bg-primary-900/20 border border-primary-100 dark:border-primary-600/30 rounded-full">
+            <span className="w-2 h-2 rounded-full bg-green-500 dark:bg-green-400 animate-pulse" />
+            <span className="text-xs text-primary-700 dark:text-primary-300 font-medium">Start Your Tech Journey Today</span>
+          </div>
+          <h2 className="font-heading text-3xl font-bold text-slate-900 dark:text-white leading-tight">
+            Learn, Certify &
+            <br />
+            <span className="text-primary-600 dark:text-primary-400">Build Your Career</span>
           </h2>
-          <p className="text-slate-600 dark:text-slate-300 text-sm leading-relaxed mb-8">
+          <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed max-w-xs">
             Join 125,000+ learners who have built successful IT careers with CompuPoint's structured learning paths and industry certifications.
           </p>
-          <div className="space-y-3">
+          <div className="grid grid-cols-2 gap-3">
             {[
-              "Access 280+ industry-leading courses",
-              "Earn recognized certifications",
-              "AI-powered personalized learning",
-              "Career placement assistance",
-              "Hardware & IT support services",
-            ].map((item) => (
-              <div key={item} className="flex items-center gap-2.5">
-                <CheckCircle2 className="w-4 h-4 text-green-600 dark:text-green-400 flex-shrink-0" />
-                <span className="text-sm text-slate-600 dark:text-slate-300">{item}</span>
+              { val: "125K+", lbl: "Active Users" },
+              { val: "280+", lbl: "Courses" },
+              { val: "96%", lbl: "Satisfaction" },
+              { val: "7", lbl: "User Roles" },
+            ].map((s) => (
+              <div key={s.lbl} className="bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl p-4 shadow-sm dark:shadow-none">
+                <div className="text-xl font-bold text-slate-900 dark:text-white">{s.val}</div>
+                <div className="text-xs text-slate-500 mt-0.5">{s.lbl}</div>
               </div>
             ))}
           </div>
         </div>
-        <p className="relative text-xs text-slate-400 dark:text-slate-500">
-          &copy; {new Date().getFullYear()} CompuPoint. All rights reserved.
-        </p>
+
+        <p className="relative text-xs text-slate-400 dark:text-slate-600">&copy; {new Date().getFullYear()} CompuPoint. All rights reserved.</p>
       </div>
 
-      {/* Right Panel */}
-      <div className="flex-1 flex items-start justify-center px-4 sm:px-8 py-10 bg-background overflow-y-auto">
+      {/* Right Panel - Register Form */}
+      <div className="flex-1 flex items-start justify-center px-4 sm:px-8 py-10 overflow-y-auto">
         <div className="w-full max-w-lg">
           {/* Mobile Logo */}
-          <div className="lg:hidden flex justify-center mb-8">
+          <div className="xl:hidden flex justify-center mb-8">
             <Link to="/" className="flex items-center gap-2">
-              <div className="w-9 h-9 rounded-xl bg-primary-600 flex items-center justify-center shadow-indigo">
+              <div className="w-9 h-9 rounded-xl bg-primary-600 flex items-center justify-center shadow-blue">
                 <Monitor className="w-4 h-4 text-white" />
               </div>
               <span className="font-heading font-bold text-lg text-slate-900 dark:text-white">
-                Compu<span className="text-primary-600 dark:text-primary-400">Point</span>
+                Compu<span className="text-primary-600">Point</span>
               </span>
             </Link>
           </div>

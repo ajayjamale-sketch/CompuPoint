@@ -1,7 +1,17 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
-import { Award, ShieldCheck, FileCheck, CheckCircle2, ArrowRight, UserCheck, BookOpen, Clock, ChevronDown } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
+import { Award, ShieldCheck, FileCheck, CheckCircle2, ArrowRight, UserCheck, BookOpen, Clock, ChevronDown, Calendar, GraduationCap } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useAuth } from "@/hooks/useAuth";
+import { toast } from "sonner";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+} from "@/components/ui/dialog";
 
 const certificationPrograms = [
   {
@@ -43,9 +53,45 @@ const certificationPrograms = [
 ];
 
 export default function Certifications() {
+  const { user, isLoggedIn } = useAuth();
+  const navigate = useNavigate();
+  
   const [verifyId, setVerifyId] = useState("");
   const [verificationResult, setVerificationResult] = useState<string | null>(null);
   const [openPolicyFaq, setOpenPolicyFaq] = useState<string | null>(null);
+
+  const [selectedProgram, setSelectedProgram] = useState<typeof certificationPrograms[0] | null>(null);
+  const [isFormOpen, setIsFormOpen] = useState(false);
+  const [targetDate, setTargetDate] = useState("");
+  const [prepMode, setPrepMode] = useState("self-paced");
+  const [formLoading, setFormLoading] = useState(false);
+
+  const handlePrepareClick = (program: typeof certificationPrograms[0]) => {
+    if (!isLoggedIn) {
+      toast.error("Please register or log in to prepare for the exam.");
+      navigate("/register");
+      return;
+    }
+    setSelectedProgram(program);
+    setIsFormOpen(true);
+  };
+
+  const handleFormSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!targetDate) {
+      toast.error("Please select a target exam date.");
+      return;
+    }
+    setFormLoading(true);
+    setTimeout(() => {
+      setFormLoading(false);
+      setIsFormOpen(false);
+      toast.success(`🎉 Preparation request submitted successfully for ${selectedProgram?.title}!`);
+      setTargetDate("");
+      setPrepMode("self-paced");
+      setSelectedProgram(null);
+    }, 1500);
+  };
 
   const handleVerify = (e: React.FormEvent) => {
     e.preventDefault();
@@ -138,7 +184,12 @@ export default function Certifications() {
                     <span><Clock className="w-3.5 h-3.5 inline mr-1" />{program.examDuration}</span>
                     <span>Score: {program.passingScore}</span>
                   </div>
-                  <Link to="/register" className="btn-primary text-[10px] px-3 py-1.5">Prepare Exam</Link>
+                  <button
+                    onClick={() => handlePrepareClick(program)}
+                    className="btn-primary text-[10px] px-3 py-1.5"
+                  >
+                    Prepare Exam
+                  </button>
                 </div>
               </div>
             ))}
@@ -202,6 +253,142 @@ export default function Certifications() {
           </div>
         </div>
       </section>
+
+      {/* 6. Preparation Dialog Modal */}
+      <Dialog open={isFormOpen} onOpenChange={setIsFormOpen}>
+        <DialogContent className="max-w-md p-6 rounded-2xl bg-white dark:bg-slate-900 border border-border">
+          <DialogHeader className="mb-4">
+            <DialogTitle className="text-lg font-heading font-bold text-slate-900 dark:text-white flex items-center gap-2">
+              <Award className="w-5 h-5 text-primary" />
+              Prepare for Exam
+            </DialogTitle>
+            <DialogDescription className="text-xs text-slate-500 dark:text-slate-400">
+              Start your certification preparation pathway. Please verify your details and preferences below.
+            </DialogDescription>
+          </DialogHeader>
+
+          <form onSubmit={handleFormSubmit} className="space-y-4">
+            {/* User Details */}
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="block text-[11px] font-semibold text-slate-600 dark:text-slate-400 mb-1">
+                  Candidate Name
+                </label>
+                <input
+                  type="text"
+                  value={user?.name || ""}
+                  disabled
+                  className="w-full px-3 py-2 text-xs bg-slate-50 dark:bg-slate-950 border border-border rounded-xl text-slate-500 dark:text-slate-400 font-medium"
+                />
+              </div>
+              <div>
+                <label className="block text-[11px] font-semibold text-slate-600 dark:text-slate-400 mb-1">
+                  Email Address
+                </label>
+                <input
+                  type="email"
+                  value={user?.email || ""}
+                  disabled
+                  className="w-full px-3 py-2 text-xs bg-slate-50 dark:bg-slate-950 border border-border rounded-xl text-slate-500 dark:text-slate-400 font-medium"
+                />
+              </div>
+            </div>
+
+            {/* Program Details */}
+            <div>
+              <label className="block text-[11px] font-semibold text-slate-600 dark:text-slate-400 mb-1">
+                Selected Certification
+              </label>
+              <input
+                type="text"
+                value={selectedProgram?.title || ""}
+                disabled
+                className="w-full px-3 py-2 text-xs bg-slate-50 dark:bg-slate-950 border border-border rounded-xl text-slate-600 dark:text-slate-300 font-semibold"
+              />
+            </div>
+
+            {/* Preparation Mode Selection */}
+            <div>
+              <label className="block text-[11px] font-semibold text-slate-600 dark:text-slate-400 mb-2">
+                Preparation Learning Path
+              </label>
+              <div className="grid grid-cols-2 gap-2">
+                <button
+                  type="button"
+                  onClick={() => setPrepMode("self-paced")}
+                  className={cn(
+                    "p-3 rounded-xl border text-left flex flex-col justify-between transition-all duration-200",
+                    prepMode === "self-paced"
+                      ? "border-primary bg-primary/5 text-primary"
+                      : "border-border bg-transparent text-slate-600 dark:text-slate-300 hover:border-primary/30"
+                  )}
+                >
+                  <BookOpen className="w-4 h-4 mb-2" />
+                  <div>
+                    <p className="text-xs font-bold">Self-Paced Study</p>
+                    <p className="text-[10px] opacity-80 mt-0.5">Learn via mock banks & study guides</p>
+                  </div>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setPrepMode("ai-mentored")}
+                  className={cn(
+                    "p-3 rounded-xl border text-left flex flex-col justify-between transition-all duration-200",
+                    prepMode === "ai-mentored"
+                      ? "border-primary bg-primary/5 text-primary"
+                      : "border-border bg-transparent text-slate-600 dark:text-slate-300 hover:border-primary/30"
+                  )}
+                >
+                  <GraduationCap className="w-4 h-4 mb-2" />
+                  <div>
+                    <p className="text-xs font-bold">AI-Mentored Live</p>
+                    <p className="text-[10px] opacity-80 mt-0.5">Interactive live prep sessions</p>
+                  </div>
+                </button>
+              </div>
+            </div>
+
+            {/* Target Date */}
+            <div>
+              <label htmlFor="target-date" className="block text-[11px] font-semibold text-slate-600 dark:text-slate-400 mb-1">
+                Target Exam Date
+              </label>
+              <div className="relative">
+                <input
+                  id="target-date"
+                  type="date"
+                  required
+                  min={new Date().toISOString().split("T")[0]}
+                  value={targetDate}
+                  onChange={(e) => setTargetDate(e.target.value)}
+                  className="w-full px-3 py-2 text-xs bg-background border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/50 text-slate-800 dark:text-slate-100 font-medium"
+                />
+              </div>
+            </div>
+
+            <DialogFooter className="mt-6 gap-2">
+              <button
+                type="button"
+                onClick={() => setIsFormOpen(false)}
+                className="px-4 py-2 text-xs font-bold rounded-xl border border-border text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                disabled={formLoading}
+                className="btn-primary text-xs px-5 py-2 font-bold flex items-center justify-center min-w-[100px]"
+              >
+                {formLoading ? (
+                  <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                ) : (
+                  "Register Path"
+                )}
+              </button>
+            </DialogFooter>
+          </form>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

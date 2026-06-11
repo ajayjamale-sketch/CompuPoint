@@ -1,12 +1,18 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Users, Target, Award, Globe, BookOpen, Wrench, Brain, TrendingUp, ArrowRight, CheckCircle2 } from "lucide-react";
+import {
+  Users, Target, Award, Globe, BookOpen, Wrench, Brain, TrendingUp,
+  ArrowRight, CheckCircle2, X, Mail, Phone, Calendar
+} from "lucide-react";
 import AnimatedCounter from "@/components/features/AnimatedCounter";
+import { useAuth } from "@/hooks/useAuth";
+import { toast } from "sonner";
 
 const team = [
-  { name: "Rajesh Krishnamurthy", role: "CEO & Founder", bio: "15+ years in IT education and enterprise technology solutions.", avatar: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=80&h=80&fit=crop&crop=face" },
-  { name: "Priya Nambiar", role: "Head of Education", bio: "Former NASSCOM educator with expertise in digital curriculum design.", avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=80&h=80&fit=crop&crop=face" },
-  { name: "Vikram Acharya", role: "CTO", bio: "Ex-Infosys architect leading our AI-powered learning infrastructure.", avatar: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=80&h=80&fit=crop&crop=face" },
-  { name: "Ananya Iyer", role: "Director of Services", bio: "Certified IT service manager overseeing hardware and support operations.", avatar: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=80&h=80&fit=crop&crop=face" },
+  { name: "Rajesh Krishnamurthy", role: "CEO & Founder", bio: "15+ years in IT education and enterprise technology solutions.", email: "rajesh@compupoint.in", phone: "+91 98765 11001", avatar: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=80&h=80&fit=crop&crop=face" },
+  { name: "Priya Nambiar", role: "Head of Education", bio: "Former NASSCOM educator with expertise in digital curriculum design.", email: "priya@compupoint.in", phone: "+91 98765 11002", avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=80&h=80&fit=crop&crop=face" },
+  { name: "Vikram Acharya", role: "CTO", bio: "Ex-Infosys architect leading our AI-powered learning infrastructure.", email: "vikram@compupoint.in", phone: "+91 98765 11003", avatar: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=80&h=80&fit=crop&crop=face" },
+  { name: "Ananya Iyer", role: "Director of Services", bio: "Certified IT service manager overseeing hardware and support operations.", email: "ananya@compupoint.in", phone: "+91 98765 11004", avatar: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=80&h=80&fit=crop&crop=face" },
 ];
 
 const milestones = [
@@ -21,6 +27,26 @@ const milestones = [
 ];
 
 export default function About() {
+  const { isLoggedIn } = useAuth();
+  const [selectedMember, setSelectedMember] = useState<typeof team[0] | null>(null);
+  const [contactMessage, setContactMessage] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const handleContactSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!contactMessage.trim()) {
+      toast.error("Please enter a message first.");
+      return;
+    }
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+      toast.success(`✨ Message successfully sent to ${selectedMember?.name}!`);
+      setContactMessage("");
+      setSelectedMember(null);
+    }, 1200);
+  };
+
   return (
     <div className="min-h-screen bg-background pt-16">
       {/* Hero */}
@@ -111,26 +137,26 @@ export default function About() {
         </div>
       </section>
 
-      {/* Timeline */}
-      <section className="section-padding bg-slate-900 dark:bg-slate-950 relative overflow-hidden">
+      {/* Timeline - Fixed dark background in light mode */}
+      <section className="section-padding bg-slate-50 dark:bg-slate-950 relative overflow-hidden border-y border-border">
         <div className="absolute top-0 right-0 w-96 h-96 bg-primary-600/10 rounded-full blur-3xl" />
         <div className="max-w-4xl mx-auto relative">
           <div className="text-center mb-12">
-            <h2 className="font-heading text-3xl sm:text-4xl font-bold text-white mb-3">Our Journey</h2>
-            <p className="text-slate-400">Seven years of building India's most comprehensive IT education platform.</p>
+            <h2 className="font-heading text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white mb-3">Our Journey</h2>
+            <p className="text-slate-500 dark:text-slate-450">Seven years of building India's most comprehensive IT education platform.</p>
           </div>
           <div className="relative">
-            <div className="absolute left-4 sm:left-1/2 top-0 bottom-0 w-0.5 bg-primary-800" />
+            <div className="absolute left-4 sm:left-1/2 top-0 bottom-0 w-0.5 bg-primary-200 dark:bg-primary-800" />
             <div className="space-y-6">
               {milestones.map((m, i) => (
                 <div key={m.year} className={`flex items-start gap-6 ${i % 2 === 0 ? "sm:flex-row" : "sm:flex-row-reverse"}`}>
                   <div className={`flex-1 ${i % 2 === 0 ? "sm:text-right" : "sm:text-left"}`}>
                     <div className="inline-flex flex-col sm:inline-block">
-                      <span className="text-sm font-bold text-primary-400 mb-1">{m.year}</span>
-                      <p className="text-sm text-slate-300 leading-relaxed max-w-xs">{m.event}</p>
+                      <span className="text-sm font-bold text-primary-600 dark:text-primary-400 mb-1">{m.year}</span>
+                      <p className="text-sm text-slate-650 dark:text-slate-300 leading-relaxed max-w-xs">{m.event}</p>
                     </div>
                   </div>
-                  <div className="w-3 h-3 rounded-full bg-primary-600 flex-shrink-0 mt-1.5 relative z-10 ring-4 ring-slate-900" />
+                  <div className="w-3 h-3 rounded-full bg-primary-600 flex-shrink-0 mt-1.5 relative z-10 ring-4 ring-white dark:ring-slate-950" />
                   <div className="flex-1 hidden sm:block" />
                 </div>
               ))}
@@ -140,24 +166,31 @@ export default function About() {
       </section>
 
       {/* Team */}
-      <section className="section-padding bg-white dark:bg-slate-900">
+      {/* <section className="section-padding bg-white dark:bg-slate-900">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="section-heading mb-3">Meet Our Leadership</h2>
-            <p className="section-subheading">Experienced professionals passionate about technology education and career growth.</p>
+            <p className="section-subheading">Experienced professionals passionate about technology education and career growth. Click any card to connect.</p>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {team.map((member) => (
-              <div key={member.name} className="card-base p-5 text-center hover:-translate-y-1">
-                <img src={member.avatar} alt={member.name} className="w-16 h-16 rounded-2xl object-cover mx-auto mb-4" />
-                <h3 className="font-semibold text-sm text-slate-900 dark:text-white">{member.name}</h3>
+              <div
+                key={member.name}
+                onClick={() => setSelectedMember(member)}
+                className="card-base p-5 text-center hover:-translate-y-1 cursor-pointer transition-all duration-200 hover:border-primary/50 group active:scale-[0.98]"
+              >
+                <img src={member.avatar} alt={member.name} className="w-16 h-16 rounded-2xl object-cover mx-auto mb-4 border border-slate-100 dark:border-slate-800" />
+                <h3 className="font-semibold text-sm text-slate-900 dark:text-white group-hover:text-primary transition-colors">{member.name}</h3>
                 <p className="text-xs text-primary-600 dark:text-primary-400 font-medium mb-2">{member.role}</p>
                 <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">{member.bio}</p>
+                <div className="mt-3.5 text-[10px] font-bold text-primary opacity-0 group-hover:opacity-100 transition-opacity">
+                  Contact Profile &rarr;
+                </div>
               </div>
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Values */}
       <section className="section-padding bg-slate-50 dark:bg-slate-950">
@@ -192,7 +225,7 @@ export default function About() {
           <h2 className="font-heading text-3xl font-bold text-white mb-4">Join Our Growing Community</h2>
           <p className="text-blue-100 mb-8">Start your IT journey today with CompuPoint's comprehensive platform.</p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link to="/register" className="inline-flex items-center gap-2 px-8 py-3.5 bg-white text-primary-600 font-bold rounded-xl hover:bg-slate-100 transition-all">
+            <Link to={isLoggedIn ? "/dashboard" : "/register"} className="inline-flex items-center gap-2 px-8 py-3.5 bg-white text-primary-600 font-bold rounded-xl hover:bg-slate-100 transition-all">
               Get Started Free <ArrowRight className="w-5 h-5" />
             </Link>
             <Link to="/contact" className="inline-flex items-center gap-2 px-8 py-3.5 bg-white/10 border border-white/30 text-white font-semibold rounded-xl hover:bg-white/20 transition-all">
@@ -201,6 +234,54 @@ export default function About() {
           </div>
         </div>
       </section>
+
+      {/* Leader Contact Modal */}
+      {selectedMember && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md animate-fade-in">
+          <div className="relative w-full max-w-md bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-2xl p-6 overflow-hidden animate-scale-in">
+            <button
+              onClick={() => setSelectedMember(null)}
+              className="absolute top-4 right-4 p-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-400 hover:text-slate-600 dark:hover:text-white transition-colors"
+            >
+              <X className="w-5 h-5" />
+            </button>
+            <form onSubmit={handleContactSubmit} className="space-y-4">
+              <div className="text-center">
+                <img src={selectedMember.avatar} alt={selectedMember.name} className="w-16 h-16 rounded-full object-cover mx-auto mb-2 border" />
+                <h3 className="text-lg font-bold text-slate-900 dark:text-white font-heading">{selectedMember.name}</h3>
+                <p className="text-xs text-primary-600 dark:text-primary-400 font-medium">{selectedMember.role}</p>
+              </div>
+
+              <div className="p-3 bg-slate-50 dark:bg-slate-950 rounded-xl space-y-2 border text-xs text-slate-600 dark:text-slate-400">
+                <div className="flex items-center gap-2">
+                  <Mail className="w-3.5 h-3.5 text-primary" />
+                  <span>{selectedMember.email}</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Phone className="w-3.5 h-3.5 text-primary" />
+                  <span>{selectedMember.phone}</span>
+                </div>
+              </div>
+
+              <div>
+                <label className="text-[10px] font-bold uppercase text-slate-400 block mb-1">Send a Direct Message</label>
+                <textarea
+                  rows={3}
+                  required
+                  value={contactMessage}
+                  onChange={(e) => setContactMessage(e.target.value)}
+                  placeholder={`Write your message or inquiry for ${selectedMember.name.split(' ')[0]}...`}
+                  className="w-full px-3 py-2 border rounded-lg bg-transparent text-sm"
+                />
+              </div>
+
+              <button type="submit" disabled={loading} className="w-full btn-primary text-sm py-2">
+                {loading ? "Sending..." : "Submit Message"}
+              </button>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

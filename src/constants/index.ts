@@ -92,7 +92,7 @@ export const COURSES: Course[] = [
     price: 3499,
     rating: 4.7,
     students: 11200,
-    image: "https://images.unsplash.com/photo-1432888622747-4eb9a8f2c293?w=400&h=250&fit=crop",
+    image: "https://www.smart-academy.in/wp-content/uploads/2025/10/Digital-marketing-1024x576.jpg",
     tags: ["SEO", "Social Media", "Google Ads"],
   },
 ];

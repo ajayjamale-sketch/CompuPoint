@@ -1,11 +1,36 @@
-import { useState } from "react";
-import { Wrench, ShieldAlert, Cpu, Heart, CheckCircle2, MessageSquare, Shield, Clock, Award, Check } from "lucide-react";
+import { useState, useRef } from "react";
+import { Wrench, ShieldAlert, Cpu, Heart, CheckCircle2, MessageSquare, Shield, Clock, Award, Check, Phone, Mail, Building } from "lucide-react";
 import { toast } from "sonner";
+import { useAuth } from "@/hooks/useAuth";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+} from "@/components/ui/dialog";
+import { cn } from "@/lib/utils";
 
 export default function ITServices() {
+  const { user } = useAuth();
+  const ticketFormRef = useRef<HTMLDivElement>(null);
+  const deviceInputRef = useRef<HTMLInputElement>(null);
+
   const [device, setDevice] = useState("");
   const [problem, setProblem] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const [ticketId, setTicketId] = useState("");
+
+  // AMC Quote Dialog States
+  const [activeAmcPlan, setActiveAmcPlan] = useState<any>(null);
+  const [amcName, setAmcName] = useState("");
+  const [amcEmail, setAmcEmail] = useState("");
+  const [amcPhone, setAmcPhone] = useState("");
+  const [amcCompany, setAmcCompany] = useState("");
+  const [amcDevices, setAmcDevices] = useState("5-10");
+  const [amcMessage, setAmcMessage] = useState("");
+  const [amcLoading, setAmcLoading] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -13,8 +38,58 @@ export default function ITServices() {
       toast.error("Please fill all required fields.");
       return;
     }
+    const randId = `CP-TKT-${Math.floor(100000 + Math.random() * 900000)}`;
+    setTicketId(randId);
     setSubmitted(true);
-    toast.success("Service request submitted! We'll assign a technician shortly.");
+    toast.success(`Service request submitted successfully! Ticket ID: ${randId}`);
+  };
+
+  const handleServiceBook = (serviceTitle: string) => {
+    ticketFormRef.current?.scrollIntoView({ behavior: "smooth" });
+    
+    if (serviceTitle.includes("Hardware")) {
+      setDevice("Laptop / Desktop / PC");
+      setProblem("Diagnostic check and component-level hardware repair needed.");
+    } else if (serviceTitle.includes("Annual Maintenance")) {
+      setDevice("Office Lab Computers");
+      setProblem("Requesting AMC setup inspection for institutional systems.");
+    } else if (serviceTitle.includes("Software Setup")) {
+      setDevice("Windows/Linux OS");
+      setProblem("Operating system configuration and security software installation required.");
+    }
+    
+    setTimeout(() => {
+      deviceInputRef.current?.focus();
+    }, 500);
+  };
+
+  const handleAmcClick = (plan: any) => {
+    setActiveAmcPlan(plan);
+    if (user) {
+      setAmcName(user.name || "");
+      setAmcEmail(user.email || "");
+    } else {
+      setAmcName("");
+      setAmcEmail("");
+    }
+    setAmcPhone("");
+    setAmcCompany("");
+    setAmcDevices("5-10");
+    setAmcMessage("");
+  };
+
+  const handleAmcSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!amcName.trim() || !amcEmail.trim() || !amcPhone.trim()) {
+      toast.error("Please fill all required fields.");
+      return;
+    }
+    setAmcLoading(true);
+    setTimeout(() => {
+      setAmcLoading(false);
+      setActiveAmcPlan(null);
+      toast.success(`🎉 Quote inquiry for ${activeAmcPlan?.name} submitted! Our representative will call you shortly.`);
+    }, 1500);
   };
 
   const servicesList = [
@@ -72,19 +147,29 @@ export default function ITServices() {
           <h2 className="font-heading text-lg font-bold text-slate-900 dark:text-white mb-6">Our Service Offerings</h2>
           <div className="grid md:grid-cols-3 gap-6">
             {servicesList.map((svc) => (
-              <div key={svc.title} className="card-base p-6 hover:border-primary/20 transition-all duration-300 bg-slate-50 dark:bg-slate-950/45">
-                <div className="w-12 h-12 rounded-2xl bg-primary-50 dark:bg-primary-950/45 flex items-center justify-center text-primary mb-4">
-                  <svc.icon className="w-6 h-6" />
+              <div key={svc.title} className="card-base p-6 hover:border-primary/20 transition-all duration-300 bg-slate-50 dark:bg-slate-950/45 flex flex-col justify-between">
+                <div>
+                  <div className="w-12 h-12 rounded-2xl bg-primary-50 dark:bg-primary-950/45 flex items-center justify-center text-primary mb-4">
+                    <svc.icon className="w-6 h-6" />
+                  </div>
+                  <h3 className="font-heading font-bold text-slate-900 dark:text-white text-base mb-2">{svc.title}</h3>
+                  <p className="text-xs text-slate-500 dark:text-slate-400 mb-4 leading-relaxed">{svc.desc}</p>
+                  <div className="space-y-2 border-t pt-3 border-border/60">
+                    {svc.features.map((feat) => (
+                      <div key={feat} className="flex items-center gap-2 text-xs text-slate-600 dark:text-slate-400">
+                        <CheckCircle2 className="w-4 h-4 text-green-500 flex-shrink-0" />
+                        <span>{feat}</span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-                <h3 className="font-heading font-bold text-slate-900 dark:text-white text-base mb-2">{svc.title}</h3>
-                <p className="text-xs text-slate-500 dark:text-slate-400 mb-4 leading-relaxed">{svc.desc}</p>
-                <div className="space-y-2 border-t pt-3 border-border/60">
-                  {svc.features.map((feat) => (
-                    <div key={feat} className="flex items-center gap-2 text-xs text-slate-600 dark:text-slate-400">
-                      <CheckCircle2 className="w-4 h-4 text-green-500 flex-shrink-0" />
-                      <span>{feat}</span>
-                    </div>
-                  ))}
+                <div className="mt-6">
+                  <button
+                    onClick={() => handleServiceBook(svc.title)}
+                    className="btn-primary w-full text-xs py-2 shadow-indigo hover:scale-[1.01] transition-transform"
+                  >
+                    Book This Service
+                  </button>
                 </div>
               </div>
             ))}
@@ -99,19 +184,21 @@ export default function ITServices() {
           <p className="text-xs text-slate-500 dark:text-slate-400 mb-8 max-w-sm mx-auto">Get priority on-call engineers and scheduled hardware health checks.</p>
           <div className="grid md:grid-cols-2 gap-6 text-left">
             {amcPlans.map((plan) => (
-              <div key={plan.name} className="card-base p-6 bg-white dark:bg-slate-900 border border-border">
-                <h3 className="font-heading font-bold text-slate-900 dark:text-white text-base mb-1">{plan.name}</h3>
-                <p className="text-xs text-slate-400 mb-4">{plan.desc}</p>
-                <div className="text-2xl font-bold text-primary mb-4">{plan.price}<span className="text-xs text-slate-400">/device/month</span></div>
-                <ul className="space-y-2.5 text-xs text-slate-500 mb-6">
-                  {plan.features.map((f) => (
-                    <li key={f} className="flex items-start gap-2">
-                      <Check className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
-                      <span>{f}</span>
-                    </li>
-                  ))}
-                </ul>
-                <button onClick={() => toast.success(`Inquiry sent for ${plan.name}!`)} className="btn-primary w-full text-xs py-2">Get Quote</button>
+              <div key={plan.name} className="card-base p-6 bg-white dark:bg-slate-900 border border-border flex flex-col justify-between">
+                <div>
+                  <h3 className="font-heading font-bold text-slate-900 dark:text-white text-base mb-1">{plan.name}</h3>
+                  <p className="text-xs text-slate-400 mb-4">{plan.desc}</p>
+                  <div className="text-2xl font-bold text-primary mb-4">{plan.price}<span className="text-xs text-slate-400">/device/month</span></div>
+                  <ul className="space-y-2.5 text-xs text-slate-500 mb-6">
+                    {plan.features.map((f) => (
+                      <li key={f} className="flex items-start gap-2">
+                        <Check className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
+                        <span>{f}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <button onClick={() => handleAmcClick(plan)} className="btn-primary w-full text-xs py-2 shadow-indigo">Get Quote</button>
               </div>
             ))}
           </div>
@@ -119,7 +206,7 @@ export default function ITServices() {
       </section>
 
       {/* 4. Repair Ticket Request Form */}
-      <section className="py-16 px-4 bg-white dark:bg-slate-900 border-b border-border">
+      <section ref={ticketFormRef} className="py-16 px-4 bg-white dark:bg-slate-900 border-b border-border">
         <div className="max-w-xl mx-auto">
           <div className="card-base p-6 sm:p-8 bg-slate-50 dark:bg-slate-950/20 border border-border">
             <h2 className="font-heading text-lg font-bold text-slate-900 dark:text-white mb-2 text-center flex items-center justify-center gap-2"><MessageSquare className="w-5 h-5 text-primary" /> Book a Service Ticket</h2>
@@ -129,6 +216,7 @@ export default function ITServices() {
                 <div>
                   <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">Device Model / Type *</label>
                   <input
+                    ref={deviceInputRef}
                     type="text"
                     value={device}
                     onChange={(e) => setDevice(e.target.value)}
@@ -148,16 +236,20 @@ export default function ITServices() {
                     required
                   />
                 </div>
-                <button type="submit" className="btn-primary w-full text-xs py-3">Submit Request</button>
+                <button type="submit" className="btn-primary w-full text-xs py-3 shadow-indigo">Submit Request</button>
               </form>
             ) : (
               <div className="text-center py-6">
-                <div className="w-12 h-12 rounded-full bg-green-50 dark:bg-green-950/30 flex items-center justify-center mx-auto mb-3 text-green-500">
+                <div className="w-12 h-12 rounded-full bg-green-50 dark:bg-green-950/30 flex items-center justify-center mx-auto mb-3 text-green-500 animate-bounce">
                   <CheckCircle2 className="w-6 h-6" />
                 </div>
                 <h4 className="font-heading font-bold text-slate-900 dark:text-white text-sm mb-1">Request Received</h4>
-                <p className="text-xs text-slate-500 dark:text-slate-400 mb-4">Ticket created. A technician will contact you shortly to schedule diagnostics.</p>
-                <button onClick={() => { setSubmitted(false); setDevice(""); setProblem(""); }} className="btn-secondary text-xs px-4 py-2">Submit Another Request</button>
+                <div className="p-3 bg-slate-100 dark:bg-slate-900 rounded-xl my-4 inline-block border border-border">
+                  <p className="text-[10px] text-slate-400 font-semibold uppercase tracking-wider">Ticket Tracking Code</p>
+                  <p className="text-base font-mono font-bold text-primary">{ticketId}</p>
+                </div>
+                <p className="text-xs text-slate-500 dark:text-slate-400 mb-4 max-w-sm mx-auto">Your ticket has been generated. A certified technician will contact you shortly to schedule diagnostics.</p>
+                <button onClick={() => { setSubmitted(false); setDevice(""); setProblem(""); setTicketId(""); }} className="btn-secondary text-xs px-4 py-2">Submit Another Request</button>
               </div>
             )}
           </div>
@@ -189,6 +281,131 @@ export default function ITServices() {
           </div>
         </div>
       </section>
+
+      {/* AMC Quote Dialog Form */}
+      <Dialog open={activeAmcPlan !== null} onOpenChange={(open) => !open && setActiveAmcPlan(null)}>
+        <DialogContent className="max-w-md p-6 rounded-2xl bg-white dark:bg-slate-900 border border-border">
+          <DialogHeader className="mb-2">
+            <DialogTitle className="text-lg font-heading font-bold text-slate-900 dark:text-white flex items-center gap-2">
+              <Wrench className="w-5 h-5 text-primary" />
+              Request AMC Quote
+            </DialogTitle>
+            <DialogDescription className="text-xs text-slate-500 dark:text-slate-400">
+              Request a custom Annual Maintenance Contract proposal for <strong>{activeAmcPlan?.name}</strong>.
+            </DialogDescription>
+          </DialogHeader>
+
+          <form onSubmit={handleAmcSubmit} className="space-y-4">
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label htmlFor="amc-name" className="block text-[11px] font-semibold text-slate-600 dark:text-slate-400 mb-1">Name *</label>
+                <input
+                  id="amc-name"
+                  type="text"
+                  required
+                  value={amcName}
+                  onChange={(e) => setAmcName(e.target.value)}
+                  placeholder="e.g. Rajesh Kumar"
+                  className="w-full px-3 py-2 text-xs bg-background border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/50 text-slate-800 dark:text-slate-100 font-medium"
+                />
+              </div>
+              <div>
+                <label htmlFor="amc-email" className="block text-[11px] font-semibold text-slate-600 dark:text-slate-400 mb-1">Email *</label>
+                <input
+                  id="amc-email"
+                  type="email"
+                  required
+                  value={amcEmail}
+                  onChange={(e) => setAmcEmail(e.target.value)}
+                  placeholder="name@company.com"
+                  className="w-full px-3 py-2 text-xs bg-background border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/50 text-slate-800 dark:text-slate-100 font-medium"
+                />
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label htmlFor="amc-phone" className="block text-[11px] font-semibold text-slate-600 dark:text-slate-400 mb-1">Phone Number *</label>
+                <div className="relative">
+                  <Phone className="absolute left-2.5 top-2.5 w-3.5 h-3.5 text-slate-400" />
+                  <input
+                    id="amc-phone"
+                    type="tel"
+                    required
+                    value={amcPhone}
+                    onChange={(e) => setAmcPhone(e.target.value)}
+                    placeholder="98765 43210"
+                    className="w-full pl-8 pr-3 py-2 text-xs bg-background border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/50 text-slate-800 dark:text-slate-100 font-medium"
+                  />
+                </div>
+              </div>
+              <div>
+                <label htmlFor="amc-company" className="block text-[11px] font-semibold text-slate-600 dark:text-slate-400 mb-1">Company / Institution Name</label>
+                <div className="relative">
+                  <Building className="absolute left-2.5 top-2.5 w-3.5 h-3.5 text-slate-400" />
+                  <input
+                    id="amc-company"
+                    type="text"
+                    value={amcCompany}
+                    onChange={(e) => setAmcCompany(e.target.value)}
+                    placeholder="e.g. CompuSkills Inc"
+                    className="w-full pl-8 pr-3 py-2 text-xs bg-background border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/50 text-slate-800 dark:text-slate-100 font-medium"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <label htmlFor="amc-devices" className="block text-[11px] font-semibold text-slate-600 dark:text-slate-400 mb-1">Number of Devices</label>
+              <select
+                id="amc-devices"
+                value={amcDevices}
+                onChange={(e) => setAmcDevices(e.target.value)}
+                className="w-full px-3 py-2 text-xs bg-background border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/50 text-slate-800 dark:text-slate-100 font-medium"
+              >
+                <option value="1-5">1 - 5 devices</option>
+                <option value="5-10">5 - 10 devices</option>
+                <option value="10-25">10 - 25 devices</option>
+                <option value="25-50">25 - 50 devices</option>
+                <option value="50+">50+ devices</option>
+              </select>
+            </div>
+
+            <div>
+              <label htmlFor="amc-message" className="block text-[11px] font-semibold text-slate-600 dark:text-slate-400 mb-1">Additional Requirements (Optional)</label>
+              <textarea
+                id="amc-message"
+                value={amcMessage}
+                onChange={(e) => setAmcMessage(e.target.value)}
+                placeholder="List any special requests or system details..."
+                rows={3}
+                className="w-full px-3 py-2 text-xs bg-background border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/50 text-slate-800 dark:text-slate-100 resize-none"
+              />
+            </div>
+
+            <DialogFooter className="mt-6 gap-2">
+              <button
+                type="button"
+                onClick={() => setActiveAmcPlan(null)}
+                className="px-4 py-2 text-xs font-bold rounded-xl border border-border text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                disabled={amcLoading}
+                className="btn-primary text-xs px-5 py-2 font-bold flex items-center justify-center min-w-[100px]"
+              >
+                {amcLoading ? (
+                  <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                ) : (
+                  "Request Quote"
+                )}
+              </button>
+            </DialogFooter>
+          </form>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

@@ -374,7 +374,7 @@ function OverviewTab({ user, courses, pendingAssessments, recentStudents, totalS
                 <p className="text-[11px] text-slate-400 truncate">{student.courseId} • {student.lastActive}</p>
               </div>
               <div className="flex items-center gap-2 flex-shrink-0">
-                <div className="w-16 h-1.5 bg-slate-100 rounded-full"><div className="h-full bg-green-600 rounded-full" style={{ width: `${student.progress}%` }} /></div>
+                <div className="w-16 h-1.5 bg-slate-100 dark:bg-slate-700 rounded-full"><div className="h-full bg-green-600 rounded-full" style={{ width: `${student.progress}%` }} /></div>
                 <span className="text-[10px] text-slate-500">{student.progress}%</span>
               </div>
             </div>
@@ -425,13 +425,13 @@ function StudentsTab({ students, courses }: any) {
       <div className="card-base overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full">
-            <thead><tr className="border-b bg-slate-50"><th className="text-left text-xs font-semibold px-4 py-3">Student</th><th className="text-left text-xs font-semibold px-4 py-3">Course</th><th className="text-left text-xs font-semibold px-4 py-3">Progress</th><th className="text-left text-xs font-semibold px-4 py-3">Last Active</th><th className="text-left text-xs font-semibold px-4 py-3">Status</th></tr></thead>
+            <thead><tr className="border-b bg-slate-50 dark:bg-slate-800/60"><th className="text-left text-xs font-semibold px-4 py-3">Student</th><th className="text-left text-xs font-semibold px-4 py-3">Course</th><th className="text-left text-xs font-semibold px-4 py-3">Progress</th><th className="text-left text-xs font-semibold px-4 py-3">Last Active</th><th className="text-left text-xs font-semibold px-4 py-3">Status</th></tr></thead>
             <tbody className="divide-y">
               {students.map((s: any) => (
-                <tr key={s.id} className="hover:bg-slate-50">
+                <tr key={s.id} className="hover:bg-slate-50 dark:hover:bg-slate-800/40">
                   <td className="px-4 py-3"><div className="flex items-center gap-2.5"><div className="w-7 h-7 rounded-full bg-green-100 flex items-center justify-center text-green-600 text-xs font-bold">{s.name[0]}</div><span className="text-xs font-medium">{s.name}</span></div></td>
                   <td className="px-4 py-3 text-xs text-slate-500">{getCourseTitle(s.courseId)}</td>
-                  <td className="px-4 py-3"><div className="flex items-center gap-2"><div className="w-16 h-1.5 bg-slate-100 rounded-full"><div className="h-full bg-green-600 rounded-full" style={{ width: `${s.progress}%` }} /></div><span className="text-[10px]">{s.progress}%</span></div></td>
+                  <td className="px-4 py-3"><div className="flex items-center gap-2"><div className="w-16 h-1.5 bg-slate-100 dark:bg-slate-700 rounded-full"><div className="h-full bg-green-600 rounded-full" style={{ width: `${s.progress}%` }} /></div><span className="text-[10px]">{s.progress}%</span></div></td>
                   <td className="px-4 py-3 text-xs text-slate-400">{s.lastActive}</td>
                   <td className="px-4 py-3"><StatusBadge status={s.status} /></td>
                 </tr>
@@ -477,7 +477,7 @@ function CertificatesTab({ certificates, onView }: any) {
         <SectionHeader title="Recent Certificates Issued" />
         <div className="space-y-2.5">
           {certificates.map((cert: any) => (
-            <div key={cert.id} className="flex items-center justify-between gap-3 p-3 rounded-xl bg-slate-50">
+            <div key={cert.id} className="flex items-center justify-between gap-3 p-3 rounded-xl bg-slate-50 dark:bg-slate-800/50">
               <div className="flex items-center gap-2.5"><Award className="w-4 h-4 text-green-600" /><span className="text-xs">{cert.title} — {cert.studentName}</span></div>
               <button onClick={() => onView(cert)} className="text-xs text-green-600 font-medium hover:underline flex items-center gap-1"><Download className="w-3 h-3" /> Download</button>
             </div>
@@ -501,7 +501,7 @@ function AnalyticsTab() {
         <div className="card-base p-4"><h3 className="text-sm font-semibold flex items-center gap-2 mb-3"><FileText className="w-4 h-4 text-purple-600" /> Assessment Completion</h3><ResponsiveContainer width="100%" height={220}><BarChart data={assessmentCompletion} layout="vertical"><XAxis type="number" /><YAxis type="category" dataKey="name" width={50} /><Tooltip /><Legend /><Bar dataKey="completed" name="Completed" fill="#16a34a" /><Bar dataKey="pending" name="Pending" fill="#f59e0b" /></BarChart></ResponsiveContainer></div>
       </div>
       <div className="grid md:grid-cols-2 gap-5">
-        <div className="card-base p-4"><h3 className="text-sm font-semibold flex items-center gap-2 mb-3"><Star className="w-4 h-4 text-yellow-600" /> Top Students</h3><div className="space-y-2">{topStudents.map((s, i) => (<div key={s.name} className="flex items-center justify-between p-2 rounded-lg bg-slate-50"><div className="flex items-center gap-2"><span className="text-xs font-bold text-slate-400 w-5">#{i+1}</span><div><p className="text-xs font-semibold">{s.name}</p><p className="text-[10px] text-slate-400">{s.course}</p></div></div><div className="flex items-center gap-3"><div className="w-16 h-1.5 bg-slate-200 rounded-full"><div className="h-full bg-green-600 rounded-full" style={{ width: `${s.progress}%` }} /></div><span className="text-xs font-bold text-green-600">{s.progress}%</span></div></div>))}</div></div>
+        <div className="card-base p-4"><h3 className="text-sm font-semibold flex items-center gap-2 mb-3"><Star className="w-4 h-4 text-yellow-600" /> Top Students</h3><div className="space-y-2">{topStudents.map((s, i) => (<div key={s.name} className="flex items-center justify-between p-2 rounded-lg bg-slate-50 dark:bg-slate-800/50"><div className="flex items-center gap-2"><span className="text-xs font-bold text-slate-400 w-5">#{i+1}</span><div><p className="text-xs font-semibold">{s.name}</p><p className="text-[10px] text-slate-400">{s.course}</p></div></div><div className="flex items-center gap-3"><div className="w-16 h-1.5 bg-slate-200 rounded-full"><div className="h-full bg-green-600 rounded-full" style={{ width: `${s.progress}%` }} /></div><span className="text-xs font-bold text-green-600">{s.progress}%</span></div></div>))}</div></div>
         <div className="card-base p-4"><h3 className="text-sm font-semibold flex items-center gap-2 mb-3"><Calendar className="w-4 h-4 text-indigo-600" /> Learning Activity</h3><ResponsiveContainer width="100%" height={220}><AreaChart data={learningActivity}><CartesianGrid strokeDasharray="3 3" /><XAxis dataKey="week" tick={{ fontSize: 10 }} /><YAxis tick={{ fontSize: 10 }} /><Tooltip /><Area type="monotone" dataKey="hours" name="Hours" stroke="#6366f1" fill="#6366f1" fillOpacity={0.2} /></AreaChart></ResponsiveContainer></div>
       </div>
       <div className="text-center text-[10px] text-slate-400 pt-2 border-t">Analytics updated in real-time</div>

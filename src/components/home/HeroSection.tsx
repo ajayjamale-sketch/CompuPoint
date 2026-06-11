@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import {
   ArrowRight,
@@ -10,8 +11,11 @@ import {
   Zap,
   Wrench,
   Brain,
+  X,
+  Sparkles,
 } from "lucide-react";
 import heroBg from "@/assets/hero-bg.jpg";
+import { useAuth } from "@/hooks/useAuth";
 
 const trustBadges = [
   { icon: Users, label: "125K+ Students" },
@@ -27,6 +31,9 @@ const highlights = [
 ];
 
 export default function HeroSection() {
+  const { isLoggedIn } = useAuth();
+  const [showDemoVideo, setShowDemoVideo] = useState(false);
+
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden">
       {/* Background */}
@@ -94,16 +101,14 @@ export default function HeroSection() {
             </div>
 
             {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 mb-12 animate-fade-in" style={{ animationDelay: "0.4s" }}>
-              <Link to="/register" className="btn-primary text-base px-8 py-4 shadow-indigo-lg">
+            <div className="flex flex-col sm:flex-row gap-4 mb-12 animate-in fade-in" style={{ animationDelay: "0.4s" }}>
+              <Link to={isLoggedIn ? "/dashboard" : "/register"} className="btn-primary text-base px-8 py-4 shadow-indigo-lg">
                 Start Learning Free
                 <ArrowRight className="w-5 h-5" />
               </Link>
               <button
-                onClick={() => {
-                  document.getElementById("dashboard-preview")?.scrollIntoView({ behavior: "smooth" });
-                }}
-                className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-white/10 hover:bg-white/15 backdrop-blur-sm border border-white/20 text-white font-semibold rounded-xl transition-all duration-200 hover:border-white/30 text-base"
+                onClick={() => setShowDemoVideo(true)}
+                className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-white/10 hover:bg-white/15 backdrop-blur-sm border border-white/20 text-white font-semibold rounded-xl transition-all duration-200 hover:border-white/30 text-base shadow-lg hover:shadow-indigo-500/10 active:scale-[0.98]"
               >
                 <div className="w-9 h-9 rounded-full bg-white/20 flex items-center justify-center flex-shrink-0">
                   <Play className="w-4 h-4 fill-white ml-0.5" />
@@ -210,6 +215,62 @@ export default function HeroSection() {
           <div className="w-1.5 h-1.5 bg-white/60 rounded-full animate-bounce" style={{ animationDelay: "0.3s" }} />
         </div>
       </div>
+
+      {/* Demo Video Modal */}
+      {showDemoVideo && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-lg animate-fade-in">
+          <div className="relative w-full max-w-4xl bg-slate-900 border border-white/10 rounded-2xl shadow-2xl overflow-hidden animate-scale-in">
+            {/* Modal Header */}
+            <div className="flex items-center justify-between p-4 border-b border-white/10 bg-slate-950/50">
+              <div className="flex items-center gap-2">
+                <Sparkles className="w-5 h-5 text-accent animate-pulse" />
+                <div>
+                  <h3 className="text-lg font-semibold text-white">CompuPoint Platform Walkthrough</h3>
+                  <p className="text-xs text-slate-400">Discover AI-powered learning & tech services</p>
+                </div>
+              </div>
+              <button
+                onClick={() => setShowDemoVideo(false)}
+                className="p-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white transition-colors"
+                aria-label="Close modal"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            {/* Video Container */}
+            <div className="relative aspect-video w-full bg-black">
+              <iframe
+                className="w-full h-full"
+                src="https://www.youtube.com/embed/EngW7tLk6R8?autoplay=1&rel=0"
+                title="CompuPoint Platform Tour"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+              ></iframe>
+            </div>
+
+            {/* Modal Footer / Fast Action Tabs */}
+            <div className="p-4 bg-slate-950/40 border-t border-white/10 flex flex-wrap items-center justify-between gap-4">
+              <span className="text-xs text-slate-400">Ready to try it yourself?</span>
+              <div className="flex gap-3">
+                <button
+                  onClick={() => setShowDemoVideo(false)}
+                  className="px-4 py-2 text-xs font-semibold text-slate-300 hover:text-white transition-colors"
+                >
+                  Close Preview
+                </button>
+                <Link
+                  to={isLoggedIn ? "/dashboard" : "/register"}
+                  onClick={() => setShowDemoVideo(false)}
+                  className="px-4 py-2 text-xs font-semibold bg-primary hover:bg-primary-600 text-white rounded-lg transition-colors shadow-md shadow-primary/20"
+                >
+                  Get Started Free
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 }

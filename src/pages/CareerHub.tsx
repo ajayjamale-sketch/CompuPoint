@@ -1,7 +1,17 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Briefcase, Brain, FileText, Star, Target, CheckCircle2, ArrowRight, Building2, Quote } from "lucide-react";
+import { Briefcase, Brain, FileText, Star, Target, CheckCircle2, ArrowRight, Building2, Quote, Phone, Mail, FileUp, Sparkles, Wand2, RefreshCw } from "lucide-react";
 import { toast } from "sonner";
+import { useAuth } from "@/hooks/useAuth";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+} from "@/components/ui/dialog";
+import { cn } from "@/lib/utils";
 
 const jobsList = [
   { id: 1, title: "Senior React Developer", company: "Flipkart", type: "Full-time", salary: "₹18-24 LPA", location: "Bangalore (Hybrid)", match: 92 },
@@ -10,13 +20,126 @@ const jobsList = [
   { id: 4, title: "DevOps & Cloud Engineer", company: "Wipro", type: "Contract", salary: "₹15-20 LPA", location: "Remote", match: 78 },
 ];
 
+const INTERVIEW_QUESTIONS: Record<string, string[]> = {
+  "Frontend React": [
+    "Explain the virtual DOM and how React updates it.",
+    "What is the difference between state and props in React?",
+    "How do React Hooks work under the hood?"
+  ],
+  "Python Backend": [
+    "What are Python decorators and how do you write a custom one?",
+    "Explain Python's GIL (Global Interpreter Lock) and its performance impact.",
+    "How does Django handle the database request/response lifecycle?"
+  ],
+  "DevOps": [
+    "Explain the difference between CI and CD in modern pipelines.",
+    "What is Infrastructure as Code (IaC) and why is it useful?",
+    "How do you secure containerized secrets in Kubernetes?"
+  ]
+};
+
 export default function CareerHub() {
+  const { user } = useAuth();
   const [appliedJobs, setAppliedJobs] = useState<number[]>([]);
 
-  const handleApply = (id: number, title: string) => {
-    if (appliedJobs.includes(id)) return;
-    setAppliedJobs((prev) => [...prev, id]);
-    toast.success(`Application sent for "${title}"! Check your email for status updates.`);
+  // Apply Modal States
+  const [activeApplyJob, setActiveApplyJob] = useState<any>(null);
+  const [applyName, setApplyName] = useState("");
+  const [applyEmail, setApplyEmail] = useState("");
+  const [applyPhone, setApplyPhone] = useState("");
+  const [applyPortfolio, setApplyPortfolio] = useState("");
+  const [applyMessage, setApplyMessage] = useState("");
+  const [applyLoading, setApplyLoading] = useState(false);
+
+  // AI Mock Interview Modal States
+  const [showInterviewModal, setShowInterviewModal] = useState(false);
+  const [interviewRole, setInterviewRole] = useState("Frontend React");
+  const [interviewQuestionIndex, setInterviewQuestionIndex] = useState(0);
+  const [interviewResponse, setInterviewResponse] = useState("");
+  const [interviewResult, setInterviewResult] = useState<any>(null);
+  const [interviewLoading, setInterviewLoading] = useState(false);
+
+  // AI Resume Builder Modal States
+  const [showResumeModal, setShowResumeModal] = useState(false);
+  const [resumeName, setResumeName] = useState("");
+  const [resumeTitle, setResumeTitle] = useState("");
+  const [resumeSkills, setResumeSkills] = useState("");
+  const [resumeExp, setResumeExp] = useState("");
+  const [resumeProj, setResumeProj] = useState("");
+  const [resumeLoading, setResumeLoading] = useState(false);
+
+  const handleApplyClick = (job: any) => {
+    setActiveApplyJob(job);
+    if (user) {
+      setApplyName(user.name || "");
+      setApplyEmail(user.email || "");
+    } else {
+      setApplyName("");
+      setApplyEmail("");
+    }
+    setApplyPhone("");
+    setApplyPortfolio("");
+    setApplyMessage("");
+  };
+
+  const handleApplySubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!applyName.trim() || !applyEmail.trim() || !applyPhone.trim()) {
+      toast.error("Please fill in Name, Email, and Phone.");
+      return;
+    }
+    setApplyLoading(true);
+    setTimeout(() => {
+      setApplyLoading(false);
+      setAppliedJobs((prev) => [...prev, activeApplyJob.id]);
+      setActiveApplyJob(null);
+      toast.success(`Application sent for "${activeApplyJob.title}"! Check your email for status updates.`);
+    }, 1500);
+  };
+
+  const handleInterviewSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!interviewResponse.trim() || interviewResponse.trim().split(" ").length < 5) {
+      toast.error("Please provide a descriptive answer (minimum 5 words).");
+      return;
+    }
+    setInterviewLoading(true);
+    setTimeout(() => {
+      setInterviewLoading(false);
+      const randomScore = Math.floor(75 + Math.random() * 20);
+      setInterviewResult({
+        score: randomScore,
+        feedback: `Excellent logic! Your answer captures the core concepts. To score higher, explain the architecture of how state cycles operate.`,
+      });
+    }, 1500);
+  };
+
+  const handleResumeClick = () => {
+    setShowResumeModal(true);
+    if (user) {
+      setResumeName(user.name || "");
+      setResumeTitle(user.specialization || "Software Engineer");
+    } else {
+      setResumeName("");
+      setResumeTitle("");
+    }
+    setResumeSkills("React, TypeScript, TailwindCSS, Node.js");
+    setResumeExp("Frontend Developer Intern at CompuSkills Academy");
+    setResumeProj("Portfolio Web App, E-Commerce Site");
+  };
+
+  const handleResumeSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!resumeName.trim() || !resumeTitle.trim() || !resumeSkills.trim()) {
+      toast.error("Please fill in Name, Title, and Skills.");
+      return;
+    }
+    setResumeLoading(true);
+    setTimeout(() => {
+      setResumeLoading(false);
+      setShowResumeModal(false);
+      toast.success("🎉 Resume generated successfully! PDF is ready for download.");
+    }, 1500);
   };
 
   return (
@@ -91,8 +214,8 @@ export default function CareerHub() {
                       </span>
                     ) : (
                       <button
-                        onClick={() => handleApply(job.id, job.title)}
-                        className="btn-primary text-xs px-5 py-2.5"
+                        onClick={() => handleApplyClick(job)}
+                        className="btn-primary text-xs px-5 py-2.5 shadow-indigo"
                       >
                         Apply Now
                       </button>
@@ -121,9 +244,9 @@ export default function CareerHub() {
                   Practice vocal answers for Frontend, Backend, JavaScript, or System Design. Receive an immediate technical score breakout and customized feedback.
                 </p>
               </div>
-              <Link to="/register" className="btn-primary text-xs py-2.5 flex items-center justify-center gap-1.5 w-fit px-6">
+              <button onClick={() => { setShowInterviewModal(true); setInterviewQuestionIndex(0); setInterviewResponse(""); setInterviewResult(null); }} className="btn-primary text-xs py-2.5 flex items-center justify-center gap-1.5 w-fit px-6 shadow-indigo">
                 Launch AI Simulator <ArrowRight className="w-4 h-4" />
-              </Link>
+              </button>
             </div>
 
             {/* AI Resume Builder */}
@@ -137,9 +260,9 @@ export default function CareerHub() {
                   Assemble your courses, completed certifications, projects, and target role into a clean print-ready HTML/PDF template.
                 </p>
               </div>
-              <Link to="/register" className="btn-secondary text-xs py-2.5 flex items-center justify-center gap-1.5 w-fit px-6">
+              <button onClick={handleResumeClick} className="btn-secondary text-xs py-2.5 flex items-center justify-center gap-1.5 w-fit px-6">
                 Open Resume Editor <ArrowRight className="w-4 h-4" />
-              </Link>
+              </button>
             </div>
           </div>
         </div>
@@ -158,6 +281,326 @@ export default function CareerHub() {
           <p className="text-[10px] text-slate-400">Software Engineer · Wipro Graduate</p>
         </div>
       </section>
+
+      {/* Job Application Modal */}
+      <Dialog open={activeApplyJob !== null} onOpenChange={(open) => !open && setActiveApplyJob(null)}>
+        <DialogContent className="max-w-md p-6 rounded-2xl bg-white dark:bg-slate-900 border border-border">
+          <DialogHeader className="mb-2">
+            <DialogTitle className="text-lg font-heading font-bold text-slate-900 dark:text-white flex items-center gap-2">
+              <Briefcase className="w-5 h-5 text-primary" />
+              Apply for Position
+            </DialogTitle>
+            <DialogDescription className="text-xs text-slate-500 dark:text-slate-400">
+              Submit your candidate application to <strong>{activeApplyJob?.company}</strong> for the <strong>{activeApplyJob?.title}</strong> role.
+            </DialogDescription>
+          </DialogHeader>
+
+          <form onSubmit={handleApplySubmit} className="space-y-4">
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label htmlFor="apply-name" className="block text-[11px] font-semibold text-slate-600 dark:text-slate-400 mb-1">Full Name *</label>
+                <input
+                  id="apply-name"
+                  type="text"
+                  required
+                  value={applyName}
+                  onChange={(e) => setApplyName(e.target.value)}
+                  placeholder="e.g. Rajesh Kumar"
+                  className="w-full px-3 py-2 text-xs bg-background border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/50 text-slate-800 dark:text-slate-100 font-medium"
+                />
+              </div>
+              <div>
+                <label htmlFor="apply-email" className="block text-[11px] font-semibold text-slate-600 dark:text-slate-400 mb-1">Email Address *</label>
+                <div className="relative">
+                  <Mail className="absolute left-2.5 top-2.5 w-3.5 h-3.5 text-slate-400" />
+                  <input
+                    id="apply-email"
+                    type="email"
+                    required
+                    value={applyEmail}
+                    onChange={(e) => setApplyEmail(e.target.value)}
+                    placeholder="name@company.com"
+                    className="w-full pl-8 pr-3 py-2 text-xs bg-background border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/50 text-slate-800 dark:text-slate-100 font-medium"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label htmlFor="apply-phone" className="block text-[11px] font-semibold text-slate-600 dark:text-slate-400 mb-1">Phone Number *</label>
+                <div className="relative">
+                  <Phone className="absolute left-2.5 top-2.5 w-3.5 h-3.5 text-slate-400" />
+                  <input
+                    id="apply-phone"
+                    type="tel"
+                    required
+                    value={applyPhone}
+                    onChange={(e) => setApplyPhone(e.target.value)}
+                    placeholder="98765 43210"
+                    className="w-full pl-8 pr-3 py-2 text-xs bg-background border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/50 text-slate-800 dark:text-slate-100 font-medium"
+                  />
+                </div>
+              </div>
+              <div>
+                <label htmlFor="apply-portfolio" className="block text-[11px] font-semibold text-slate-600 dark:text-slate-400 mb-1">Portfolio Link (GitHub)</label>
+                <input
+                  id="apply-portfolio"
+                  type="url"
+                  value={applyPortfolio}
+                  onChange={(e) => setApplyPortfolio(e.target.value)}
+                  placeholder="https://github.com/username"
+                  className="w-full px-3 py-2 text-xs bg-background border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/50 text-slate-800 dark:text-slate-100 font-medium"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label className="block text-[11px] font-semibold text-slate-600 dark:text-slate-400 mb-1">Resume Upload *</label>
+              <div className="border border-dashed border-border rounded-xl p-4 text-center cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-900 transition-colors">
+                <FileUp className="w-5 h-5 mx-auto text-slate-400 mb-1.5" />
+                <p className="text-[10px] text-slate-500 dark:text-slate-400">PDF, DOCX up to 5MB (Preselected default resume template)</p>
+              </div>
+            </div>
+
+            <div>
+              <label htmlFor="apply-message" className="block text-[11px] font-semibold text-slate-600 dark:text-slate-400 mb-1">Short Cover Note (Optional)</label>
+              <textarea
+                id="apply-message"
+                value={applyMessage}
+                onChange={(e) => setApplyMessage(e.target.value)}
+                placeholder="Explain why you are a great match..."
+                rows={2}
+                className="w-full px-3 py-2 text-xs bg-background border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/50 text-slate-800 dark:text-slate-100 resize-none"
+              />
+            </div>
+
+            <DialogFooter className="mt-6 gap-2">
+              <button
+                type="button"
+                onClick={() => setActiveApplyJob(null)}
+                className="px-4 py-2 text-xs font-bold rounded-xl border border-border text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                disabled={applyLoading}
+                className="btn-primary text-xs px-5 py-2 font-bold flex items-center justify-center min-w-[100px]"
+              >
+                {applyLoading ? (
+                  <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                ) : (
+                  "Apply Job"
+                )}
+              </button>
+            </DialogFooter>
+          </form>
+        </DialogContent>
+      </Dialog>
+
+      {/* AI Mock Interview Modal */}
+      <Dialog open={showInterviewModal} onOpenChange={setShowInterviewModal}>
+        <DialogContent className="max-w-md p-6 rounded-2xl bg-white dark:bg-slate-900 border border-border">
+          <DialogHeader className="mb-2">
+            <DialogTitle className="text-lg font-heading font-bold text-slate-900 dark:text-white flex items-center gap-2">
+              <Brain className="w-5 h-5 text-primary animate-pulse" />
+              AI Mock Interview Simulator
+            </DialogTitle>
+            <DialogDescription className="text-xs text-slate-500 dark:text-slate-400">
+              Test your engineering capability and receive real-time scoring.
+            </DialogDescription>
+          </DialogHeader>
+
+          {!interviewResult ? (
+            <form onSubmit={handleInterviewSubmit} className="space-y-4">
+              <div>
+                <label htmlFor="interview-role" className="block text-[11px] font-semibold text-slate-600 dark:text-slate-400 mb-1">Select Domain</label>
+                <select
+                  id="interview-role"
+                  value={interviewRole}
+                  onChange={(e) => { setInterviewRole(e.target.value); setInterviewQuestionIndex(0); setInterviewResponse(""); }}
+                  className="w-full px-3 py-2 text-xs bg-background border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/50 text-slate-800 dark:text-slate-100 font-medium"
+                >
+                  <option value="Frontend React">Frontend React Development</option>
+                  <option value="Python Backend">Python Backend Development</option>
+                  <option value="DevOps">Cloud & DevOps Engineering</option>
+                </select>
+              </div>
+
+              <div className="p-3.5 bg-slate-50 dark:bg-slate-950 border border-border rounded-xl">
+                <span className="text-[10px] text-primary uppercase font-bold tracking-wider">Interview Question {interviewQuestionIndex + 1} of 3</span>
+                <p className="text-xs font-semibold text-slate-800 dark:text-slate-200 mt-1">
+                  {INTERVIEW_QUESTIONS[interviewRole]?.[interviewQuestionIndex]}
+                </p>
+              </div>
+
+              <div>
+                <label htmlFor="interview-response" className="block text-[11px] font-semibold text-slate-600 dark:text-slate-400 mb-1">Your Technical Answer</label>
+                <textarea
+                  id="interview-response"
+                  required
+                  value={interviewResponse}
+                  onChange={(e) => setInterviewResponse(e.target.value)}
+                  placeholder="Type your response or technical explanations here..."
+                  rows={4}
+                  className="w-full px-3 py-2 text-xs bg-background border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/50 text-slate-800 dark:text-slate-100 resize-none font-medium"
+                />
+              </div>
+
+              <DialogFooter className="mt-6 gap-2">
+                <button
+                  type="button"
+                  onClick={() => setShowInterviewModal(false)}
+                  className="px-4 py-2 text-xs font-bold rounded-xl border border-border text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
+                >
+                  Close
+                </button>
+                <button
+                  type="submit"
+                  disabled={interviewLoading}
+                  className="btn-primary text-xs px-5 py-2 font-bold flex items-center justify-center min-w-[120px]"
+                >
+                  {interviewLoading ? (
+                    <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                  ) : (
+                    <>Submit Response <Sparkles className="w-3.5 h-3.5 ml-1" /></>
+                  )}
+                </button>
+              </DialogFooter>
+            </form>
+          ) : (
+            <div className="space-y-4 py-4 text-center">
+              <div className="w-16 h-16 rounded-full bg-primary/5 dark:bg-primary/10 border border-primary/20 flex items-center justify-center mx-auto mb-2">
+                <Target className="w-8 h-8 text-primary animate-pulse" />
+              </div>
+              <div>
+                <p className="text-[10px] text-slate-400 uppercase tracking-widest font-bold">AI Technical Score</p>
+                <p className="text-3xl font-heading font-extrabold text-primary">{interviewResult.score}%</p>
+              </div>
+              <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-950 text-xs text-slate-600 dark:text-slate-300 leading-relaxed text-left border border-border">
+                <p className="font-semibold text-slate-900 dark:text-white mb-1">Feedback Summary:</p>
+                {interviewResult.feedback}
+              </div>
+              <div className="flex gap-2 justify-center pt-2">
+                <button
+                  onClick={() => {
+                    setInterviewResponse("");
+                    setInterviewResult(null);
+                    setInterviewQuestionIndex((interviewQuestionIndex + 1) % 3);
+                  }}
+                  className="btn-primary text-xs px-4 py-2 flex items-center gap-1"
+                >
+                  Next Question <RefreshCw className="w-3 h-3" />
+                </button>
+                <button
+                  onClick={() => setShowInterviewModal(false)}
+                  className="btn-secondary text-xs px-4 py-2"
+                >
+                  Close Simulator
+                </button>
+              </div>
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
+
+      {/* AI Resume Builder Modal */}
+      <Dialog open={showResumeModal} onOpenChange={setShowResumeModal}>
+        <DialogContent className="max-w-md p-6 rounded-2xl bg-white dark:bg-slate-900 border border-border">
+          <DialogHeader className="mb-2">
+            <DialogTitle className="text-lg font-heading font-bold text-slate-900 dark:text-white flex items-center gap-2">
+              <FileText className="w-5 h-5 text-accent" />
+              AI Resume Profile Builder
+            </DialogTitle>
+            <DialogDescription className="text-xs text-slate-500 dark:text-slate-400">
+              Format your learning achievements and career details into a print-ready template.
+            </DialogDescription>
+          </DialogHeader>
+
+          <form onSubmit={handleResumeSubmit} className="space-y-4">
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label htmlFor="resume-name" className="block text-[11px] font-semibold text-slate-600 dark:text-slate-400 mb-1">Full Name *</label>
+                <input
+                  id="resume-name"
+                  type="text"
+                  required
+                  value={resumeName}
+                  onChange={(e) => setResumeName(e.target.value)}
+                  className="w-full px-3 py-2 text-xs bg-background border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/50 text-slate-800 dark:text-slate-100 font-medium"
+                />
+              </div>
+              <div>
+                <label htmlFor="resume-title" className="block text-[11px] font-semibold text-slate-600 dark:text-slate-400 mb-1">Target Professional Title *</label>
+                <input
+                  id="resume-title"
+                  type="text"
+                  required
+                  value={resumeTitle}
+                  onChange={(e) => setResumeTitle(e.target.value)}
+                  className="w-full px-3 py-2 text-xs bg-background border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/50 text-slate-800 dark:text-slate-100 font-medium"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label htmlFor="resume-skills" className="block text-[11px] font-semibold text-slate-600 dark:text-slate-400 mb-1">Core Tech Skills *</label>
+              <input
+                id="resume-skills"
+                type="text"
+                required
+                value={resumeSkills}
+                onChange={(e) => setResumeSkills(e.target.value)}
+                className="w-full px-3 py-2 text-xs bg-background border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/50 text-slate-800 dark:text-slate-100 font-medium"
+              />
+            </div>
+
+            <div>
+              <label htmlFor="resume-exp" className="block text-[11px] font-semibold text-slate-600 dark:text-slate-400 mb-1">Work/Internship Experience</label>
+              <textarea
+                id="resume-exp"
+                value={resumeExp}
+                onChange={(e) => setResumeExp(e.target.value)}
+                rows={2}
+                className="w-full px-3 py-2 text-xs bg-background border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/50 text-slate-800 dark:text-slate-100 resize-none font-medium"
+              />
+            </div>
+
+            <div>
+              <label htmlFor="resume-proj" className="block text-[11px] font-semibold text-slate-600 dark:text-slate-400 mb-1">Key Capstone Projects</label>
+              <textarea
+                id="resume-proj"
+                value={resumeProj}
+                onChange={(e) => setResumeProj(e.target.value)}
+                rows={2}
+                className="w-full px-3 py-2 text-xs bg-background border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/50 text-slate-800 dark:text-slate-100 resize-none font-medium"
+              />
+            </div>
+
+            <DialogFooter className="mt-6 gap-2">
+              <button
+                type="button"
+                onClick={() => setShowResumeModal(false)}
+                className="px-4 py-2 text-xs font-bold rounded-xl border border-border text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                disabled={resumeLoading}
+                className="btn-primary text-xs px-5 py-2 font-bold flex items-center justify-center min-w-[120px]"
+              >
+                {resumeLoading ? (
+                  <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                ) : (
+                  <>Generate Resume <Wand2 className="w-3.5 h-3.5 ml-1" /></>
+                )}
+              </button>
+            </DialogFooter>
+          </form>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
