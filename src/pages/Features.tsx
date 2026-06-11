@@ -108,21 +108,21 @@ export default function Features() {
   return (
     <div className="min-h-screen bg-background pt-16">
       {/* Hero */}
-      <section className="py-20 px-4 bg-gradient-hero relative overflow-hidden">
+      <section className="py-20 px-4 bg-slate-50 dark:bg-gradient-hero border-b border-border relative overflow-hidden">
         <div className="absolute inset-0 opacity-5" style={{ backgroundImage: `linear-gradient(#6366F1 1px, transparent 1px), linear-gradient(90deg, #6366F1 1px, transparent 1px)`, backgroundSize: "50px 50px" }} />
         <div className="max-w-4xl mx-auto text-center relative">
           <div className="label-badge mb-4 inline-flex">
             <Star className="w-4 h-4" />
             <span>Platform Features</span>
           </div>
-          <h1 className="font-heading text-4xl sm:text-5xl font-bold text-white mb-5">
+          <h1 className="section-heading mb-5">
             Everything You Need to
             <br />
-            <span className="bg-gradient-to-r from-primary-400 to-accent-400 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-primary-600 to-accent-600 dark:from-primary-400 dark:to-accent-400 bg-clip-text text-transparent">
               Excel in Technology
             </span>
           </h1>
-          <p className="text-slate-300 text-lg leading-relaxed max-w-2xl mx-auto">
+          <p className="section-subheading">
             From learning and certification to services and career growth, CompuPoint brings together all the tools you need in one powerful platform.
           </p>
         </div>

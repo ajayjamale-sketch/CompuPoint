@@ -128,9 +128,9 @@ export default function Login() {
   return (
     <div className="min-h-screen flex bg-background">
       {/* Left Panel - Branding */}
-      <div className="hidden xl:flex xl:w-5/12 bg-slate-950 relative overflow-hidden flex-col justify-between p-12">
-        <div className="absolute inset-0" style={{ backgroundImage: `radial-gradient(circle at 20% 50%, rgba(37,99,235,0.15) 0%, transparent 60%), radial-gradient(circle at 80% 20%, rgba(6,182,212,0.1) 0%, transparent 50%)` }} />
-        <div className="absolute inset-0 opacity-[0.04]" style={{ backgroundImage: `linear-gradient(rgba(255,255,255,1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,1) 1px, transparent 1px)`, backgroundSize: "40px 40px" }} />
+      <div className="hidden xl:flex xl:w-5/12 bg-slate-50 dark:bg-slate-950 relative overflow-hidden flex-col justify-between p-12 border-r border-slate-200 dark:border-slate-800">
+        <div className="absolute inset-0" style={{ backgroundImage: `radial-gradient(circle at 20% 50%, rgba(37,99,235,0.08) 0%, transparent 60%), radial-gradient(circle at 80% 20%, rgba(6,182,212,0.05) 0%, transparent 50%)` }} />
+        <div className="absolute inset-0 opacity-[0.4] dark:opacity-[0.04]" style={{ backgroundImage: `linear-gradient(hsl(var(--border)) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--border)) 1px, transparent 1px)`, backgroundSize: "40px 40px" }} />
 
         {/* Logo */}
         <div className="relative">
@@ -138,24 +138,24 @@ export default function Login() {
             <div className="w-10 h-10 rounded-xl bg-primary-600 flex items-center justify-center shadow-lg">
               <Monitor className="w-5 h-5 text-white" />
             </div>
-            <span className="font-heading font-bold text-xl text-white">
-              Compu<span className="text-primary-400">Point</span>
+            <span className="font-heading font-bold text-xl text-slate-900 dark:text-white">
+              Compu<span className="text-primary-600 dark:text-primary-400">Point</span>
             </span>
           </Link>
         </div>
 
         {/* Hero Text */}
         <div className="relative space-y-6">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-primary-600/20 border border-primary-600/30 rounded-full">
-            <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-            <span className="text-xs text-primary-300 font-medium">7 Dashboards. One Platform.</span>
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-primary-50 dark:bg-primary-900/20 border border-primary-100 dark:border-primary-600/30 rounded-full">
+            <span className="w-2 h-2 rounded-full bg-green-500 dark:bg-green-400 animate-pulse" />
+            <span className="text-xs text-primary-700 dark:text-primary-300 font-medium">7 Dashboards. One Platform.</span>
           </div>
-          <h2 className="font-heading text-3xl font-bold text-white leading-tight">
+          <h2 className="font-heading text-3xl font-bold text-slate-900 dark:text-white leading-tight">
             Your Role-Specific
             <br />
-            <span className="text-primary-400">IT Command Center</span>
+            <span className="text-primary-600 dark:text-primary-400">IT Command Center</span>
           </h2>
-          <p className="text-slate-400 text-sm leading-relaxed max-w-xs">
+          <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed max-w-xs">
             Whether you're a student, trainer, technician, or enterprise admin — CompuPoint gives you a personalized workspace built exactly for your workflow.
           </p>
           <div className="grid grid-cols-2 gap-3">
@@ -165,15 +165,15 @@ export default function Login() {
               { val: "96%", lbl: "Satisfaction" },
               { val: "7", lbl: "User Roles" },
             ].map((s) => (
-              <div key={s.lbl} className="bg-white/5 border border-white/10 rounded-xl p-4">
-                <div className="text-xl font-bold text-white">{s.val}</div>
+              <div key={s.lbl} className="bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl p-4 shadow-sm dark:shadow-none">
+                <div className="text-xl font-bold text-slate-900 dark:text-white">{s.val}</div>
                 <div className="text-xs text-slate-500 mt-0.5">{s.lbl}</div>
               </div>
             ))}
           </div>
         </div>
 
-        <p className="relative text-xs text-slate-600">&copy; {new Date().getFullYear()} CompuPoint. All rights reserved.</p>
+        <p className="relative text-xs text-slate-400 dark:text-slate-600">&copy; {new Date().getFullYear()} CompuPoint. All rights reserved.</p>
       </div>
 
       {/* Right Panel - Login Form */}

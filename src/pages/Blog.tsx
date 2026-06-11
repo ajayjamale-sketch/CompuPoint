@@ -20,18 +20,18 @@ export default function Blog() {
   return (
     <div className="min-h-screen bg-background pt-16">
       {/* Hero */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-hero relative overflow-hidden">
+      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-slate-50 dark:bg-gradient-hero border-b border-border relative overflow-hidden">
         <div className="absolute inset-0 opacity-5" style={{ backgroundImage: `linear-gradient(#6366F1 1px, transparent 1px), linear-gradient(90deg, #6366F1 1px, transparent 1px)`, backgroundSize: "50px 50px" }} />
         <div className="max-w-4xl mx-auto text-center relative">
-          <div className="label-badge mb-4 inline-flex bg-primary-900/40 border-primary-700 text-primary-400">
+          <div className="label-badge mb-4 inline-flex">
             <BookOpen className="w-4 h-4" />
             <span>CompuPoint Blog</span>
           </div>
-          <h1 className="font-heading text-4xl sm:text-5xl font-bold text-white mb-4">
+          <h1 className="section-heading mb-4">
             IT Insights &
-            <span className="bg-gradient-to-r from-primary-400 to-accent-400 bg-clip-text text-transparent"> Tech Knowledge</span>
+            <span className="bg-gradient-to-r from-primary-600 to-accent-600 dark:from-primary-400 dark:to-accent-400 bg-clip-text text-transparent"> Tech Knowledge</span>
           </h1>
-          <p className="text-slate-300 text-lg mb-8 max-w-2xl mx-auto">
+          <p className="section-subheading mb-8">
             Expert articles, tutorials, certification guides, and career advice from IT professionals.
           </p>
           {/* Search */}
@@ -42,7 +42,7 @@ export default function Blog() {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search articles..."
-              className="w-full pl-12 pr-4 py-3.5 bg-white/10 backdrop-blur-sm border border-white/20 text-white placeholder-slate-400 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 text-base"
+              className="w-full pl-12 pr-4 py-3.5 bg-white dark:bg-white/10 border border-slate-200 dark:border-white/20 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-400 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 text-base shadow-sm"
             />
           </div>
         </div>

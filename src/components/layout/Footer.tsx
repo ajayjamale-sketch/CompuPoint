@@ -21,22 +21,22 @@ const footerLinks = {
     { label: "Features", href: "/features" },
     { label: "Pricing", href: "/pricing" },
     { label: "Dashboard", href: "/dashboard" },
-    { label: "Certifications", href: "/features#certifications" },
-    { label: "IT Services", href: "/features#services" },
+    { label: "Certifications", href: "/certifications" },
+    { label: "IT Services", href: "/services" },
   ],
   "Learn & Grow": [
-    { label: "Courses", href: "/features#courses" },
+    { label: "Courses", href: "/courses" },
     { label: "Blog", href: "/blog" },
-    { label: "Career Hub", href: "/features#career" },
+    { label: "Career Hub", href: "/career" },
     { label: "FAQ", href: "/faq" },
     { label: "About Us", href: "/about" },
   ],
   Support: [
     { label: "Contact Us", href: "/contact" },
-    { label: "Help Center", href: "/faq" },
-    { label: "Service Requests", href: "/dashboard" },
-    { label: "Privacy Policy", href: "/privacy" },
-    { label: "Terms & Conditions", href: "/terms" },
+    { label: "Help Center", href: "/help" },
+    { label: "Service Requests", href: "/service-requests" },
+    { label: "Privacy Policy", href: "/privacy-policy" },
+    { label: "Terms & Conditions", href: "/terms-and-conditions" },
   ],
 };
 
@@ -190,10 +190,10 @@ export default function Footer() {
               <span>ISO 9001 Certified</span>
             </div>
             <div className="flex items-center gap-4 text-xs">
-              <Link to="/privacy" className="text-gray-500 dark:text-slate-500 hover:text-gray-900 dark:hover:text-white transition-colors">
+              <Link to="/privacy-policy" className="text-gray-500 dark:text-slate-500 hover:text-gray-900 dark:hover:text-white transition-colors">
                 Privacy
               </Link>
-              <Link to="/terms" className="text-gray-500 dark:text-slate-500 hover:text-gray-900 dark:hover:text-white transition-colors">
+              <Link to="/terms-and-conditions" className="text-gray-500 dark:text-slate-500 hover:text-gray-900 dark:hover:text-white transition-colors">
                 Terms
               </Link>
             </div>

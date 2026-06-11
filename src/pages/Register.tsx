@@ -129,11 +129,11 @@ export default function Register() {
   return (
     <div className="min-h-screen flex">
       {/* Left Panel */}
-      <div className="hidden lg:flex lg:w-2/5 bg-gradient-hero relative overflow-hidden flex-col justify-between p-12">
+      <div className="hidden lg:flex lg:w-2/5 bg-slate-50 dark:bg-gradient-hero relative overflow-hidden flex-col justify-between p-12 border-r border-slate-200 dark:border-slate-800">
         <div
-          className="absolute inset-0 opacity-10"
+          className="absolute inset-0 opacity-[0.4] dark:opacity-10"
           style={{
-            backgroundImage: `linear-gradient(#6366F1 1px, transparent 1px), linear-gradient(90deg, #6366F1 1px, transparent 1px)`,
+            backgroundImage: `linear-gradient(hsl(var(--primary)) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--primary)) 1px, transparent 1px)`,
             backgroundSize: "50px 50px",
           }}
         />
@@ -142,16 +142,16 @@ export default function Register() {
             <div className="w-9 h-9 rounded-xl bg-gradient-primary flex items-center justify-center shadow-indigo">
               <Monitor className="w-5 h-5 text-white" />
             </div>
-            <span className="font-heading font-bold text-xl text-white">
-              Compu<span className="text-accent">Point</span>
+            <span className="font-heading font-bold text-xl text-slate-900 dark:text-white">
+              Compu<span className="text-primary dark:text-accent">Point</span>
             </span>
           </Link>
         </div>
         <div className="relative">
-          <h2 className="font-heading text-3xl font-bold text-white mb-4 leading-tight">
+          <h2 className="font-heading text-3xl font-bold text-slate-900 dark:text-white mb-4 leading-tight">
             Start Your Tech Journey Today
           </h2>
-          <p className="text-slate-300 text-sm leading-relaxed mb-8">
+          <p className="text-slate-600 dark:text-slate-300 text-sm leading-relaxed mb-8">
             Join 125,000+ learners who have built successful IT careers with CompuPoint's structured learning paths and industry certifications.
           </p>
           <div className="space-y-3">
@@ -163,34 +163,34 @@ export default function Register() {
               "Hardware & IT support services",
             ].map((item) => (
               <div key={item} className="flex items-center gap-2.5">
-                <CheckCircle2 className="w-4 h-4 text-green-400 flex-shrink-0" />
-                <span className="text-sm text-slate-300">{item}</span>
+                <CheckCircle2 className="w-4 h-4 text-green-600 dark:text-green-400 flex-shrink-0" />
+                <span className="text-sm text-slate-600 dark:text-slate-300">{item}</span>
               </div>
             ))}
           </div>
         </div>
-        <p className="relative text-xs text-slate-500">
+        <p className="relative text-xs text-slate-400 dark:text-slate-500">
           &copy; {new Date().getFullYear()} CompuPoint. All rights reserved.
         </p>
       </div>
 
       {/* Right Panel */}
-      <div className="flex-1 flex items-center justify-center px-4 sm:px-8 py-12 bg-background overflow-y-auto">
+      <div className="flex-1 flex items-start justify-center px-4 sm:px-8 py-10 bg-background overflow-y-auto">
         <div className="w-full max-w-lg">
           {/* Mobile Logo */}
           <div className="lg:hidden flex justify-center mb-8">
             <Link to="/" className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-lg bg-gradient-primary flex items-center justify-center shadow-indigo">
+              <div className="w-9 h-9 rounded-xl bg-primary-600 flex items-center justify-center shadow-indigo">
                 <Monitor className="w-4 h-4 text-white" />
               </div>
               <span className="font-heading font-bold text-lg text-slate-900 dark:text-white">
-                Compu<span className="text-primary">Point</span>
+                Compu<span className="text-primary-600 dark:text-primary-400">Point</span>
               </span>
             </Link>
           </div>
 
-          <div className="text-center mb-8">
-            <h1 className="text-2xl font-heading font-bold text-slate-900 dark:text-white mb-2">
+          <div className="mb-8">
+            <h1 className="text-2xl font-heading font-bold text-slate-900 dark:text-white mb-1.5">
               Create Your Account
             </h1>
             <p className="text-slate-500 dark:text-slate-400 text-sm">
@@ -546,7 +546,7 @@ export default function Register() {
 
           <p className="text-center text-sm text-slate-500 dark:text-slate-400 mt-6">
             Already have an account?{" "}
-            <Link to="/login" className="text-primary dark:text-primary-400 font-semibold hover:underline">
+            <Link to="/login" className="text-primary-600 dark:text-primary-400 font-semibold hover:underline">
               Sign in
             </Link>
           </p>

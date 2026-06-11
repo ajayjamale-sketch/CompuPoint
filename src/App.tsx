@@ -19,6 +19,12 @@ import ForgotPassword from "@/pages/ForgotPassword";
 import Dashboard from "@/pages/Dashboard";
 import PrivacyPolicy from "@/pages/PrivacyPolicy";
 import TermsAndConditions from "@/pages/TermsAndConditions";
+import Courses from "@/pages/Courses";
+import Certifications from "@/pages/Certifications";
+import ITServices from "@/pages/ITServices";
+import CareerHub from "@/pages/CareerHub";
+import HelpCenter from "@/pages/HelpCenter";
+import ServiceRequests from "@/pages/ServiceRequests";
 import NotFound from "@/pages/NotFound";
 
 function AppContent() {
@@ -63,7 +69,17 @@ function AppContent() {
                 <Route path="/blog" element={<Blog />} />
                 <Route path="/faq" element={<FAQ />} />
                 <Route path="/privacy" element={<PrivacyPolicy />} />
+                <Route path="/privacy-policy" element={<PrivacyPolicy />} />
                 <Route path="/terms" element={<TermsAndConditions />} />
+                <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
+                <Route path="/courses" element={<Courses />} />
+                <Route path="/certifications" element={<Certifications />} />
+                <Route path="/services" element={<ITServices />} />
+                <Route path="/career" element={<CareerHub />} />
+                <Route path="/career-hub" element={<CareerHub />} />
+                <Route path="/help" element={<HelpCenter />} />
+                <Route path="/help-center" element={<HelpCenter />} />
+                <Route path="/service-requests" element={<ServiceRequests />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
               <Footer />
