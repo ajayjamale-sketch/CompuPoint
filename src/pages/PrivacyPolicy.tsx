@@ -22,7 +22,7 @@ export default function PrivacyPolicy() {
           <div className="w-12 h-12 rounded-2xl bg-primary-50 dark:bg-primary-900/30 flex items-center justify-center mx-auto mb-4">
             <Shield className="w-6 h-6 text-primary-600 dark:text-primary-400" />
           </div>
-          <h1 className="section-heading mb-3">Privacy Policy</h1>
+          <h1 className="section-heading text-slate-900 dark:text-white mb-3">Privacy Policy</h1>
           <p className="text-slate-500 dark:text-slate-400 text-sm">Last Updated: January 1, 2026</p>
         </div>
       </section>
@@ -63,3 +63,4 @@ export default function PrivacyPolicy() {
     </div>
   );
 }
+

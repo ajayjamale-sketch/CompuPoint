@@ -12,14 +12,14 @@ import {
   PieChart, Pie, Cell, LineChart, Line, CartesianGrid, AreaChart, Area
 } from "recharts";
 
-// ========== TOAST COMPONENT ==========
+// ========== TOAST COMPONENT (updated to blue) ==========
 function Toast({ message, onClose }: { message: string; onClose: () => void }) {
   useEffect(() => {
     const timer = setTimeout(onClose, 3000);
     return () => clearTimeout(timer);
   }, [onClose]);
   return (
-    <div className="fixed bottom-4 right-4 z-50 bg-orange-600 text-white px-4 py-2 rounded-lg shadow-lg text-sm flex items-center gap-2 animate-in slide-in-from-right-5">
+    <div className="fixed bottom-4 right-4 z-50 bg-blue-600 text-white px-4 py-2 rounded-lg shadow-lg text-sm flex items-center gap-2 animate-in slide-in-from-right-5">
       <CheckCircle2 className="w-4 h-4" />
       {message}
     </div>
@@ -33,7 +33,7 @@ const priorityMap: Record<string, string> = {
   low: "bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-100 dark:border-slate-700",
 };
 
-// Initial data
+// Initial data (unchanged)
 const initialActiveJobs = [
   { id: "JB-2610", customer: "Rajesh Mehta", type: "Laptop Screen Replacement", device: "HP Pavilion 15-eg", priority: "high", status: "in-progress", time: "Est. 2h remaining", location: "Shop", contact: "+91 98765 43210", startTime: "2026-01-15T10:00" },
   { id: "JB-2609", customer: "Anjali Singh", type: "Virus Removal & OS Cleanup", device: "Dell Inspiron 14", priority: "medium", status: "in-progress", time: "Est. 45min", location: "On-site", contact: "+91 87654 32109", startTime: "2026-01-15T09:30" },
@@ -90,7 +90,7 @@ export default function TechnicianDashboard() {
   const [jobHistory, setJobHistory] = useState(() => loadFromStorage("tech_jobHistory", initialJobHistory));
   const [partsInventory, setPartsInventory] = useState(() => loadFromStorage("tech_partsInventory", initialPartsInventory));
 
-  // Modal states
+  // Modal states (unchanged)
   const [showUpdateStatusModal, setShowUpdateStatusModal] = useState<{ show: boolean; job: any | null }>({ show: false, job: null });
   const [showViewDetailsModal, setShowViewDetailsModal] = useState<{ show: boolean; job: any | null }>({ show: false, job: null });
   const [showAcceptModal, setShowAcceptModal] = useState<{ show: boolean; job: any | null }>({ show: false, job: null });
@@ -221,7 +221,7 @@ export default function TechnicianDashboard() {
     <>
       {toastMessage && <Toast message={toastMessage} onClose={() => setToastMessage(null)} />}
 
-      {/* Modals (same as before, omitted for brevity but fully functional) */}
+      {/* Modals (only button colors updated to blue) */}
       {showUpdateStatusModal.show && showUpdateStatusModal.job && (
         <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-[100] p-4">
           <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-2xl max-w-md w-full p-6">
@@ -258,7 +258,7 @@ export default function TechnicianDashboard() {
               <p><strong>Contact:</strong> {showViewDetailsModal.job.contact}</p>
               <p><strong>Time:</strong> {showViewDetailsModal.job.time || "Not scheduled"}</p>
             </div>
-            <button onClick={() => setShowViewDetailsModal({ show: false, job: null })} className="w-full mt-4 px-3 py-2 bg-orange-600 text-white rounded-lg">Close</button>
+            <button onClick={() => setShowViewDetailsModal({ show: false, job: null })} className="w-full mt-4 px-3 py-2 bg-blue-600 text-white rounded-lg">Close</button>
           </div>
         </div>
       )}
@@ -269,7 +269,7 @@ export default function TechnicianDashboard() {
             <h3 className="text-lg font-bold mb-2">Accept Job?</h3>
             <p className="text-sm mb-4">Move "{showAcceptModal.job.type}" from queue to active jobs?</p>
             <div className="flex gap-2">
-              <button onClick={() => acceptJob(showAcceptModal.job)} className="flex-1 btn-primary">Yes, Accept</button>
+              <button onClick={() => acceptJob(showAcceptModal.job)} className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg">Yes, Accept</button>
               <button onClick={() => setShowAcceptModal({ show: false, job: null })} className="flex-1 border rounded-lg py-2">Cancel</button>
             </div>
           </div>
@@ -282,7 +282,7 @@ export default function TechnicianDashboard() {
             <h3 className="text-lg font-bold mb-2">Reschedule Job</h3>
             <input type="text" value={showRescheduleModal.newSchedule} onChange={e => setShowRescheduleModal({ ...showRescheduleModal, newSchedule: e.target.value })} placeholder="e.g., Tomorrow 11AM" className="w-full px-3 py-2 border rounded-lg mb-4" />
             <div className="flex gap-2">
-              <button onClick={() => rescheduleJob(showRescheduleModal.job, showRescheduleModal.newSchedule)} className="flex-1 btn-primary">Save</button>
+              <button onClick={() => rescheduleJob(showRescheduleModal.job, showRescheduleModal.newSchedule)} className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg">Save</button>
               <button onClick={() => setShowRescheduleModal({ show: false, job: null, newSchedule: "" })} className="flex-1 border rounded-lg py-2">Cancel</button>
             </div>
           </div>
@@ -306,7 +306,7 @@ export default function TechnicianDashboard() {
               <input type="text" placeholder="Scheduled Date/Time" value={newJobForm.scheduled} onChange={e => setNewJobForm({...newJobForm, scheduled: e.target.value})} className="w-full px-3 py-2 border rounded-lg" />
               <input type="text" placeholder="Contact Number" value={newJobForm.contact} onChange={e => setNewJobForm({...newJobForm, contact: e.target.value})} className="w-full px-3 py-2 border rounded-lg" />
               <div className="flex gap-2">
-                <button onClick={addNewJob} className="flex-1 btn-primary">Add to Queue</button>
+                <button onClick={addNewJob} className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg">Add to Queue</button>
                 <button onClick={() => setShowAddJobModal(false)} className="px-4 py-2 border rounded-lg">Cancel</button>
               </div>
             </div>
@@ -327,7 +327,7 @@ export default function TechnicianDashboard() {
               <input type="text" placeholder="Unit" value={newPartForm.unit} onChange={e => setNewPartForm({...newPartForm, unit: e.target.value})} className="w-full px-3 py-2 border rounded-lg" />
               <input type="number" placeholder="Min Threshold" value={newPartForm.threshold} onChange={e => setNewPartForm({...newPartForm, threshold: e.target.value})} className="w-full px-3 py-2 border rounded-lg" />
               <div className="flex gap-2">
-                <button onClick={addNewPart} className="flex-1 btn-primary">Add Part</button>
+                <button onClick={addNewPart} className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg">Add Part</button>
                 <button onClick={() => setShowAddPartModal(false)} className="px-4 py-2 border rounded-lg">Cancel</button>
               </div>
             </div>
@@ -341,40 +341,81 @@ export default function TechnicianDashboard() {
             <h3 className="text-lg font-bold mb-2">Reorder {showReorderModal.part.name}</h3>
             <input type="number" value={showReorderModal.quantity} onChange={e => setShowReorderModal({ ...showReorderModal, quantity: parseInt(e.target.value) || 1 })} min="1" className="w-full px-3 py-2 border rounded-lg mb-4" />
             <div className="flex gap-2">
-              <button onClick={() => reorderPart(showReorderModal.part, showReorderModal.quantity)} className="flex-1 btn-primary">Order</button>
+              <button onClick={() => reorderPart(showReorderModal.part, showReorderModal.quantity)} className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg">Order</button>
               <button onClick={() => setShowReorderModal({ show: false, part: null, quantity: 1 })} className="flex-1 border rounded-lg py-2">Cancel</button>
             </div>
           </div>
         </div>
       )}
 
-      <DashboardShell sidebarItems={updatedSidebarItems} activeTab={activeTab} onTabChange={setActiveTab} title="Technician Dashboard" roleColor="text-orange-600 dark:text-orange-400" roleBg="bg-orange-50 dark:bg-orange-900/20">
-        {activeTab === "overview" && <OverviewTab user={user} activeJobs={activeJobs} queuedJobs={queuedJobs} partsInventory={partsInventory} onUpdateStatus={(job) => setShowUpdateStatusModal({ show: true, job })} />}
-        {activeTab === "jobs" && <ActiveJobsTab activeJobs={activeJobs} onUpdateStatus={(job) => setShowUpdateStatusModal({ show: true, job })} onViewDetails={(job) => setShowViewDetailsModal({ show: true, job })} />}
-        {activeTab === "queue" && <QueueTab queuedJobs={queuedJobs} onAccept={(job) => setShowAcceptModal({ show: true, job })} onReschedule={(job) => setShowRescheduleModal({ show: true, job, newSchedule: "" })} onAddJob={() => setShowAddJobModal(true)} />}
-        {activeTab === "parts" && <PartsTab partsInventory={partsInventory} onAddPart={() => setShowAddPartModal(true)} onReorder={(part) => setShowReorderModal({ show: true, part, quantity: 1 })} />}
+      <DashboardShell
+        sidebarItems={updatedSidebarItems}
+        activeTab={activeTab}
+        onTabChange={setActiveTab}
+        title="Technician Dashboard"
+        roleColor="text-blue-600 dark:text-blue-400"
+        roleBg="bg-blue-50 dark:bg-blue-900/20"
+      >
+        {activeTab === "overview" && (
+          <OverviewTab
+            user={user}
+            activeJobs={activeJobs}
+            queuedJobs={queuedJobs}
+            partsInventory={partsInventory}
+            onUpdateStatus={(job) => setShowUpdateStatusModal({ show: true, job })}
+          />
+        )}
+        {activeTab === "jobs" && (
+          <ActiveJobsTab
+            activeJobs={activeJobs}
+            onUpdateStatus={(job) => setShowUpdateStatusModal({ show: true, job })}
+            onViewDetails={(job) => setShowViewDetailsModal({ show: true, job })}
+          />
+        )}
+        {activeTab === "queue" && (
+          <QueueTab
+            queuedJobs={queuedJobs}
+            onAccept={(job) => setShowAcceptModal({ show: true, job })}
+            onReschedule={(job) => setShowRescheduleModal({ show: true, job, newSchedule: "" })}
+            onAddJob={() => setShowAddJobModal(true)}
+          />
+        )}
+        {activeTab === "parts" && (
+          <PartsTab
+            partsInventory={partsInventory}
+            onAddPart={() => setShowAddPartModal(true)}
+            onReorder={(part) => setShowReorderModal({ show: true, part, quantity: 1 })}
+          />
+        )}
         {activeTab === "history" && <HistoryTab jobHistory={jobHistory} />}
-        {activeTab === "analytics" && <AnalyticsTab activeJobs={activeJobs} queuedJobs={queuedJobs} jobHistory={jobHistory} partsInventory={partsInventory} />}
+        {activeTab === "analytics" && (
+          <AnalyticsTab
+            activeJobs={activeJobs}
+            queuedJobs={queuedJobs}
+            jobHistory={jobHistory}
+            partsInventory={partsInventory}
+          />
+        )}
       </DashboardShell>
     </>
   );
 }
 
-// ========== TAB COMPONENTS (Overview, ActiveJobs, Queue, Parts, History remain identical, then enhanced Analytics) ==========
+// ========== TAB COMPONENTS (updated colors) ==========
 function OverviewTab({ user, activeJobs, queuedJobs, partsInventory, onUpdateStatus }: any) {
   const lowStockParts = partsInventory.filter((p: any) => p.status !== "ok").length;
   return (
     <div className="space-y-5">
-      <WelcomeBanner name={user.name} message={`${activeJobs.length} active jobs • ${queuedJobs.length} in queue • ${lowStockParts} parts low on stock`} icon={Wrench} gradient="from-orange-600 to-amber-600" />
+      <WelcomeBanner name={user.name} message={`${activeJobs.length} active jobs • ${queuedJobs.length} in queue • ${lowStockParts} parts low on stock`} icon={Wrench} gradient="from-blue-600 to-cyan-600" />
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
-        <StatCard icon={Wrench} label="Active Jobs" value={activeJobs.length} change={`${activeJobs.filter((j: any) => j.priority === "urgent").length} urgent`} color="orange" />
+        <StatCard icon={Wrench} label="Active Jobs" value={activeJobs.length} change={`${activeJobs.filter((j: any) => j.priority === "urgent").length} urgent`} color="blue" />
         <StatCard icon={CheckCircle2} label="Completed Today" value={3} change="+2 from yesterday" color="green" />
-        <StatCard icon={Star} label="Avg Rating" value="4.8/5" change="Excellent" color="purple" />
-        <StatCard icon={BarChart3} label="Revenue Today" value="₹8.5K" change="+15% week" color="blue" />
+        <StatCard icon={Star} label="Avg Rating" value="4.8/5" change="Excellent" color="blue" />
+        <StatCard icon={BarChart3} label="Revenue Today" value="₹8.5K" change="+15% week" color="cyan" />
       </div>
       <div className="grid lg:grid-cols-3 gap-4">
         <div className="lg:col-span-2 card-base p-4">
-          <SectionHeader title="Active Jobs" action={<span className="text-xs text-orange-600 font-medium">{activeJobs.filter((j: any) => j.priority === "urgent").length} URGENT</span>} />
+          <SectionHeader title="Active Jobs" action={<span className="text-xs text-blue-600 font-medium">{activeJobs.filter((j: any) => j.priority === "urgent").length} URGENT</span>} />
           <div className="space-y-2.5">
             {activeJobs.slice(0, 4).map((job: any) => (
               <div key={job.id} className="flex items-start gap-3 p-3 rounded-xl bg-slate-50 dark:bg-slate-800/50 hover:bg-slate-100 cursor-pointer">
@@ -392,7 +433,7 @@ function OverviewTab({ user, activeJobs, queuedJobs, partsInventory, onUpdateSta
                 </div>
                 <div className="flex flex-col items-end gap-1.5 flex-shrink-0">
                   <StatusBadge status={job.status} />
-                  <button onClick={() => onUpdateStatus(job)} className="btn-primary text-[10px] px-2 py-1">Update</button>
+                  <button onClick={() => onUpdateStatus(job)} className="bg-blue-600 hover:bg-blue-700 text-white text-[10px] px-2 py-1 rounded-lg">Update</button>
                 </div>
               </div>
             ))}
@@ -403,7 +444,7 @@ function OverviewTab({ user, activeJobs, queuedJobs, partsInventory, onUpdateSta
             <h3 className="text-xs font-semibold mb-3">Low Stock Alerts</h3>
             <div className="space-y-2">
               {partsInventory.filter((p: any) => p.status !== "ok").map((part: any) => (
-                <div key={part.id} className={cn("flex items-center justify-between p-2 rounded-lg text-xs", part.status === "out" ? "bg-red-50" : "bg-yellow-50")}>
+                <div key={part.id} className={cn("flex items-center justify-between p-2 rounded-lg text-xs", part.status === "out" ? "bg-red-50 dark:bg-red-900/20" : "bg-yellow-50 dark:bg-yellow-900/20")}>
                   <span className="text-slate-700 truncate mr-2">{part.name.split("—")[0]}</span>
                   <span className={cn("font-bold", part.status === "out" ? "text-red-600" : "text-yellow-600")}>{part.stock === 0 ? "OUT" : part.stock}</span>
                 </div>
@@ -440,8 +481,8 @@ function ActiveJobsTab({ activeJobs, onUpdateStatus, onViewDetails }: any) {
                 </div>
               </div>
               <div className="flex flex-col gap-2 flex-shrink-0">
-                <button onClick={() => onUpdateStatus(job)} className="btn-primary text-xs px-3 py-1.5">Update Status</button>
-                <button onClick={() => onViewDetails(job)} className="px-3 py-1.5 text-xs border rounded-lg hover:bg-slate-50">View Details</button>
+                <button onClick={() => onUpdateStatus(job)} className="bg-blue-600 hover:bg-blue-700 text-white text-xs px-3 py-1.5 rounded-lg">Update Status</button>
+                <button onClick={() => onViewDetails(job)} className="text-xs px-3 py-1.5 border rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800">View Details</button>
               </div>
             </div>
           </div>
@@ -454,7 +495,7 @@ function ActiveJobsTab({ activeJobs, onUpdateStatus, onViewDetails }: any) {
 function QueueTab({ queuedJobs, onAccept, onReschedule, onAddJob }: any) {
   return (
     <div className="space-y-4">
-      <SectionHeader title="Job Queue" subtitle="Incoming and scheduled jobs" action={<button onClick={onAddJob} className="btn-primary text-xs px-3 py-2"><Plus className="w-3.5 h-3.5" />Add Job</button>} />
+      <SectionHeader title="Job Queue" subtitle="Incoming and scheduled jobs" action={<button onClick={onAddJob} className="bg-blue-600 hover:bg-blue-700 text-white text-xs px-3 py-2 rounded-lg flex items-center gap-1"><Plus className="w-3.5 h-3.5" />Add Job</button>} />
       <div className="space-y-3">
         {queuedJobs.map((job: any) => (
           <div key={job.id} className="card-base p-4">
@@ -466,11 +507,11 @@ function QueueTab({ queuedJobs, onAccept, onReschedule, onAddJob }: any) {
                 </div>
                 <h3 className="text-sm font-semibold">{job.type}</h3>
                 <p className="text-xs text-slate-400">{job.device} • {job.customer}</p>
-                <p className="text-xs text-orange-600 font-medium mt-1">Scheduled: {job.scheduled}</p>
+                <p className="text-xs text-blue-600 font-medium mt-1">Scheduled: {job.scheduled}</p>
               </div>
               <div className="flex gap-2 flex-shrink-0">
-                <button onClick={() => onAccept(job)} className="btn-primary text-xs px-3 py-1.5">Accept</button>
-                <button onClick={() => onReschedule(job)} className="text-xs px-3 py-1.5 border rounded-lg hover:bg-slate-50">Reschedule</button>
+                <button onClick={() => onAccept(job)} className="bg-blue-600 hover:bg-blue-700 text-white text-xs px-3 py-1.5 rounded-lg">Accept</button>
+                <button onClick={() => onReschedule(job)} className="text-xs px-3 py-1.5 border rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800">Reschedule</button>
               </div>
             </div>
           </div>
@@ -483,18 +524,18 @@ function QueueTab({ queuedJobs, onAccept, onReschedule, onAddJob }: any) {
 function PartsTab({ partsInventory, onAddPart, onReorder }: any) {
   return (
     <div className="space-y-4">
-      <SectionHeader title="Parts & Inventory" action={<button onClick={onAddPart} className="btn-primary text-xs px-3 py-2"><Plus className="w-3.5 h-3.5" />Add Part</button>} />
+      <SectionHeader title="Parts & Inventory" action={<button onClick={onAddPart} className="bg-blue-600 hover:bg-blue-700 text-white text-xs px-3 py-2 rounded-lg flex items-center gap-1"><Plus className="w-3.5 h-3.5" />Add Part</button>} />
       <div className="card-base overflow-hidden">
         <table className="w-full">
-          <thead><tr className="border-b bg-slate-50"><th className="text-left text-xs font-semibold px-4 py-3">Part Name</th><th className="text-left text-xs font-semibold px-4 py-3">In Stock</th><th className="text-left text-xs font-semibold px-4 py-3">Min Level</th><th className="text-left text-xs font-semibold px-4 py-3">Status</th><th className="text-left text-xs font-semibold px-4 py-3">Action</th></tr></thead>
+          <thead><tr className="border-b bg-slate-50 dark:bg-slate-800/60"><th className="text-left text-xs font-semibold px-4 py-3">Part Name</th><th className="text-left text-xs font-semibold px-4 py-3">In Stock</th><th className="text-left text-xs font-semibold px-4 py-3">Min Level</th><th className="text-left text-xs font-semibold px-4 py-3">Status</th><th className="text-left text-xs font-semibold px-4 py-3">Action</th></tr></thead>
           <tbody className="divide-y">
             {partsInventory.map((part: any) => (
-              <tr key={part.id} className="hover:bg-slate-50">
+              <tr key={part.id} className="hover:bg-slate-50 dark:hover:bg-slate-800/40">
                 <td className="px-4 py-3 text-xs font-medium">{part.name}</td>
                 <td className="px-4 py-3 text-xs">{part.stock} {part.unit}</td>
                 <td className="px-4 py-3 text-xs">{part.threshold}</td>
                 <td className="px-4 py-3"><span className={cn("px-2 py-0.5 text-[10px] font-bold rounded-full", part.status === "ok" ? "bg-green-50 text-green-700" : part.status === "low" ? "bg-yellow-50 text-yellow-700" : "bg-red-50 text-red-700")}>{part.status === "ok" ? "In Stock" : part.status === "low" ? "Low Stock" : "Out of Stock"}</span></td>
-                <td className="px-4 py-3"><button onClick={() => onReorder(part)} className="text-xs text-orange-600 hover:underline font-medium">Reorder</button></td>
+                <td className="px-4 py-3"><button onClick={() => onReorder(part)} className="text-xs text-blue-600 hover:underline font-medium">Reorder</button></td>
               </tr>
             ))}
           </tbody>
@@ -513,7 +554,7 @@ function HistoryTab({ jobHistory }: any) {
           <div key={job.id} className="card-base p-4">
             <div className="flex items-center justify-between gap-3">
               <div>
-                <div className="flex items-center gap-2 mb-1"><span className="text-xs font-mono text-slate-400">{job.id}</span><span className="bg-green-50 text-green-700 px-1.5 py-0.5 text-[10px] font-bold rounded-full">Completed</span></div>
+                <div className="flex items-center gap-2 mb-1"><span className="text-xs font-mono text-slate-400">{job.id}</span><span className="bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-400 px-1.5 py-0.5 text-[10px] font-bold rounded-full">Completed</span></div>
                 <h3 className="text-sm font-semibold">{job.type}</h3>
                 <p className="text-xs text-slate-400">{job.customer} • {job.completedAt}</p>
                 <div className="flex items-center gap-0.5 mt-1">{Array.from({ length: 5 }).map((_, i) => (<Star key={i} className={cn("w-3 h-3", i < job.rating ? "fill-yellow-400 text-yellow-400" : "text-slate-200")} />))}<span className="text-[10px] text-slate-400 ml-1">{job.rating}/5</span></div>
@@ -527,16 +568,14 @@ function HistoryTab({ jobHistory }: any) {
   );
 }
 
-// ========== ENHANCED ANALYTICS TAB ==========
+// ========== ENHANCED ANALYTICS TAB (updated colors) ==========
 function AnalyticsTab({ activeJobs, queuedJobs, jobHistory, partsInventory }: any) {
-  // Compute derived metrics
   const totalJobsCompleted = jobHistory.length;
   const totalRevenue = jobHistory.reduce((sum: number, job: any) => sum + job.revenue, 0);
   const avgRating = (jobHistory.reduce((sum: number, job: any) => sum + job.rating, 0) / totalJobsCompleted).toFixed(1);
   const avgJobDuration = (jobHistory.reduce((sum: number, job: any) => sum + (job.duration || 0), 0) / totalJobsCompleted).toFixed(1);
   const urgentJobs = activeJobs.filter((j: any) => j.priority === "urgent").length;
   
-  // Revenue trend by date (last 7 days from history)
   const last7Days = [...Array(7)].map((_, i) => {
     const d = new Date();
     d.setDate(d.getDate() - i);
@@ -548,25 +587,20 @@ function AnalyticsTab({ activeJobs, queuedJobs, jobHistory, partsInventory }: an
     return { date: date.slice(5), revenue: dayRevenue };
   });
   
-  // Job type distribution from history
   const jobTypeCount: Record<string, number> = {};
   jobHistory.forEach((job: any) => {
     const type = job.type.split(" ")[0];
     jobTypeCount[type] = (jobTypeCount[type] || 0) + 1;
   });
   const jobTypeData = Object.entries(jobTypeCount).map(([name, value]) => ({ name, value }));
-  const PIE_COLORS = ["#f97316", "#3b82f6", "#10b981", "#8b5cf6", "#ec489a"];
+  const PIE_COLORS = ["#2563EB", "#06B6D4", "#10b981", "#8b5cf6", "#ec489a"];
   
-  // Completion trend (last 7 days)
   const completionTrend = last7Days.map(date => {
     const completed = jobHistory.filter((j: any) => j.completedAt === date).length;
     return { date: date.slice(5), completed };
   });
   
-  // Top parts used (mock data based on parts with low stock - indicating usage)
   const topParts = partsInventory.filter((p: any) => p.status === "low" || p.status === "out").slice(0, 4).map(p => ({ name: p.name.split("—")[0], used: p.threshold - p.stock + 5 }));
-  
-  // Technician efficiency: total jobs / total days active (mock)
   const daysActive = 30;
   const jobsPerDay = (totalJobsCompleted / daysActive).toFixed(1);
   
@@ -574,15 +608,13 @@ function AnalyticsTab({ activeJobs, queuedJobs, jobHistory, partsInventory }: an
     <div className="space-y-6">
       <SectionHeader title="Advanced Performance Analytics" />
       
-      {/* KPI Row */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
         <StatCard icon={DollarSign} label="Total Revenue" value={`₹${(totalRevenue / 1000).toFixed(1)}K`} change="+22% vs last month" color="green" />
-        <StatCard icon={Star} label="Avg Customer Rating" value={`${avgRating}/5`} change="Excellent" color="purple" />
-        <StatCard icon={Clock} label="Avg Job Duration" value={`${avgJobDuration} hrs`} change="Faster by 15%" color="blue" />
-        <StatCard icon={Target} label="Completion Rate" value={`${((totalJobsCompleted / (totalJobsCompleted + activeJobs.length + queuedJobs.length)) * 100).toFixed(0)}%`} change="On track" color="orange" />
+        <StatCard icon={Star} label="Avg Customer Rating" value={`${avgRating}/5`} change="Excellent" color="blue" />
+        <StatCard icon={Clock} label="Avg Job Duration" value={`${avgJobDuration} hrs`} change="Faster by 15%" color="cyan" />
+        <StatCard icon={Target} label="Completion Rate" value={`${((totalJobsCompleted / (totalJobsCompleted + activeJobs.length + queuedJobs.length)) * 100).toFixed(0)}%`} change="On track" color="blue" />
       </div>
       
-      {/* Row 1: Revenue Trend & Job Completion Trend */}
       <div className="grid md:grid-cols-2 gap-5">
         <div className="card-base p-4">
           <h3 className="text-sm font-semibold flex items-center gap-2 mb-3"><TrendingUp className="w-4 h-4 text-green-600" /> Revenue Trend (Last 7 days)</h3>
@@ -592,7 +624,7 @@ function AnalyticsTab({ activeJobs, queuedJobs, jobHistory, partsInventory }: an
               <XAxis dataKey="date" tick={{ fontSize: 10 }} />
               <YAxis tickFormatter={(v) => `₹${v/1000}K`} tick={{ fontSize: 10 }} />
               <Tooltip formatter={(v: number) => [`₹${v.toLocaleString()}`, "Revenue"]} />
-              <Area type="monotone" dataKey="revenue" stroke="#f97316" fill="#f97316" fillOpacity={0.2} />
+              <Area type="monotone" dataKey="revenue" stroke="#2563EB" fill="#2563EB" fillOpacity={0.2} />
             </AreaChart>
           </ResponsiveContainer>
         </div>
@@ -604,16 +636,15 @@ function AnalyticsTab({ activeJobs, queuedJobs, jobHistory, partsInventory }: an
               <XAxis dataKey="date" tick={{ fontSize: 10 }} />
               <YAxis tick={{ fontSize: 10 }} />
               <Tooltip />
-              <Bar dataKey="completed" fill="#3b82f6" radius={[4,4,0,0]} />
+              <Bar dataKey="completed" fill="#2563EB" radius={[4,4,0,0]} />
             </BarChart>
           </ResponsiveContainer>
         </div>
       </div>
       
-      {/* Row 2: Job Type Distribution & Top Parts Used */}
       <div className="grid md:grid-cols-2 gap-5">
         <div className="card-base p-4">
-          <h3 className="text-sm font-semibold flex items-center gap-2 mb-3"><PieChartIcon className="w-4 h-4 text-purple-600" /> Job Type Distribution</h3>
+          <h3 className="text-sm font-semibold flex items-center gap-2 mb-3"><PieChartIcon className="w-4 h-4 text-blue-600" /> Job Type Distribution</h3>
           <ResponsiveContainer width="100%" height={220}>
             <PieChart>
               <Pie data={jobTypeData} cx="50%" cy="50%" outerRadius={70} dataKey="value" label={({ name, percent }) => `${name} (${(percent*100).toFixed(0)}%)`}>
@@ -624,14 +655,14 @@ function AnalyticsTab({ activeJobs, queuedJobs, jobHistory, partsInventory }: an
           </ResponsiveContainer>
         </div>
         <div className="card-base p-4">
-          <h3 className="text-sm font-semibold flex items-center gap-2 mb-3"><Package className="w-4 h-4 text-orange-600" /> Most Used Parts (Last 30 days)</h3>
+          <h3 className="text-sm font-semibold flex items-center gap-2 mb-3"><Package className="w-4 h-4 text-cyan-600" /> Most Used Parts (Last 30 days)</h3>
           <div className="space-y-3">
             {topParts.map((part: any) => (
               <div key={part.name} className="flex items-center justify-between">
                 <span className="text-xs text-slate-700">{part.name}</span>
                 <div className="flex items-center gap-2">
-                  <div className="w-32 h-1.5 bg-slate-100 rounded-full">
-                    <div className="h-full bg-orange-500 rounded-full" style={{ width: `${Math.min(100, part.used * 5)}%` }} />
+                  <div className="w-32 h-1.5 bg-slate-100 dark:bg-slate-700 rounded-full">
+                    <div className="h-full bg-blue-500 rounded-full" style={{ width: `${Math.min(100, part.used * 5)}%` }} />
                   </div>
                   <span className="text-xs font-semibold">{part.used} units</span>
                 </div>
@@ -642,14 +673,13 @@ function AnalyticsTab({ activeJobs, queuedJobs, jobHistory, partsInventory }: an
         </div>
       </div>
       
-      {/* Row 3: Technician Efficiency & Priority Breakdown */}
       <div className="grid md:grid-cols-2 gap-5">
         <div className="card-base p-4">
           <h3 className="text-sm font-semibold flex items-center gap-2 mb-3"><Zap className="w-4 h-4 text-yellow-600" /> Technician Efficiency</h3>
           <div className="space-y-3">
             <div className="flex justify-between items-center">
               <span className="text-xs">Jobs per day</span>
-              <span className="text-lg font-bold text-orange-600">{jobsPerDay}</span>
+              <span className="text-lg font-bold text-blue-600">{jobsPerDay}</span>
             </div>
             <div className="flex justify-between items-center">
               <span className="text-xs">Avg revenue per job</span>
@@ -664,7 +694,7 @@ function AnalyticsTab({ activeJobs, queuedJobs, jobHistory, partsInventory }: an
                 <span>Rating score</span>
                 <span className="font-medium">{avgRating} / 5</span>
               </div>
-              <div className="w-full bg-slate-100 rounded-full h-1.5 mt-1">
+              <div className="w-full bg-slate-100 dark:bg-slate-700 rounded-full h-1.5 mt-1">
                 <div className="bg-yellow-400 h-1.5 rounded-full" style={{ width: `${(parseFloat(avgRating)/5)*100}%` }} />
               </div>
             </div>
@@ -690,9 +720,9 @@ function AnalyticsTab({ activeJobs, queuedJobs, jobHistory, partsInventory }: an
               <span className="font-bold text-red-600">{partsInventory.filter((p: any) => p.status === "out").length}</span>
             </div>
           </div>
-          <div className="mt-4 p-3 bg-orange-50 rounded-lg text-xs">
-            <p className="font-semibold text-orange-800">Insight:</p>
-            <p className="text-orange-700">You are {jobsPerDay > 2 ? "above" : "below"} average efficiency. Focus on urgent tasks to reduce backlog.</p>
+          <div className="mt-4 p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg text-xs">
+            <p className="font-semibold text-blue-800">Insight:</p>
+            <p className="text-blue-700 dark:text-blue-300">You are {jobsPerDay > 2 ? "above" : "below"} average efficiency. Focus on urgent tasks to reduce backlog.</p>
           </div>
         </div>
       </div>

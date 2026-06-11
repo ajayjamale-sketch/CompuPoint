@@ -57,14 +57,14 @@ export default function About() {
             <Users className="w-4 h-4" />
             <span>Our Story</span>
           </div>
-          <h1 className="section-heading mb-5">
+          <h1 className="section-heading text-slate-900 dark:text-white mb-5">
             Empowering India's
             <br />
             <span className="bg-gradient-to-r from-primary-600 to-accent-600 dark:from-primary-400 dark:to-accent-400 bg-clip-text text-transparent">
               Digital Workforce
             </span>
           </h1>
-          <p className="section-subheading">
+          <p className="section-subheading text-slate-500 dark:text-slate-300">
             Since 2018, CompuPoint has been on a mission to make quality IT education accessible, practical, and career-focused for every Indian student and professional.
           </p>
         </div>
@@ -113,8 +113,8 @@ export default function About() {
       <section className="section-padding bg-white dark:bg-slate-900">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="section-heading mb-3">What We Offer</h2>
-            <p className="section-subheading">A comprehensive ecosystem for all your IT education and service needs.</p>
+            <h2 className="section-heading text-slate-900 dark:text-white mb-3">What We Offer</h2>
+            <p className="section-subheading text-slate-500 dark:text-slate-300">A comprehensive ecosystem for all your IT education and service needs.</p>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {[
@@ -169,8 +169,8 @@ export default function About() {
       {/* <section className="section-padding bg-white dark:bg-slate-900">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="section-heading mb-3">Meet Our Leadership</h2>
-            <p className="section-subheading">Experienced professionals passionate about technology education and career growth. Click any card to connect.</p>
+            <h2 className="section-heading text-slate-900 dark:text-white mb-3">Meet Our Leadership</h2>
+            <p className="section-subheading text-slate-500 dark:text-slate-300">Experienced professionals passionate about technology education and career growth. Click any card to connect.</p>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {team.map((member) => (
@@ -196,7 +196,7 @@ export default function About() {
       <section className="section-padding bg-slate-50 dark:bg-slate-950">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="section-heading mb-3">Our Core Values</h2>
+            <h2 className="section-heading text-slate-900 dark:text-white mb-3">Our Core Values</h2>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {[
@@ -285,3 +285,4 @@ export default function About() {
     </div>
   );
 }
+

@@ -28,10 +28,10 @@ export default function HelpCenter() {
             <HelpCircle className="w-4 h-4" />
             <span>Support Center</span>
           </div>
-          <h1 className="section-heading mb-5">
+          <h1 className="section-heading text-slate-900 dark:text-white mb-5">
             How Can We Help You?
           </h1>
-          <p className="section-subheading mb-8">
+          <p className="section-subheading text-slate-500 dark:text-slate-300 mb-8">
             Search our extensive knowledge base or choose a category below to solve your technical questions quickly.
           </p>
           <div className="relative max-w-xl mx-auto">
@@ -171,3 +171,4 @@ export default function HelpCenter() {
     </div>
   );
 }
+

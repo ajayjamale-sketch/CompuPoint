@@ -40,8 +40,8 @@ export default function Contact() {
             <MessageSquare className="w-4 h-4" />
             <span>Get In Touch</span>
           </div>
-          <h1 className="section-heading mb-4">Contact Us</h1>
-          <p className="section-subheading">
+          <h1 className="section-heading text-slate-900 dark:text-white mb-4">Contact Us</h1>
+          <p className="section-subheading text-slate-500 dark:text-slate-300">
             Have questions about courses, services, or enterprise plans? Our team is ready to help you get started.
           </p>
         </div>
@@ -185,3 +185,4 @@ export default function Contact() {
     </div>
   );
 }
+

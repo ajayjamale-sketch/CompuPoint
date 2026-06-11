@@ -28,10 +28,10 @@ export default function FAQ() {
             <HelpCircle className="w-4 h-4" />
             <span>Help Center</span>
           </div>
-          <h1 className="section-heading mb-4">
+          <h1 className="section-heading text-slate-900 dark:text-white mb-4">
             Frequently Asked Questions
           </h1>
-          <p className="section-subheading mb-8">
+          <p className="section-subheading text-slate-500 dark:text-slate-300 mb-8">
             Find answers to common questions about CompuPoint's courses, certifications, and services.
           </p>
           <div className="relative max-w-lg mx-auto">
@@ -136,3 +136,4 @@ export default function FAQ() {
     </div>
   );
 }
+

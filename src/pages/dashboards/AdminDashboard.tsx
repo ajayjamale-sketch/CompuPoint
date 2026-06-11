@@ -34,14 +34,14 @@ interface TopCourse {
   category?: string;
 }
 
-// --- Static Data Structure ---
+// --- Static Data with new colors (blue, cyan, slate) ---
 const initialUserRoleData = [
-  { name: "Students", value: 88000, color: "#6366F1" },
-  { name: "Professionals", value: 22000, color: "#8B5CF6" },
-  { name: "Trainers", value: 8000, color: "#10B981" },
-  { name: "Technicians", value: 4000, color: "#F59E0B" },
-  { name: "Business", value: 2800, color: "#0EA5E9" },
-  { name: "Institutes", value: 620, color: "#EC4899" },
+  { name: "Students", value: 88000, color: "#2563EB" },      // primary blue
+  { name: "Professionals", value: 22000, color: "#06B6D4" }, // accent cyan
+  { name: "Trainers", value: 8000, color: "#10B981" },      // kept green for variety
+  { name: "Technicians", value: 4000, color: "#F59E0B" },    // amber
+  { name: "Business", value: 2800, color: "#8B5CF6" },       // purple
+  { name: "Institutes", value: 620, color: "#EC4899" },      // pink
 ];
 
 const initialPlatformStats = {
@@ -237,7 +237,7 @@ export default function AdminDashboard() {
         </div>
       )}
 
-      {/* Add User Modal */}
+      {/* Add User Modal - uses new primary color */}
       {showAddUserModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-[100] p-4">
           <div className="bg-white dark:bg-slate-900 rounded-xl shadow-xl max-w-md w-full p-5">
@@ -284,7 +284,7 @@ export default function AdminDashboard() {
               {formError && <p className="text-xs text-red-500">{formError}</p>}
               <div className="flex justify-end gap-2 pt-2">
                 <button type="button" onClick={() => setShowAddUserModal(false)} className="px-3 py-1.5 text-sm border border-slate-300 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800">Cancel</button>
-                <button type="submit" className="px-3 py-1.5 text-sm bg-primary hover:bg-primary/95 text-primary-foreground rounded-lg">Add User</button>
+                <button type="submit" className="px-3 py-1.5 text-sm bg-blue-600 hover:bg-blue-700 text-white rounded-lg">Add User</button>
               </div>
             </form>
           </div>
@@ -344,8 +344,8 @@ export default function AdminDashboard() {
         activeTab={activeTab}
         onTabChange={setActiveTab}
         title="Admin Control Panel"
-        roleColor="text-red-600 dark:text-red-400"
-        roleBg="bg-red-50 dark:bg-red-900/20"
+        roleColor="text-blue-600 dark:text-blue-400"
+        roleBg="bg-blue-50 dark:bg-blue-900/20"
       >
         {activeTab === "overview" && (
           <OverviewTab 
@@ -391,7 +391,7 @@ export default function AdminDashboard() {
   );
 }
 
-// --- OverviewTab component (same as before, but now uses passed props) ---
+// --- OverviewTab component with new colors ---
 interface OverviewTabProps {
   user: any;
   platformStats: typeof initialPlatformStats;
@@ -432,11 +432,11 @@ function OverviewTab({ user, platformStats, pendingUsers, serviceAlerts, userRol
             <h3 className="text-xs font-semibold text-slate-900 dark:text-white mb-3">Revenue — Last 6 Months (₹)</h3>
             <ResponsiveContainer width="100%" height={160}>
               <AreaChart data={revenueData}>
-                <defs><linearGradient id="revGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="5%" stopColor="#6366F1" stopOpacity={0.3} /><stop offset="95%" stopColor="#6366F1" stopOpacity={0} /></linearGradient></defs>
+                <defs><linearGradient id="revGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="5%" stopColor="#2563EB" stopOpacity={0.3} /><stop offset="95%" stopColor="#2563EB" stopOpacity={0} /></linearGradient></defs>
                 <XAxis dataKey="month" tick={{ fontSize: 10 }} axisLine={false} tickLine={false} />
                 <YAxis tick={{ fontSize: 10 }} axisLine={false} tickLine={false} tickFormatter={(v) => `₹${v / 1000000}M`} />
                 <Tooltip contentStyle={{ fontSize: "11px", background: "hsl(var(--card))", border: "1px solid hsl(var(--border))", borderRadius: "8px" }} formatter={(v: number) => [`₹${v.toLocaleString()}`, "Revenue"]} />
-                <Area type="monotone" dataKey="revenue" stroke="#6366F1" strokeWidth={2} fill="url(#revGrad)" />
+                <Area type="monotone" dataKey="revenue" stroke="#2563EB" strokeWidth={2} fill="url(#revGrad)" />
               </AreaChart>
             </ResponsiveContainer>
           </div>
@@ -447,7 +447,7 @@ function OverviewTab({ user, platformStats, pendingUsers, serviceAlerts, userRol
               {pendingUsers.map((u) => (
                 <div key={u.email} className="flex flex-wrap items-center justify-between gap-3 p-3 rounded-xl bg-slate-50 dark:bg-slate-800/50">
                   <div className="flex items-center gap-2.5 min-w-0">
-                    <div className="w-8 h-8 rounded-full bg-slate-200 dark:bg-slate-700 flex items-center justify-center text-slate-600 dark:text-slate-300 font-bold text-xs flex-shrink-0">{u.name[0]}</div>
+                    <div className="w-8 h-8 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center text-blue-600 dark:text-blue-400 font-bold text-xs flex-shrink-0">{u.name[0]}</div>
                     <div className="min-w-0"><p className="text-xs font-semibold text-slate-900 dark:text-white truncate">{u.name}</p><p className="text-[11px] text-slate-400 capitalize">{u.role} • {u.appliedAt}</p></div>
                   </div>
                   <div className="flex items-center gap-1.5 flex-shrink-0">
@@ -479,25 +479,25 @@ function OverviewTab({ user, platformStats, pendingUsers, serviceAlerts, userRol
   );
 }
 
-// --- UsersTab with review button functionality ---
+// --- UsersTab with new colors ---
 function UsersTab({ pendingUsers, userRoleData, onApproveUser, onRejectUser, onReviewUser, onAddUser }: any) {
   return (
     <div className="space-y-4">
-      <SectionHeader title="User Management" subtitle="Manage all platform users" action={<button onClick={onAddUser} className="btn-primary text-xs px-3 py-2 flex items-center gap-1"><Plus className="w-3.5 h-3.5" />Add User</button>} />
+      <SectionHeader title="User Management" subtitle="Manage all platform users" action={<button onClick={onAddUser} className="btn-primary text-xs px-3 py-2 flex items-center gap-1 bg-blue-600 hover:bg-blue-700 text-white rounded-lg"><Plus className="w-3.5 h-3.5" />Add User</button>} />
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 mb-4">
         {userRoleData.map((d: any) => (<div key={d.name} className="card-base p-3 flex items-center gap-3"><div className="w-3 h-3 rounded-full flex-shrink-0" style={{ background: d.color }} /><div><p className="text-sm font-bold text-slate-900 dark:text-white">{d.value.toLocaleString()}</p><p className="text-[11px] text-slate-400 capitalize">{d.name}</p></div></div>))}
       </div>
       <div className="card-base p-4 overflow-x-auto">
         <SectionHeader title="Pending Approvals" />
         <div className="space-y-2.5 min-w-[500px]">
-          {pendingUsers.map((u: any) => (<div key={u.email} className="flex flex-wrap items-center justify-between gap-3 p-3 rounded-xl bg-slate-50 dark:bg-slate-800/50"><div className="flex items-center gap-2.5"><div className="w-8 h-8 rounded-full bg-primary-100 dark:bg-primary-900/30 flex items-center justify-center text-primary-600 text-xs font-bold">{u.name[0]}</div><div><p className="text-xs font-semibold text-slate-900 dark:text-white">{u.name}</p><p className="text-[11px] text-slate-400">{u.email} • {u.role} • {u.appliedAt}</p></div></div><div className="flex gap-1.5"><button onClick={() => onApproveUser(u.email)} className="px-2.5 py-1 bg-green-600 hover:bg-green-700 text-white text-[11px] font-medium rounded-lg transition-colors">Approve</button><button onClick={() => onReviewUser(u)} className="px-2.5 py-1 border border-border rounded-lg text-xs text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">Review</button><button onClick={() => onRejectUser(u.email)} className="px-2.5 py-1 bg-red-50 text-red-600 hover:bg-red-100 text-[11px] font-medium rounded-lg transition-colors">Reject</button></div></div>))}
+          {pendingUsers.map((u: any) => (<div key={u.email} className="flex flex-wrap items-center justify-between gap-3 p-3 rounded-xl bg-slate-50 dark:bg-slate-800/50"><div className="flex items-center gap-2.5"><div className="w-8 h-8 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center text-blue-600 text-xs font-bold">{u.name[0]}</div><div><p className="text-xs font-semibold text-slate-900 dark:text-white">{u.name}</p><p className="text-[11px] text-slate-400">{u.email} • {u.role} • {u.appliedAt}</p></div></div><div className="flex gap-1.5"><button onClick={() => onApproveUser(u.email)} className="px-2.5 py-1 bg-green-600 hover:bg-green-700 text-white text-[11px] font-medium rounded-lg">Approve</button><button onClick={() => onReviewUser(u)} className="px-2.5 py-1 border border-border rounded-lg text-xs text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">Review</button><button onClick={() => onRejectUser(u.email)} className="px-2.5 py-1 bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-900/30 text-[11px] font-medium rounded-lg">Reject</button></div></div>))}
         </div>
       </div>
     </div>
   );
 }
 
-// --- CoursesTab (unchanged but passed props) ---
+// --- CoursesTab (unchanged but using new primary colors in View button) ---
 function CoursesTab({ topCourses, onViewCourse, onSuspendCourse }: any) {
   return (
     <div className="space-y-4">
@@ -505,7 +505,7 @@ function CoursesTab({ topCourses, onViewCourse, onSuspendCourse }: any) {
       <div className="card-base overflow-x-auto">
         <table className="w-full min-w-[500px]">
           <thead><tr className="border-b border-border bg-slate-50 dark:bg-slate-800/50">{["Course", "Enrollments", "Revenue", "Rating", "Actions"].map((h) => (<th key={h} className="text-left text-xs font-semibold text-slate-500 px-4 py-3">{h}</th>))}</tr></thead>
-          <tbody className="divide-y divide-border">{topCourses.map((c: any) => (<tr key={c.title} className="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors"><td className="px-4 py-3 text-xs font-medium text-slate-900 dark:text-white">{c.title}</td><td className="px-4 py-3 text-xs text-slate-600 dark:text-slate-400">{c.enrollments.toLocaleString()}</td><td className="px-4 py-3 text-xs font-semibold text-green-600 dark:text-green-400">₹{(c.revenue / 1000).toFixed(0)}K</td><td className="px-4 py-3 text-xs text-yellow-600">{c.rating} ★</td><td className="px-4 py-3"><div className="flex gap-3"><button onClick={() => onViewCourse(c)} className="flex items-center gap-1 text-xs text-primary-600 hover:underline"><Eye className="w-3 h-3" />View</button><button onClick={() => onSuspendCourse(c.title)} className="text-xs text-red-600 hover:underline">Suspend</button></div></td></tr>))}</tbody>
+          <tbody className="divide-y divide-border">{topCourses.map((c: any) => (<tr key={c.title} className="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors"><td className="px-4 py-3 text-xs font-medium text-slate-900 dark:text-white">{c.title}</td><td className="px-4 py-3 text-xs text-slate-600 dark:text-slate-400">{c.enrollments.toLocaleString()}</td><td className="px-4 py-3 text-xs font-semibold text-green-600 dark:text-green-400">₹{(c.revenue / 1000).toFixed(0)}K</td><td className="px-4 py-3 text-xs text-yellow-600">{c.rating} ★</td><td className="px-4 py-3"><div className="flex gap-3"><button onClick={() => onViewCourse(c)} className="flex items-center gap-1 text-xs text-blue-600 hover:underline"><Eye className="w-3 h-3" />View</button><button onClick={() => onSuspendCourse(c.title)} className="text-xs text-red-600 hover:underline">Suspend</button></div></td></tr>))}</tbody>
         </table>
         {topCourses.length === 0 && <p className="text-center text-xs text-slate-400 py-6">No active courses</p>}
       </div>
@@ -526,14 +526,14 @@ function ServicesTab({ serviceAlerts, platformStats, onResolveAlert }: any) {
       </div>
       <div className="card-base p-4">
         <SectionHeader title="Recent Platform Alerts" />
-        {serviceAlerts.map((alert: any) => (<div key={alert.id} className={cn("flex flex-wrap items-start justify-between gap-3 p-3 rounded-xl mb-2.5 border", alert.severity === "high" ? "bg-red-50 dark:bg-red-900/10 border-red-100" : "bg-yellow-50 dark:bg-yellow-900/10 border-yellow-100")}><div className="flex items-start gap-3"><AlertTriangle className={cn("w-4 h-4 flex-shrink-0 mt-0.5", alert.severity === "high" ? "text-red-500" : "text-yellow-500")} /><div><p className="text-xs font-semibold text-slate-800 dark:text-slate-200">{alert.issue}</p><p className="text-[11px] text-slate-500">{alert.id} • {alert.time}</p></div></div><button onClick={() => onResolveAlert(alert.id)} className="text-xs font-medium text-primary-600 hover:underline flex-shrink-0">Resolve</button></div>))}
+        {serviceAlerts.map((alert: any) => (<div key={alert.id} className={cn("flex flex-wrap items-start justify-between gap-3 p-3 rounded-xl mb-2.5 border", alert.severity === "high" ? "bg-red-50 dark:bg-red-900/10 border-red-100" : "bg-yellow-50 dark:bg-yellow-900/10 border-yellow-100")}><div className="flex items-start gap-3"><AlertTriangle className={cn("w-4 h-4 flex-shrink-0 mt-0.5", alert.severity === "high" ? "text-red-500" : "text-yellow-500")} /><div><p className="text-xs font-semibold text-slate-800 dark:text-slate-200">{alert.issue}</p><p className="text-[11px] text-slate-500">{alert.id} • {alert.time}</p></div></div><button onClick={() => onResolveAlert(alert.id)} className="text-xs font-medium text-blue-600 hover:underline flex-shrink-0">Resolve</button></div>))}
         {serviceAlerts.length === 0 && <p className="text-center text-xs text-slate-400 py-4">All systems operational</p>}
       </div>
     </div>
   );
 }
 
-// --- RevenueTab (unchanged) ---
+// --- RevenueTab (unchanged but with blue stroke in chart) ---
 function RevenueTab() {
   return (
     <div className="space-y-4">
@@ -545,20 +545,28 @@ function RevenueTab() {
       </div>
       <div className="card-base p-4">
         <h3 className="text-xs font-semibold text-slate-900 dark:text-white mb-3">Revenue — 6 Month Trend (₹)</h3>
-        <ResponsiveContainer width="100%" height={200}><AreaChart data={revenueData}><defs><linearGradient id="adminRevGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="5%" stopColor="#6366F1" stopOpacity={0.3} /><stop offset="95%" stopColor="#6366F1" stopOpacity={0} /></linearGradient></defs><XAxis dataKey="month" tick={{ fontSize: 11 }} axisLine={false} tickLine={false} /><YAxis tick={{ fontSize: 11 }} axisLine={false} tickLine={false} tickFormatter={(v) => `₹${v / 1000000}M`} /><Tooltip contentStyle={{ fontSize: "11px", background: "hsl(var(--card))", border: "1px solid hsl(var(--border))", borderRadius: "8px" }} formatter={(v: number) => [`₹${v.toLocaleString()}`, "Revenue"]} /><Area type="monotone" dataKey="revenue" stroke="#6366F1" strokeWidth={2} fill="url(#adminRevGrad)" /></AreaChart></ResponsiveContainer>
+        <ResponsiveContainer width="100%" height={200}>
+          <AreaChart data={revenueData}>
+            <defs><linearGradient id="adminRevGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="5%" stopColor="#2563EB" stopOpacity={0.3} /><stop offset="95%" stopColor="#2563EB" stopOpacity={0} /></linearGradient></defs>
+            <XAxis dataKey="month" tick={{ fontSize: 11 }} axisLine={false} tickLine={false} />
+            <YAxis tick={{ fontSize: 11 }} axisLine={false} tickLine={false} tickFormatter={(v) => `₹${v / 1000000}M`} />
+            <Tooltip contentStyle={{ fontSize: "11px", background: "hsl(var(--card))", border: "1px solid hsl(var(--border))", borderRadius: "8px" }} formatter={(v: number) => [`₹${v.toLocaleString()}`, "Revenue"]} />
+            <Area type="monotone" dataKey="revenue" stroke="#2563EB" strokeWidth={2} fill="url(#adminRevGrad)" />
+          </AreaChart>
+        </ResponsiveContainer>
       </div>
     </div>
   );
 }
 
-// --- AnalyticsTab (unchanged) ---
+// --- AnalyticsTab with blue line and bars ---
 function AnalyticsTab() {
   return (
     <div className="space-y-4">
       <SectionHeader title="Platform Analytics" />
       <div className="grid sm:grid-cols-2 gap-4">
-        <div className="card-base p-4"><h3 className="text-xs font-semibold text-slate-900 dark:text-white mb-3">User Growth</h3><ResponsiveContainer width="100%" height={180}><LineChart data={userGrowthData}><XAxis dataKey="month" tick={{ fontSize: 10 }} axisLine={false} tickLine={false} /><YAxis tick={{ fontSize: 10 }} axisLine={false} tickLine={false} tickFormatter={(v) => `${v / 1000}K`} /><Tooltip contentStyle={{ fontSize: "11px", background: "hsl(var(--card))", border: "1px solid hsl(var(--border))", borderRadius: "8px" }} formatter={(v: number) => [v.toLocaleString(), "Users"]} /><Line type="monotone" dataKey="users" stroke="#6366F1" strokeWidth={2.5} dot={{ fill: "#6366F1", r: 4 }} /></LineChart></ResponsiveContainer></div>
-        <div className="card-base p-4"><h3 className="text-xs font-semibold text-slate-900 dark:text-white mb-3">Revenue Growth</h3><ResponsiveContainer width="100%" height={180}><BarChart data={revenueData}><XAxis dataKey="month" tick={{ fontSize: 10 }} axisLine={false} tickLine={false} /><YAxis tick={{ fontSize: 10 }} axisLine={false} tickLine={false} tickFormatter={(v) => `₹${v / 1000000}M`} /><Tooltip contentStyle={{ fontSize: "11px", background: "hsl(var(--card))", border: "1px solid hsl(var(--border))", borderRadius: "8px" }} formatter={(v: number) => [`₹${v.toLocaleString()}`, "Revenue"]} /><Bar dataKey="revenue" fill="#6366F1" radius={[4, 4, 0, 0]} /></BarChart></ResponsiveContainer></div>
+        <div className="card-base p-4"><h3 className="text-xs font-semibold text-slate-900 dark:text-white mb-3">User Growth</h3><ResponsiveContainer width="100%" height={180}><LineChart data={userGrowthData}><XAxis dataKey="month" tick={{ fontSize: 10 }} axisLine={false} tickLine={false} /><YAxis tick={{ fontSize: 10 }} axisLine={false} tickLine={false} tickFormatter={(v) => `${v / 1000}K`} /><Tooltip contentStyle={{ fontSize: "11px", background: "hsl(var(--card))", border: "1px solid hsl(var(--border))", borderRadius: "8px" }} formatter={(v: number) => [v.toLocaleString(), "Users"]} /><Line type="monotone" dataKey="users" stroke="#2563EB" strokeWidth={2.5} dot={{ fill: "#2563EB", r: 4 }} /></LineChart></ResponsiveContainer></div>
+        <div className="card-base p-4"><h3 className="text-xs font-semibold text-slate-900 dark:text-white mb-3">Revenue Growth</h3><ResponsiveContainer width="100%" height={180}><BarChart data={revenueData}><XAxis dataKey="month" tick={{ fontSize: 10 }} axisLine={false} tickLine={false} /><YAxis tick={{ fontSize: 10 }} axisLine={false} tickLine={false} tickFormatter={(v) => `₹${v / 1000000}M`} /><Tooltip contentStyle={{ fontSize: "11px", background: "hsl(var(--card))", border: "1px solid hsl(var(--border))", borderRadius: "8px" }} formatter={(v: number) => [`₹${v.toLocaleString()}`, "Revenue"]} /><Bar dataKey="revenue" fill="#2563EB" radius={[4, 4, 0, 0]} /></BarChart></ResponsiveContainer></div>
       </div>
     </div>
   );

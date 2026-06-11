@@ -491,7 +491,7 @@ function OverviewTab({ user, batches, students, upcomingEvents, onNewBatch, onMa
           <SectionHeader title="Active Batches" subtitle={`${batches.length} batches total`} action={<button onClick={onNewBatch} className="btn-primary text-xs px-3 py-2"><Plus className="w-3.5 h-3.5" />New Batch</button>} />
           <div className="space-y-2.5">
             {batches.slice(0, 4).map((batch: any) => (
-              <div key={batch.id} className="flex items-center gap-3 p-3 rounded-xl bg-slate-50 hover:bg-slate-100 cursor-pointer">
+              <div key={batch.id} className="flex items-center gap-3 p-3 rounded-xl bg-slate-50 dark:bg-slate-800/50 hover:bg-slate-100 dark:hover:bg-slate-800 cursor-pointer">
                 <div className="w-8 h-8 rounded-lg bg-indigo-50 flex items-center justify-center"><BookOpen className="w-3.5 h-3.5 text-indigo-600" /></div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2"><p className="text-xs font-semibold truncate">{batch.name}</p><StatusBadge status={batch.status} /></div>
@@ -520,14 +520,14 @@ function StudentsTab({ students, batches, onEnroll, onRecordPayment, onSendRemin
       <div className="card-base overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full">
-            <thead><tr className="border-b bg-slate-50"><th>Student</th><th>Batch</th><th>Attendance</th><th>Fees</th><th>Grade</th><th>Status</th><th>Actions</th></tr></thead>
+            <thead><tr className="border-b bg-slate-50 dark:bg-slate-800/60"><th>Student</th><th>Batch</th><th>Attendance</th><th>Fees</th><th>Grade</th><th>Status</th><th>Actions</th></tr></thead>
             <tbody className="divide-y">
               {students.map((s: any) => (
-                <tr key={s.id} className="hover:bg-slate-50">
+                <tr key={s.id} className="hover:bg-slate-50 dark:hover:bg-slate-800/40">
                   <td className="px-4 py-3"><div className="flex items-center gap-2.5"><div className="w-7 h-7 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 text-xs font-bold">{s.name[0]}</div><div><p className="text-xs font-medium">{s.name}</p><p className="text-[10px] text-slate-400">{s.id}</p></div></div></td>
                   <td className="px-4 py-3 text-xs">{getBatchName(s.batchId)}</td>
                   <td className="px-4 py-3"><span className={cn("text-xs font-semibold", s.attendance >= 85 ? "text-green-600" : s.attendance >= 75 ? "text-yellow-600" : "text-red-600")}>{s.attendance}%</span></td>
-                  <td className="px-4 py-3"><span className={cn("px-2 py-0.5 text-[10px] font-bold rounded-full", s.fees==="Paid"?"bg-green-50 text-green-700":s.fees==="Pending"?"bg-yellow-50 text-yellow-700":"bg-red-50 text-red-700")}>{s.fees}</span></td>
+                  <td className="px-4 py-3"><span className={cn("px-2 py-0.5 text-[10px] font-bold rounded-full", s.fees==="Paid"?"bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-400":s.fees==="Pending"?"bg-yellow-50 dark:bg-yellow-900/20 text-yellow-700 dark:text-yellow-400":"bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-400")}>{s.fees}</span></td>
                   <td className="px-4 py-3 text-xs font-bold text-indigo-600">{s.grade}</td>
                   <td className="px-4 py-3"><StatusBadge status={s.status} /></td>
                   <td className="px-4 py-3"><div className="flex gap-1"><button onClick={() => onRecordPayment(s)} className="text-xs text-green-600 hover:underline">Pay</button><button onClick={() => onSendReminder(s)} className="text-xs text-orange-600 hover:underline">Remind</button></div></td>
@@ -550,7 +550,7 @@ function BatchesTab({ batches, onNewBatch, onManageBatch, onMarkAttendance }: an
           <div key={batch.id} className="card-base p-4 hover:-translate-y-0.5 cursor-pointer">
             <div className="flex items-start justify-between gap-2 mb-3"><div><h3 className="text-sm font-semibold">{batch.name}</h3><p className="text-xs text-slate-400">{batch.course} • {batch.id}</p></div><StatusBadge status={batch.status} /></div>
             <div className="grid grid-cols-3 gap-2 mb-3 text-center"><div><p className="text-sm font-bold">{batch.students}</p><p className="text-[10px] text-slate-400">Students</p></div><div><p className="text-sm font-bold">{batch.progress}%</p><p className="text-[10px] text-slate-400">Progress</p></div><div><p className="text-xs font-medium text-indigo-600">{batch.instructor.split(" ")[0]}</p><p className="text-[10px] text-slate-400">Trainer</p></div></div>
-            <div className="mb-3"><div className="h-1.5 bg-slate-100 rounded-full"><div className="h-full bg-indigo-600 rounded-full" style={{ width: `${batch.progress}%` }} /></div></div>
+            <div className="mb-3"><div className="h-1.5 bg-slate-100 dark:bg-slate-700 rounded-full"><div className="h-full bg-indigo-600 rounded-full" style={{ width: `${batch.progress}%` }} /></div></div>
             <p className="text-[11px] text-slate-400">{batch.startDate} → {batch.endDate}</p>
             <div className="flex gap-2 mt-3"><button onClick={() => onManageBatch(batch)} className="flex-1 btn-primary text-xs py-1.5">Manage</button><button onClick={() => onMarkAttendance(batch)} className="flex-1 text-xs py-1.5 border rounded-lg">Attendance</button></div>
           </div>
@@ -577,7 +577,7 @@ function FeesTab({ students, batches, feeData, onRecordPayment, onSendReminder }
     <div className="space-y-4">
       <SectionHeader title="Fee Management" action={<button className="btn-primary text-xs px-3 py-2">Record Payment</button>} />
       <div className="card-base p-4"><h3 className="text-xs font-semibold mb-3">Monthly Fee Collection (₹)</h3><ResponsiveContainer width="100%" height={180}><BarChart data={feeData}><XAxis dataKey="month" tick={{ fontSize: 10 }} /><YAxis tickFormatter={(v) => `₹${v/1000}K`} tick={{ fontSize: 10 }} /><Tooltip formatter={(v: number) => `₹${v.toLocaleString()}`} /><Bar dataKey="collected" name="Collected" fill="#6366f1" radius={[4,4,0,0]} /><Bar dataKey="pending" name="Pending" fill="#fbbf24" radius={[4,4,0,0]} /></BarChart></ResponsiveContainer></div>
-      <div className="card-base overflow-hidden"><div className="px-4 py-3 border-b"><h3 className="text-xs font-semibold">Pending / Overdue Fees</h3></div><div className="divide-y">{pendingStudents.map((s: any) => (<div key={s.id} className="flex items-center justify-between px-4 py-3"><div><p className="text-xs font-medium">{s.name}</p><p className="text-[11px] text-slate-400">{batches.find((b: any) => b.id === s.batchId)?.name}</p></div><div className="flex items-center gap-3"><span className={cn("px-2 py-0.5 text-[10px] font-bold rounded-full", s.fees==="Pending"?"bg-yellow-50 text-yellow-700":"bg-red-50 text-red-700")}>{s.fees}</span><button onClick={() => onRecordPayment(s)} className="btn-primary text-xs px-2.5 py-1">Pay</button><button onClick={() => onSendReminder(s)} className="text-xs border px-2.5 py-1 rounded-lg">Remind</button></div></div>))}</div></div>
+      <div className="card-base overflow-hidden"><div className="px-4 py-3 border-b"><h3 className="text-xs font-semibold">Pending / Overdue Fees</h3></div><div className="divide-y">{pendingStudents.map((s: any) => (<div key={s.id} className="flex items-center justify-between px-4 py-3"><div><p className="text-xs font-medium">{s.name}</p><p className="text-[11px] text-slate-400">{batches.find((b: any) => b.id === s.batchId)?.name}</p></div><div className="flex items-center gap-3"><span className={cn("px-2 py-0.5 text-[10px] font-bold rounded-full", s.fees==="Pending"?"bg-yellow-50 dark:bg-yellow-900/20 text-yellow-700 dark:text-yellow-400":"bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-400")}>{s.fees}</span><button onClick={() => onRecordPayment(s)} className="btn-primary text-xs px-2.5 py-1">Pay</button><button onClick={() => onSendReminder(s)} className="text-xs border px-2.5 py-1 rounded-lg">Remind</button></div></div>))}</div></div>
     </div>
   );
 }

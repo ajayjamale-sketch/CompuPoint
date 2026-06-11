@@ -320,10 +320,10 @@ export default function StudentDashboard() {
 
     const templateStyles = {
       modern: {
-        primary: "#4F46E5",
+        primary: "#2563EB",
         text: "#1E293B",
         bg: "#F8FAFC",
-        accent: "#6366F1"
+        accent: "#06B6D4"
       },
       minimalist: {
         primary: "#0F172A",
@@ -453,7 +453,7 @@ export default function StudentDashboard() {
       font-weight: 600;
       border-radius: 8px;
       cursor: pointer;
-      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2);
+      box-shadow: 0 4px 12px rgba(37,99,235,0.2);
     }
   </style>
 </head>
@@ -626,7 +626,7 @@ export default function StudentDashboard() {
 
   return (
     <>
-      {/* Toast Notification */}
+      {/* Toast Notification (using blue instead of purple) */}
       {notification && (
         <div className="fixed bottom-4 right-4 z-50 animate-in slide-in-from-bottom-2 fade-in duration-200">
           <div className={cn(
@@ -645,10 +645,10 @@ export default function StudentDashboard() {
           <div className="bg-white dark:bg-slate-900 border rounded-2xl shadow-2xl max-w-2xl w-full p-6 relative">
             <button onClick={() => setSelectedCertCourse(null)} className="absolute top-4 right-4"><X className="w-5 h-5 text-slate-400" /></button>
             <div className="border-8 border-double border-primary/20 p-8 rounded-xl text-center space-y-6">
-              <div className="w-16 h-16 rounded-full bg-primary-100 mx-auto flex items-center justify-center"><Award className="w-8 h-8 text-primary-600" /></div>
+              <div className="w-16 h-16 rounded-full bg-blue-100 mx-auto flex items-center justify-center"><Award className="w-8 h-8 text-blue-600" /></div>
               <span className="text-xs uppercase tracking-widest text-slate-400">Certificate of Completion</span>
               <h3 className="text-xl font-bold">This is proudly presented to</h3>
-              <p className="text-lg font-bold text-primary-600 italic">{user.name}</p>
+              <p className="text-lg font-bold text-blue-600 italic">{user.name}</p>
               <p className="text-xs text-slate-500">for successfully completing</p>
               <h4 className="text-base font-bold uppercase">{selectedCertCourse}</h4>
               <div className="flex justify-between pt-6 border-t text-xs">
@@ -659,7 +659,7 @@ export default function StudentDashboard() {
             </div>
             <div className="flex justify-end gap-3 mt-5">
               <button onClick={() => setSelectedCertCourse(null)} className="px-4 py-2 text-sm border rounded-lg">Close</button>
-              <button onClick={() => { showNotification("Downloading PDF...", "success"); setSelectedCertCourse(null); }} className="px-4 py-2 text-sm bg-primary text-white rounded-lg flex items-center gap-1"><Download className="w-4 h-4" /> Download PDF</button>
+              <button onClick={() => { showNotification("Downloading PDF...", "success"); setSelectedCertCourse(null); }} className="px-4 py-2 text-sm bg-blue-600 text-white rounded-lg flex items-center gap-1"><Download className="w-4 h-4" /> Download PDF</button>
             </div>
           </div>
         </div>
@@ -672,7 +672,7 @@ export default function StudentDashboard() {
             {/* LEFT INPUT COLUMN */}
             <div className="flex-1 space-y-4">
               <div className="flex justify-between items-center pb-2 border-b">
-                <h3 className="text-lg font-bold flex items-center gap-2"><FileText className="w-5 h-5 text-primary" /> AI Resume Builder</h3>
+                <h3 className="text-lg font-bold flex items-center gap-2"><FileText className="w-5 h-5 text-blue-600" /> AI Resume Builder</h3>
               </div>
               <div className="grid grid-cols-2 gap-3">
                 <div>
@@ -708,14 +708,14 @@ export default function StudentDashboard() {
                 <label className="text-[10px] uppercase font-bold text-slate-400 block mb-1">Select Design Template</label>
                 <div className="grid grid-cols-3 gap-2">
                   {["modern", "minimalist", "executive"].map((t) => (
-                    <button key={t} type="button" onClick={() => setResumeData({...resumeData, template: t})} className={cn("px-3 py-2 text-xs font-semibold capitalize rounded-lg border", resumeData.template === t ? "bg-primary text-white border-primary" : "border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-350")}>
+                    <button key={t} type="button" onClick={() => setResumeData({...resumeData, template: t})} className={cn("px-3 py-2 text-xs font-semibold capitalize rounded-lg border", resumeData.template === t ? "bg-blue-600 text-white border-blue-600" : "border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-350")}>
                       {t}
                     </button>
                   ))}
                 </div>
               </div>
               <div className="flex gap-2 pt-2">
-                <button onClick={handleResumeSubmit} className="flex-1 btn-primary text-sm py-2">Generate & Download</button>
+                <button onClick={handleResumeSubmit} className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg text-sm">Generate & Download</button>
                 <button onClick={() => setShowResumeModal(false)} className="px-4 py-2 text-sm border rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-350">Cancel</button>
               </div>
             </div>
@@ -724,12 +724,12 @@ export default function StudentDashboard() {
             <div className="w-full md:w-80 bg-slate-50 dark:bg-slate-950 p-4 rounded-xl border flex flex-col max-h-[75vh]">
               <div className="text-xs font-bold text-slate-400 uppercase mb-3 flex items-center justify-between">
                 <span>Live Preview</span>
-                <span className="text-primary font-semibold capitalize">{resumeData.template} Template</span>
+                <span className="text-blue-600 font-semibold capitalize">{resumeData.template} Template</span>
               </div>
               <div className="flex-1 bg-white text-slate-900 p-4 rounded-lg shadow-sm border border-slate-100 overflow-y-auto text-[10px] space-y-3 font-sans">
                 <div className="text-center pb-2 border-b border-slate-100">
                   <h4 className="text-xs font-bold text-slate-950 leading-tight m-0">{resumeData.name || "Your Name"}</h4>
-                  <p className="text-[9px] font-semibold text-primary uppercase tracking-wider m-0.5">{resumeData.role || "Target Profession"}</p>
+                  <p className="text-[9px] font-semibold text-blue-600 uppercase tracking-wider m-0.5">{resumeData.role || "Target Profession"}</p>
                   <p className="text-[8px] text-slate-400 m-0">{resumeData.email || "email@address.com"} | {resumeData.phone || "+91 99999 99999"}</p>
                 </div>
                 <div>
@@ -759,18 +759,18 @@ export default function StudentDashboard() {
         <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-[100] p-4">
           <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-2xl max-w-md w-full p-6">
             <div className="flex justify-between items-center mb-4">
-              <h3 className="text-lg font-bold flex items-center gap-2"><Mic className="w-5 h-5 text-purple-500" /> Mock Interview</h3>
+              <h3 className="text-lg font-bold flex items-center gap-2"><Mic className="w-5 h-5 text-blue-500" /> Mock Interview</h3>
               <button onClick={() => setShowInterviewModal(false)}><X className="w-5 h-5" /></button>
             </div>
             <div className="space-y-4">
               <p className="text-xs text-slate-500">Choose a topic:</p>
               <div className="grid grid-cols-2 gap-2">
                 {Object.keys(INTERVIEW_QUESTIONS).map(topic => (
-                  <button key={topic} onClick={() => setInterviewTopic(topic)} className={cn("px-3 py-2 text-xs rounded-lg border transition", interviewTopic === topic ? "bg-primary text-white border-primary" : "border-slate-300 hover:bg-slate-100")}>{topic}</button>
+                  <button key={topic} onClick={() => setInterviewTopic(topic)} className={cn("px-3 py-2 text-xs rounded-lg border transition", interviewTopic === topic ? "bg-blue-600 text-white border-blue-600" : "border-slate-300 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800")}>{topic}</button>
                 ))}
               </div>
               <div className="flex gap-2">
-                <button onClick={handleInterviewStart} className="flex-1 btn-primary text-sm py-2">Start Interview</button>
+                <button onClick={handleInterviewStart} className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg text-sm">Start Interview</button>
                 <button onClick={() => setShowInterviewModal(false)} className="px-4 py-2 text-sm border rounded-lg">Cancel</button>
               </div>
             </div>
@@ -784,21 +784,21 @@ export default function StudentDashboard() {
           <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-2xl max-w-2xl w-full p-6 relative flex flex-col max-h-[90vh]">
             <button onClick={() => setActiveInterview(null)} className="absolute top-4 right-4"><X className="w-5 h-5 text-slate-400" /></button>
             <div className="border-b pb-4 mb-4">
-              <span className="text-xs font-bold uppercase text-purple-500">AI Mock Interview</span>
+              <span className="text-xs font-bold uppercase text-blue-500">AI Mock Interview</span>
               <h3 className="text-lg font-bold">Topic: {activeInterview.topic}</h3>
             </div>
             <div className="flex justify-between text-xs mb-2">
               <span>Question {activeInterview.currentQuestionIndex + 1} of {activeInterview.questions.length}</span>
               <span className="font-semibold">{Math.round((activeInterview.currentQuestionIndex / activeInterview.questions.length) * 100)}% Complete</span>
             </div>
-            <div className="h-1.5 bg-slate-100 rounded-full mb-4"><div className="h-full bg-primary-600 rounded-full" style={{ width: `${(activeInterview.currentQuestionIndex / activeInterview.questions.length) * 100}%` }}></div></div>
-            <div className="bg-purple-50 p-4 rounded-xl mb-4">
+            <div className="h-1.5 bg-slate-100 dark:bg-slate-700 rounded-full mb-4"><div className="h-full bg-blue-600 rounded-full" style={{ width: `${(activeInterview.currentQuestionIndex / activeInterview.questions.length) * 100}%` }}></div></div>
+            <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-xl mb-4">
               <p className="text-sm font-semibold">{activeInterview.questions[activeInterview.currentQuestionIndex]}</p>
             </div>
             <textarea value={activeInterview.answers[activeInterview.currentQuestionIndex]} onChange={e => handleAnswerChange(e.target.value)} placeholder="Type your answer here..." className="w-full p-3 border rounded-xl min-h-[120px] text-sm" />
             <div className="flex justify-end gap-2 mt-4">
               <button onClick={() => setActiveInterview(null)} className="px-4 py-2 text-sm border rounded-lg">Cancel</button>
-              <button onClick={handleNextQuestion} className="btn-primary text-sm py-2 px-5 flex items-center gap-1">{activeInterview.currentQuestionIndex < activeInterview.questions.length - 1 ? "Next Question" : "Submit"} <Send className="w-3.5 h-3.5" /></button>
+              <button onClick={handleNextQuestion} className="bg-blue-600 hover:bg-blue-700 text-white py-2 px-5 rounded-lg text-sm flex items-center gap-1">{activeInterview.currentQuestionIndex < activeInterview.questions.length - 1 ? "Next Question" : "Submit"} <Send className="w-3.5 h-3.5" /></button>
             </div>
           </div>
         </div>
@@ -807,7 +807,7 @@ export default function StudentDashboard() {
       {activeInterview && activeInterview.status === "evaluating" && (
         <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-[100] p-4">
           <div className="bg-white dark:bg-slate-900 rounded-2xl p-8 text-center">
-            <div className="w-16 h-16 rounded-full border-4 border-purple-500 border-t-transparent animate-spin mx-auto mb-4"></div>
+            <div className="w-16 h-16 rounded-full border-4 border-blue-500 border-t-transparent animate-spin mx-auto mb-4"></div>
             <h3 className="text-lg font-bold">Evaluating your answers...</h3>
             <p className="text-sm text-slate-500">AI is analyzing your responses.</p>
           </div>
@@ -821,21 +821,21 @@ export default function StudentDashboard() {
               <h3 className="text-lg font-bold">Interview Feedback</h3>
               <button onClick={() => setActiveInterview(null)}><X className="w-5 h-5" /></button>
             </div>
-            <div className="flex items-center gap-4 bg-slate-50 p-4 rounded-xl mb-4">
+            <div className="flex items-center gap-4 bg-slate-50 dark:bg-slate-800/50 p-4 rounded-xl mb-4">
               <div className="relative w-20 h-20">
                 <svg className="w-20 h-20 -rotate-90" viewBox="0 0 36 36">
                   <circle cx="18" cy="18" r="15" fill="none" stroke="#e2e8f0" strokeWidth="3" />
-                  <circle cx="18" cy="18" r="15" fill="none" stroke="#a855f7" strokeWidth="3" strokeDasharray={`${activeInterview.feedback.score} 100`} strokeLinecap="round" />
+                  <circle cx="18" cy="18" r="15" fill="none" stroke="#2563EB" strokeWidth="3" strokeDasharray={`${activeInterview.feedback.score} 100`} strokeLinecap="round" />
                 </svg>
                 <div className="absolute inset-0 flex items-center justify-center"><span className="text-base font-black">{activeInterview.feedback.score}%</span></div>
               </div>
               <div><h4 className="font-bold">Score: {activeInterview.feedback.score}%</h4><p className="text-xs">+150 CompuPoints earned!</p></div>
             </div>
             <div className="grid sm:grid-cols-2 gap-4 mb-4">
-              <div><p className="text-xs font-bold text-green-600 mb-2">Strengths</p><ul className="space-y-1">{activeInterview.feedback.strengths.map((s, i) => <li key={i} className="text-xs bg-green-50 p-2 rounded-lg">{s}</li>)}</ul></div>
-              <div><p className="text-xs font-bold text-orange-600 mb-2">Improvements</p><ul className="space-y-1">{activeInterview.feedback.improvements.map((imp, i) => <li key={i} className="text-xs bg-orange-50 p-2 rounded-lg">{imp}</li>)}</ul></div>
+              <div><p className="text-xs font-bold text-green-600 mb-2">Strengths</p><ul className="space-y-1">{activeInterview.feedback.strengths.map((s, i) => <li key={i} className="text-xs bg-green-50 dark:bg-green-900/20 p-2 rounded-lg">{s}</li>)}</ul></div>
+              <div><p className="text-xs font-bold text-orange-600 mb-2">Improvements</p><ul className="space-y-1">{activeInterview.feedback.improvements.map((imp, i) => <li key={i} className="text-xs bg-orange-50 dark:bg-orange-900/20 p-2 rounded-lg">{imp}</li>)}</ul></div>
             </div>
-            <button onClick={() => setActiveInterview(null)} className="w-full btn-primary py-2">Close</button>
+            <button onClick={() => setActiveInterview(null)} className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg">Close</button>
           </div>
         </div>
       )}
@@ -849,12 +849,12 @@ export default function StudentDashboard() {
               <button onClick={() => setShowSkillGapModal(false)}><X className="w-5 h-5" /></button>
             </div>
             <input type="text" value={skillGapRole} onChange={e => setSkillGapRole(e.target.value)} placeholder="Desired role (e.g., AI Engineer)" className="w-full px-3 py-2 border rounded-lg mb-4 text-sm" />
-            <div className="bg-slate-50 p-3 rounded-lg text-xs mb-4">
+            <div className="bg-slate-50 dark:bg-slate-800/50 p-3 rounded-lg text-xs mb-4">
               <p className="font-semibold mb-1">Based on your profile:</p>
               <ul className="list-disc list-inside"><li>Current courses: {enrolledCourses.length}</li><li>Completed certs: {certifications.length}</li><li>CompuPoints: {userPoints}</li></ul>
             </div>
             <div className="flex gap-2">
-              <button onClick={handleSkillGapAnalyze} className="flex-1 btn-primary text-sm py-2">Analyze</button>
+              <button onClick={handleSkillGapAnalyze} className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg text-sm">Analyze</button>
               <button onClick={() => setShowSkillGapModal(false)} className="px-4 py-2 text-sm border rounded-lg">Cancel</button>
             </div>
           </div>
@@ -880,7 +880,7 @@ export default function StudentDashboard() {
                       <div className="text-white text-center">
                         <div className="w-16 h-16 rounded-full bg-white/20 flex items-center justify-center mb-2"><Video className="w-8 h-8 animate-pulse" /></div>
                         <p className="text-xs">Playing: {lectures[currentLectureIndex]?.title}</p>
-                        <div className="w-48 h-1 bg-white/30 rounded-full mt-2"><div className="h-full bg-primary-500 rounded-full" style={{ width: `${videoProgress}%` }}></div></div>
+                        <div className="w-48 h-1 bg-white/30 rounded-full mt-2"><div className="h-full bg-blue-500 rounded-full" style={{ width: `${videoProgress}%` }}></div></div>
                       </div>
                     </div>
                   ) : (
@@ -891,21 +891,21 @@ export default function StudentDashboard() {
                   <img src={activeCourse.image} className="w-full h-full object-cover opacity-40" alt="" />
                 </div>
                 <div className="mt-4 text-center">
-                  <button onClick={togglePlay} className="px-4 py-2 bg-primary text-white rounded-lg text-sm">{isPlaying ? "Pause" : "Play Current Lecture"}</button>
+                  <button onClick={togglePlay} className="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm">{isPlaying ? "Pause" : "Play Current Lecture"}</button>
                 </div>
               </div>
               <div className="w-80 border-l flex flex-col">
-                <div className="p-3 border-b bg-slate-50"><h4 className="text-xs font-semibold">Course Content</h4><p className="text-[11px] text-slate-500">{lectures.length} lectures</p></div>
+                <div className="p-3 border-b bg-slate-50 dark:bg-slate-800/60"><h4 className="text-xs font-semibold">Course Content</h4><p className="text-[11px] text-slate-500">{lectures.length} lectures</p></div>
                 <div className="flex-1 overflow-y-auto p-2 space-y-1">
                   {lectures.map((lect, idx) => (
-                    <div key={idx} onClick={() => { if (idx <= currentLectureIndex || lect.completed) { setCurrentLectureIndex(idx); setVideoProgress(0); setIsPlaying(false); if (videoInterval) clearInterval(videoInterval); } else showNotification("Complete previous lectures first", "error"); }} className={cn("flex items-center gap-2 p-2 rounded-lg cursor-pointer", currentLectureIndex === idx ? "bg-primary-50 border border-primary-200" : "hover:bg-slate-50", lect.completed && "opacity-70")}>
+                    <div key={idx} onClick={() => { if (idx <= currentLectureIndex || lect.completed) { setCurrentLectureIndex(idx); setVideoProgress(0); setIsPlaying(false); if (videoInterval) clearInterval(videoInterval); } else showNotification("Complete previous lectures first", "error"); }} className={cn("flex items-center gap-2 p-2 rounded-lg cursor-pointer", currentLectureIndex === idx ? "bg-blue-50 border border-blue-200" : "hover:bg-slate-50 dark:hover:bg-slate-800/40", lect.completed && "opacity-70")}>
                       {lect.completed ? <CheckCircle2 className="w-4 h-4 text-green-500" /> : <Play className="w-3.5 h-3.5 text-slate-400" />}
                       <div className="flex-1"><p className="text-xs truncate">{lect.title}</p><p className="text-[10px] text-slate-400">{lect.duration}</p></div>
-                      {currentLectureIndex === idx && !lect.completed && <ChevronRight className="w-3.5 h-3.5 text-primary-500" />}
+                      {currentLectureIndex === idx && !lect.completed && <ChevronRight className="w-3.5 h-3.5 text-blue-500" />}
                     </div>
                   ))}
                 </div>
-                <div className="p-3 border-t bg-slate-50"><div className="flex justify-between text-xs mb-1"><span>Overall Progress</span><span className="font-bold">{calculateProgress(lectures)}%</span></div><div className="h-1.5 bg-slate-200 rounded-full"><div className="h-full bg-primary-600 rounded-full" style={{ width: `${calculateProgress(lectures)}%` }}></div></div></div>
+                <div className="p-3 border-t bg-slate-50 dark:bg-slate-800/60"><div className="flex justify-between text-xs mb-1"><span>Overall Progress</span><span className="font-bold">{calculateProgress(lectures)}%</span></div><div className="h-1.5 bg-slate-200 dark:bg-slate-700 rounded-full"><div className="h-full bg-blue-600 rounded-full" style={{ width: `${calculateProgress(lectures)}%` }}></div></div></div>
               </div>
             </div>
           </div>
@@ -918,8 +918,8 @@ export default function StudentDashboard() {
         activeTab={activeTab}
         onTabChange={setActiveTab}
         title="Student Dashboard"
-        roleColor="text-primary dark:text-primary-400"
-        roleBg="bg-primary-50 dark:bg-primary-900/20"
+        roleColor="text-blue-600 dark:text-blue-400"
+        roleBg="bg-blue-50 dark:bg-blue-900/20"
       >
         {activeTab === "overview" && (
           <OverviewTab
@@ -969,18 +969,18 @@ export default function StudentDashboard() {
   );
 }
 
-// --- Overview Tab ---
+// --- Overview Tab (updated colors) ---
 function OverviewTab({ user, enrolledCourses, upcomingTests, weeklyData, userPoints, streak, hoursLearned, onContinueCourse, onViewCertificate }: any) {
   const completedCourses = enrolledCourses.filter((c: any) => c.progress === 100).length;
   const inProgressCourses = enrolledCourses.filter((c: any) => c.progress > 0 && c.progress < 100).length;
 
   return (
     <div className="space-y-5">
-      <WelcomeBanner name={user.name} message="You have 2 pending assignments and 1 certification due this week." icon={Zap} />
+      <WelcomeBanner name={user.name} message="You have 2 pending assignments and 1 certification due this week." icon={Zap} gradient="from-blue-600 to-cyan-600" />
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
         <StatCard icon={BookOpen} label="Enrolled Courses" value={enrolledCourses.length} change={`${inProgressCourses} in progress`} color="blue" />
         <StatCard icon={Award} label="Certifications" value={completedCourses} change="+1 earned" color="green" />
-        <StatCard icon={Clock} label="Hours Learned" value={`${hoursLearned}h`} change="+8.2h this week" color="purple" />
+        <StatCard icon={Clock} label="Hours Learned" value={`${hoursLearned}h`} change="+8.2h this week" color="cyan" />
         <StatCard icon={TrendingUp} label="Current Streak" value={`${streak} days`} change="Personal best!" color="orange" />
       </div>
       <div className="grid lg:grid-cols-3 gap-4">
@@ -988,38 +988,38 @@ function OverviewTab({ user, enrolledCourses, upcomingTests, weeklyData, userPoi
           <SectionHeader title="Continue Learning" />
           <div className="space-y-2.5">
             {enrolledCourses.slice(0, 3).map((course: any) => (
-              <div key={course.id} onClick={() => course.progress === 100 ? onViewCertificate(course.title) : onContinueCourse(course.id)} className="flex items-center gap-3 p-3 rounded-xl bg-slate-50 cursor-pointer hover:bg-slate-100">
+              <div key={course.id} onClick={() => course.progress === 100 ? onViewCertificate(course.title) : onContinueCourse(course.id)} className="flex items-center gap-3 p-3 rounded-xl bg-slate-50 dark:bg-slate-800/50 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800">
                 <img src={course.image} className="w-10 h-10 rounded-lg object-cover" alt="" />
                 <div className="flex-1">
                   <p className="text-xs font-semibold">{course.title}</p>
                   <p className="text-[11px] text-slate-400 mb-1">{course.lastAccessed}</p>
-                  <div className="flex items-center gap-2"><div className="flex-1 h-1.5 bg-slate-200 rounded-full"><div className={cn("h-full rounded-full", course.progress === 100 ? "bg-green-500" : "bg-primary-600")} style={{ width: `${course.progress}%` }} /></div><span className="text-[10px] font-bold">{course.progress}%</span></div>
+                  <div className="flex items-center gap-2"><div className="flex-1 h-1.5 bg-slate-200 rounded-full"><div className={cn("h-full rounded-full", course.progress === 100 ? "bg-green-500" : "bg-blue-600")} style={{ width: `${course.progress}%` }} /></div><span className="text-[10px] font-bold">{course.progress}%</span></div>
                 </div>
-                {course.progress === 100 ? <CheckCircle2 className="w-4 h-4 text-green-500" /> : <Play className="w-3.5 h-3.5 text-primary-600" />}
+                {course.progress === 100 ? <CheckCircle2 className="w-4 h-4 text-green-500" /> : <Play className="w-3.5 h-3.5 text-blue-600" />}
               </div>
             ))}
           </div>
         </div>
         <div className="space-y-3">
-          <div className="card-base p-4"><div className="flex justify-between mb-3"><h3 className="text-xs font-semibold">Weekly Activity</h3><span className="text-xs text-slate-400">hrs/day</span></div><ResponsiveContainer width="100%" height={80}><AreaChart data={weeklyData}><defs><linearGradient id="grad" x1="0" y1="0" x2="0" y2="1"><stop offset="5%" stopColor="#6366F1" stopOpacity={0.3} /><stop offset="95%" stopColor="#6366F1" stopOpacity={0} /></linearGradient></defs><XAxis dataKey="day" tick={{ fontSize: 9 }} axisLine={false} tickLine={false} /><Tooltip /><Area type="monotone" dataKey="hours" stroke="#6366F1" strokeWidth={2} fill="url(#grad)" /></AreaChart></ResponsiveContainer></div>
-          <div className="card-base p-4 text-center"><div className="w-12 h-12 rounded-full bg-gradient-to-br from-yellow-400 to-orange-400 flex items-center justify-center mx-auto mb-2"><Zap className="w-5 h-5 text-white" /></div><p className="text-xl font-bold">{userPoints.toLocaleString()}</p><p className="text-xs text-slate-500">CompuPoints</p><div className="mt-2 h-1.5 bg-slate-100 rounded-full"><div className="h-full bg-gradient-to-r from-yellow-400 to-orange-400 rounded-full" style={{ width: `${(userPoints % 1000) / 10}%` }} /></div><p className="text-[10px] text-slate-400 mt-1">{1000 - (userPoints % 1000)} pts to next level</p></div>
+          <div className="card-base p-4"><div className="flex justify-between mb-3"><h3 className="text-xs font-semibold">Weekly Activity</h3><span className="text-xs text-slate-400">hrs/day</span></div><ResponsiveContainer width="100%" height={80}><AreaChart data={weeklyData}><defs><linearGradient id="grad" x1="0" y1="0" x2="0" y2="1"><stop offset="5%" stopColor="#2563EB" stopOpacity={0.3} /><stop offset="95%" stopColor="#2563EB" stopOpacity={0} /></linearGradient></defs><XAxis dataKey="day" tick={{ fontSize: 9 }} axisLine={false} tickLine={false} /><Tooltip /><Area type="monotone" dataKey="hours" stroke="#2563EB" strokeWidth={2} fill="url(#grad)" /></AreaChart></ResponsiveContainer></div>
+          <div className="card-base p-4 text-center"><div className="w-12 h-12 rounded-full bg-gradient-to-br from-yellow-400 to-orange-400 flex items-center justify-center mx-auto mb-2"><Zap className="w-5 h-5 text-white" /></div><p className="text-xl font-bold">{userPoints.toLocaleString()}</p><p className="text-xs text-slate-500">CompuPoints</p><div className="mt-2 h-1.5 bg-slate-100 dark:bg-slate-700 rounded-full"><div className="h-full bg-gradient-to-r from-yellow-400 to-orange-400 rounded-full" style={{ width: `${(userPoints % 1000) / 10}%` }} /></div><p className="text-[10px] text-slate-400 mt-1">{1000 - (userPoints % 1000)} pts to next level</p></div>
         </div>
       </div>
-      <div className="card-base p-4"><SectionHeader title="Upcoming Assessments" /><div className="grid sm:grid-cols-3 gap-3">{upcomingTests.map((test: any) => (<div key={test.id} className="flex items-start gap-3 p-3 rounded-xl bg-slate-50"><div className="w-8 h-8 rounded-lg bg-primary-50 flex items-center justify-center"><Target className="w-3.5 h-3.5 text-primary-600" /></div><div><p className="text-xs font-semibold">{test.title}</p><p className="text-[11px] text-slate-400">{test.date}</p><span className="tag text-[10px] mt-1">{test.type}</span></div></div>))}</div></div>
+      <div className="card-base p-4"><SectionHeader title="Upcoming Assessments" /><div className="grid sm:grid-cols-3 gap-3">{upcomingTests.map((test: any) => (<div key={test.id} className="flex items-start gap-3 p-3 rounded-xl bg-slate-50 dark:bg-slate-800/50"><div className="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center"><Target className="w-3.5 h-3.5 text-blue-600" /></div><div><p className="text-xs font-semibold">{test.title}</p><p className="text-[11px] text-slate-400">{test.date}</p><span className="tag text-[10px] mt-1">{test.type}</span></div></div>))}</div></div>
     </div>
   );
 }
 
-// --- Courses Tab ---
+// --- Courses Tab (updated colors) ---
 function CoursesTab({ enrolledCourses, onContinueCourse, onViewCertificate, onBrowseCourses }: any) {
   return (
     <div className="space-y-4">
-      <SectionHeader title="My Courses" subtitle={`${enrolledCourses.length} courses enrolled`} action={<button onClick={onBrowseCourses} className="btn-primary text-xs px-3 py-2">Browse Courses</button>} />
+      <SectionHeader title="My Courses" subtitle={`${enrolledCourses.length} courses enrolled`} action={<button onClick={onBrowseCourses} className="bg-blue-600 hover:bg-blue-700 text-white text-xs px-3 py-2 rounded-lg">Browse Courses</button>} />
       <div className="grid sm:grid-cols-2 gap-4">
         {enrolledCourses.map((course: any) => (
           <div key={course.id} onClick={() => course.progress === 100 ? onViewCertificate(course.title) : onContinueCourse(course.id)} className="card-base overflow-hidden cursor-pointer hover:-translate-y-0.5 transition">
-            <div className="relative"><img src={course.image} className="w-full h-36 object-cover" /><div className="absolute top-2 right-2"><span className={cn("px-2 py-0.5 text-[10px] font-bold rounded-full", course.progress === 100 ? "bg-green-500" : "bg-primary-600")}>{course.progress === 100 ? "Completed" : "In Progress"}</span></div></div>
-            <div className="p-4"><h3 className="text-sm font-semibold mb-1">{course.title}</h3><p className="text-xs text-slate-400 mb-3">{course.instructor} • {course.duration}</p><div className="flex items-center gap-2 mb-3"><div className="flex-1 h-2 bg-slate-100 rounded-full"><div className={cn("h-full rounded-full", course.progress === 100 ? "bg-green-500" : "bg-primary-600")} style={{ width: `${course.progress}%` }} /></div><span className="text-xs font-bold">{course.progress}%</span></div>{course.progress === 100 ? (<button className="btn-primary w-full text-xs py-2">View Certificate</button>) : (<button className="btn-primary w-full text-xs py-2">Continue Learning</button>)}</div>
+            <div className="relative"><img src={course.image} className="w-full h-36 object-cover" /><div className="absolute top-2 right-2"><span className={cn("px-2 py-0.5 text-[10px] font-bold rounded-full", course.progress === 100 ? "bg-green-500" : "bg-blue-600")}>{course.progress === 100 ? "Completed" : "In Progress"}</span></div></div>
+            <div className="p-4"><h3 className="text-sm font-semibold mb-1">{course.title}</h3><p className="text-xs text-slate-400 mb-3">{course.instructor} • {course.duration}</p><div className="flex items-center gap-2 mb-3"><div className="flex-1 h-2 bg-slate-100 dark:bg-slate-700 rounded-full"><div className={cn("h-full rounded-full", course.progress === 100 ? "bg-green-500" : "bg-blue-600")} style={{ width: `${course.progress}%` }} /></div><span className="text-xs font-bold">{course.progress}%</span></div>{course.progress === 100 ? (<button className="bg-blue-600 hover:bg-blue-700 text-white w-full text-xs py-2 rounded-lg">View Certificate</button>) : (<button className="bg-blue-600 hover:bg-blue-700 text-white w-full text-xs py-2 rounded-lg">Continue Learning</button>)}</div>
           </div>
         ))}
       </div>
@@ -1027,7 +1027,7 @@ function CoursesTab({ enrolledCourses, onContinueCourse, onViewCertificate, onBr
   );
 }
 
-// --- Certifications Tab ---
+// --- Certifications Tab (updated colors) ---
 function CertsTab({ certifications, onDownloadCert }: any) {
   return (
     <div className="space-y-4">
@@ -1035,11 +1035,11 @@ function CertsTab({ certifications, onDownloadCert }: any) {
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {certifications.map((cert: any) => (
           <div key={cert.id} onClick={() => onDownloadCert(cert.id)} className="card-base p-5 cursor-pointer hover:-translate-y-0.5">
-            <div className="w-10 h-10 rounded-xl bg-primary-50 flex items-center justify-center mb-4"><Award className="w-5 h-5 text-primary-600" /></div>
+            <div className="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center mb-4"><Award className="w-5 h-5 text-blue-600" /></div>
             <h3 className="text-sm font-semibold mb-2">{cert.title}</h3>
             <p className="text-xs text-slate-400">Issued: {cert.issueDate}</p>
             <p className="text-[10px] font-mono text-slate-400 mb-3">{cert.credentialId}</p>
-            <div className="flex items-center justify-between"><StatusBadge status={cert.status} /><button className="text-xs text-primary-600 font-medium hover:underline flex items-center gap-1"><Award className="w-3 h-3" /> View Certificate</button></div>
+            <div className="flex items-center justify-between"><StatusBadge status={cert.status} /><button className="text-xs text-blue-600 font-medium hover:underline flex items-center gap-1"><Award className="w-3 h-3" /> View Certificate</button></div>
           </div>
         ))}
       </div>
@@ -1047,7 +1047,7 @@ function CertsTab({ certifications, onDownloadCert }: any) {
   );
 }
 
-// --- Career Tab ---
+// --- Career Tab (updated colors) ---
 function CareerTab({ jobRecommendations, onApplyJob, onResumeBuilder, onMockInterviews, onSkillGap }: any) {
   return (
     <div className="space-y-5">
@@ -1055,23 +1055,23 @@ function CareerTab({ jobRecommendations, onApplyJob, onResumeBuilder, onMockInte
       <div className="grid sm:grid-cols-3 gap-4">
         {[
           { icon: Briefcase, title: "Resume Builder", desc: "AI-powered resume tailored for IT roles.", action: "Build Resume", handler: onResumeBuilder, color: "blue" },
-          { icon: MessageCircle, title: "Mock Interviews", desc: "Practice with AI and get instant feedback.", action: "Start Practice", handler: onMockInterviews, color: "purple" },
+          { icon: MessageCircle, title: "Mock Interviews", desc: "Practice with AI and get instant feedback.", action: "Start Practice", handler: onMockInterviews, color: "blue" },
           { icon: TrendingUp, title: "Skill Gap Analysis", desc: "Know exactly what to learn next.", action: "Analyse Skills", handler: onSkillGap, color: "cyan" }
         ].map((tool) => (
           <div key={tool.title} className="card-base p-4 text-center">
             <div className={`flex justify-center mb-2 text-${tool.color}-500`}>{tool.icon === Briefcase ? <Briefcase className="w-8 h-8" /> : tool.icon === MessageCircle ? <MessageCircle className="w-8 h-8" /> : <TrendingUp className="w-8 h-8" />}</div>
             <h3 className="text-sm font-semibold">{tool.title}</h3>
             <p className="text-xs text-slate-400 mt-1">{tool.desc}</p>
-            <button onClick={tool.handler} className="btn-primary text-xs px-3 py-2 mt-3">{tool.action}</button>
+            <button onClick={tool.handler} className="bg-blue-600 hover:bg-blue-700 text-white text-xs px-3 py-2 rounded-lg mt-3">{tool.action}</button>
           </div>
         ))}
       </div>
-      <div className="card-base p-4"><SectionHeader title="Job Recommendations" /><div className="space-y-3">{jobRecommendations.map((job: any) => (<div key={job.id} className="flex items-center justify-between gap-4 p-3 rounded-xl bg-slate-50"><div><p className="text-sm font-semibold">{job.title}</p><p className="text-xs text-slate-400">{job.company} • {job.location}</p><p className="text-xs font-medium text-green-600 mt-0.5">{job.salary}</p></div><div className="text-right"><div className="text-lg font-bold text-primary-600">{job.match}%</div><p className="text-[10px] text-slate-400">match</p>{job.applied ? <span className="inline-block text-[11px] bg-green-100 text-green-700 px-2 py-0.5 rounded-full mt-1">Applied</span> : <button onClick={() => onApplyJob(job.id)} className="btn-primary text-[11px] px-2.5 py-1 mt-1">Apply</button>}</div></div>))}</div></div>
+      <div className="card-base p-4"><SectionHeader title="Job Recommendations" /><div className="space-y-3">{jobRecommendations.map((job: any) => (<div key={job.id} className="flex items-center justify-between gap-4 p-3 rounded-xl bg-slate-50 dark:bg-slate-800/50"><div><p className="text-sm font-semibold">{job.title}</p><p className="text-xs text-slate-400">{job.company} • {job.location}</p><p className="text-xs font-medium text-green-600 mt-0.5">{job.salary}</p></div><div className="text-right"><div className="text-lg font-bold text-blue-600">{job.match}%</div><p className="text-[10px] text-slate-400">match</p>{job.applied ? <span className="inline-block text-[11px] bg-green-100 text-green-700 px-2 py-0.5 rounded-full mt-1">Applied</span> : <button onClick={() => onApplyJob(job.id)} className="bg-blue-600 hover:bg-blue-700 text-white text-[11px] px-2.5 py-1 rounded-lg mt-1">Apply</button>}</div></div>))}</div></div>
     </div>
   );
 }
 
-// --- Analytics Tab ---
+// --- Analytics Tab (updated colors) ---
 function AnalyticsTab({ weeklyData, enrolledCourses, userPoints }: any) {
   const totalProgress = enrolledCourses.reduce((sum: number, c: any) => sum + c.progress, 0) / enrolledCourses.length;
   const completedCourses = enrolledCourses.filter((c: any) => c.progress === 100).length;
@@ -1099,36 +1099,35 @@ function AnalyticsTab({ weeklyData, enrolledCourses, userPoints }: any) {
     <div className="space-y-6">
       <SectionHeader title="My Learning Analytics" subtitle="Real-time performance metrics and skill insights" />
       
-      {/* Top Charts */}
       <div className="grid sm:grid-cols-2 gap-4">
         <div className="card-base p-4">
-          <h3 className="text-xs font-semibold mb-3 text-slate-900 dark:text-white">Weekly Learning Hours</h3>
+          <h3 className="text-xs font-semibold mb-3">Weekly Learning Hours</h3>
           <ResponsiveContainer width="100%" height={180}>
             <AreaChart data={weeklyData}>
               <defs>
                 <linearGradient id="aGrad" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#6366F1" stopOpacity={0.3} />
-                  <stop offset="95%" stopColor="#6366F1" stopOpacity={0} />
+                  <stop offset="5%" stopColor="#2563EB" stopOpacity={0.3} />
+                  <stop offset="95%" stopColor="#2563EB" stopOpacity={0} />
                 </linearGradient>
               </defs>
               <XAxis dataKey="day" tick={{ fontSize: 10 }} axisLine={false} tickLine={false} />
               <YAxis tick={{ fontSize: 10 }} axisLine={false} tickLine={false} />
               <Tooltip />
-              <Area type="monotone" dataKey="hours" stroke="#6366F1" strokeWidth={2} fill="url(#aGrad)" />
+              <Area type="monotone" dataKey="hours" stroke="#2563EB" strokeWidth={2} fill="url(#aGrad)" />
             </AreaChart>
           </ResponsiveContainer>
         </div>
 
         <div className="card-base p-4">
-          <h3 className="text-xs font-semibold mb-3 text-slate-900 dark:text-white">Career Readiness Score</h3>
+          <h3 className="text-xs font-semibold mb-3">Career Readiness Score</h3>
           <div className="flex items-center gap-4">
             <div className="relative w-24 h-24 flex-shrink-0">
               <svg className="w-24 h-24 -rotate-90" viewBox="0 0 36 36">
                 <circle cx="18" cy="18" r="15" fill="none" stroke="#e2e8f0" strokeWidth="3" className="dark:stroke-slate-800" />
-                <circle cx="18" cy="18" r="15" fill="none" stroke="#6366F1" strokeWidth="3" strokeDasharray={`${Math.floor(totalProgress)} 100`} strokeLinecap="round" />
+                <circle cx="18" cy="18" r="15" fill="none" stroke="#2563EB" strokeWidth="3" strokeDasharray={`${Math.floor(totalProgress)} 100`} strokeLinecap="round" />
               </svg>
               <div className="absolute inset-0 flex items-center justify-center">
-                <span className="text-lg font-bold text-slate-900 dark:text-white">{Math.floor(totalProgress)}%</span>
+                <span className="text-lg font-bold">{Math.floor(totalProgress)}%</span>
               </div>
             </div>
             <div className="space-y-2 flex-1">
@@ -1139,12 +1138,12 @@ function AnalyticsTab({ weeklyData, enrolledCourses, userPoints }: any) {
                 { l: "Soft Skills", v: softSkills }
               ].map(({ l, v }) => (
                 <div key={l}>
-                  <div className="flex justify-between text-[11px] text-slate-700 dark:text-slate-350">
+                  <div className="flex justify-between text-[11px]">
                     <span>{l}</span>
                     <span className="font-bold">{v}%</span>
                   </div>
                   <div className="h-1.5 bg-slate-100 dark:bg-slate-800 rounded-full">
-                    <div className="h-full bg-primary-600 rounded-full" style={{ width: `${v}%` }} />
+                    <div className="h-full bg-blue-600 rounded-full" style={{ width: `${v}%` }} />
                   </div>
                 </div>
               ))}
@@ -1153,17 +1152,15 @@ function AnalyticsTab({ weeklyData, enrolledCourses, userPoints }: any) {
         </div>
       </div>
 
-      {/* Middle Sections - Skills & Course Status */}
       <div className="grid sm:grid-cols-2 gap-4">
-        {/* Skill Matrix */}
         <div className="card-base p-4">
-          <h3 className="text-xs font-semibold mb-3 text-slate-900 dark:text-white">Skill Acquisition Matrix</h3>
+          <h3 className="text-xs font-semibold mb-3">Skill Acquisition Matrix</h3>
           <div className="space-y-3">
             {skillsProgress.map((skill) => (
               <div key={skill.name} className="space-y-1">
                 <div className="flex justify-between items-center text-xs">
-                  <span className="font-medium text-slate-800 dark:text-slate-200">{skill.name}</span>
-                  <span className="text-[10px] text-slate-450 dark:text-slate-400 font-bold uppercase">{skill.level}</span>
+                  <span className="font-medium">{skill.name}</span>
+                  <span className="text-[10px] font-bold uppercase text-slate-450">{skill.level}</span>
                 </div>
                 <div className="h-2 w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
                   <div className={`h-full ${skill.color}`} style={{ width: `${skill.value}%` }} />
@@ -1173,14 +1170,13 @@ function AnalyticsTab({ weeklyData, enrolledCourses, userPoints }: any) {
           </div>
         </div>
 
-        {/* Detailed Enrolled Course Status */}
         <div className="card-base p-4">
-          <h3 className="text-xs font-semibold mb-3 text-slate-900 dark:text-white">Course Learning Ledger</h3>
+          <h3 className="text-xs font-semibold mb-3">Course Learning Ledger</h3>
           <div className="space-y-3">
             {enrolledCourses.map((course: any) => (
               <div key={course.id} className="flex items-center justify-between p-2.5 rounded-lg bg-slate-50 dark:bg-slate-800/40 border border-slate-100 dark:border-slate-800/80">
                 <div className="min-w-0 flex-1">
-                  <p className="text-xs font-semibold text-slate-900 dark:text-white truncate">{course.title}</p>
+                  <p className="text-xs font-semibold truncate">{course.title}</p>
                   <p className="text-[10px] text-slate-400 mt-0.5">{course.duration} total duration</p>
                 </div>
                 <div className="flex items-center gap-2">
@@ -1197,16 +1193,15 @@ function AnalyticsTab({ weeklyData, enrolledCourses, userPoints }: any) {
         </div>
       </div>
 
-      {/* Milestones / Achievements */}
       <div className="card-base p-4">
-        <h3 className="text-xs font-semibold mb-3 text-slate-900 dark:text-white">Earned Milestones & Achievements</h3>
+        <h3 className="text-xs font-semibold mb-3">Earned Milestones & Achievements</h3>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
           {milestones.map((m) => (
             <div key={m.title} className="p-3 rounded-xl border border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-950/20 text-center relative overflow-hidden group hover:border-indigo-200 transition-colors">
               <div className="w-8 h-8 rounded-full bg-gradient-to-br from-yellow-400 to-amber-500 text-white flex items-center justify-center mx-auto mb-2 shadow-sm">
                 <Award className="w-4 h-4" />
               </div>
-              <h4 className="text-xs font-bold text-slate-900 dark:text-white mb-0.5">{m.title}</h4>
+              <h4 className="text-xs font-bold mb-0.5">{m.title}</h4>
               <p className="text-[10px] text-slate-500 dark:text-slate-400 leading-normal mb-2">{m.desc}</p>
               <div className="text-[8px] font-mono text-slate-400 font-bold">{m.date}</div>
             </div>

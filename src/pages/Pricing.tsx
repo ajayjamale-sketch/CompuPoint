@@ -60,12 +60,12 @@ export default function Pricing() {
             <Zap className="w-4 h-4" />
             <span>Pricing</span>
           </div>
-          <h1 className="section-heading mb-4">
+          <h1 className="section-heading text-slate-900 dark:text-white mb-4">
             Simple Pricing,
             <br />
             <span className="gradient-text">Maximum Value</span>
           </h1>
-          <p className="section-subheading mb-8">
+          <p className="section-subheading text-slate-500 dark:text-slate-300 mb-8">
             Choose the plan that fits your goals. All plans include a 7-day free trial with no credit card required.
           </p>
 
@@ -345,3 +345,4 @@ export default function Pricing() {
     </div>
   );
 }
+
