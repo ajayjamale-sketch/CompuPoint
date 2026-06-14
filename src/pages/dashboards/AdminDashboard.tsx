@@ -254,7 +254,7 @@ export default function AdminDashboard() {
                   type="text"
                   value={newUserForm.name}
                   onChange={(e) => setNewUserForm(prev => ({ ...prev, name: e.target.value }))}
-                  className="w-full px-3 py-2 border border-slate-300 dark:border-slate-700 rounded-lg bg-transparent text-sm"
+                  className="w-full px-3 py-2 border border-slate-300 dark:border-slate-700 rounded-lg bg-background text-foreground border-border text-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
                   placeholder="e.g., John Doe"
                 />
               </div>
@@ -264,7 +264,7 @@ export default function AdminDashboard() {
                   type="email"
                   value={newUserForm.email}
                   onChange={(e) => setNewUserForm(prev => ({ ...prev, email: e.target.value }))}
-                  className="w-full px-3 py-2 border border-slate-300 dark:border-slate-700 rounded-lg bg-transparent text-sm"
+                  className="w-full px-3 py-2 border border-slate-300 dark:border-slate-700 rounded-lg bg-background text-foreground border-border text-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
                   placeholder="user@example.com"
                 />
               </div>
@@ -273,12 +273,12 @@ export default function AdminDashboard() {
                 <select
                   value={newUserForm.role}
                   onChange={(e) => setNewUserForm(prev => ({ ...prev, role: e.target.value }))}
-                  className="w-full px-3 py-2 border border-slate-300 dark:border-slate-700 rounded-lg bg-transparent text-sm"
+                  className="w-full px-3 py-2 border border-slate-300 dark:border-slate-700 rounded-lg bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 border-border text-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
                 >
-                  <option value="student">Student</option>
-                  <option value="trainer">Trainer</option>
-                  <option value="technician">Technician</option>
-                  <option value="institute">Institute</option>
+                  <option value="student" className="bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100">Student</option>
+                  <option value="trainer" className="bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100">Trainer</option>
+                  <option value="technician" className="bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100">Technician</option>
+                  <option value="institute" className="bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100">Institute</option>
                 </select>
               </div>
               {formError && <p className="text-xs text-red-500">{formError}</p>}

@@ -223,9 +223,9 @@ export default function TrainerDashboard() {
               <button onClick={() => setShowNewCourseModal(false)}><X className="w-5 h-5" /></button>
             </div>
             <div className="space-y-4">
-              <input type="text" value={newCourse.title} onChange={e => setNewCourse({...newCourse, title: e.target.value})} placeholder="Course Title" className="w-full px-3 py-2 border rounded-lg" />
-              <textarea value={newCourse.description} onChange={e => setNewCourse({...newCourse, description: e.target.value})} placeholder="Description" rows={3} className="w-full px-3 py-2 border rounded-lg" />
-              <input type="text" value={newCourse.price} onChange={e => setNewCourse({...newCourse, price: e.target.value})} placeholder="Price (optional)" className="w-full px-3 py-2 border rounded-lg" />
+              <input type="text" value={newCourse.title} onChange={e => setNewCourse({...newCourse, title: e.target.value})} placeholder="Course Title" className="w-full px-3 py-2 border rounded-lg bg-background text-foreground border-border text-sm focus:outline-none focus:ring-2 focus:ring-primary/50" />
+              <textarea value={newCourse.description} onChange={e => setNewCourse({...newCourse, description: e.target.value})} placeholder="Description" rows={3} className="w-full px-3 py-2 border rounded-lg bg-background text-foreground border-border text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 resize-none" />
+              <input type="text" value={newCourse.price} onChange={e => setNewCourse({...newCourse, price: e.target.value})} placeholder="Price (optional)" className="w-full px-3 py-2 border rounded-lg bg-background text-foreground border-border text-sm focus:outline-none focus:ring-2 focus:ring-primary/50" />
               <div className="flex gap-2">
                 <button onClick={addCourse} className="flex-1 btn-primary text-sm py-2">Create Course</button>
                 <button onClick={() => setShowNewCourseModal(false)} className="px-4 py-2 text-sm border rounded-lg">Cancel</button>
@@ -244,11 +244,11 @@ export default function TrainerDashboard() {
               <button onClick={() => setShowEditCourseModal({ show: false, course: null })}><X className="w-5 h-5" /></button>
             </div>
             <div className="space-y-4">
-              <input type="text" value={showEditCourseModal.course.title} onChange={e => setShowEditCourseModal({ show: true, course: { ...showEditCourseModal.course, title: e.target.value } })} className="w-full px-3 py-2 border rounded-lg" />
-              <textarea value={showEditCourseModal.course.description || ""} onChange={e => setShowEditCourseModal({ show: true, course: { ...showEditCourseModal.course, description: e.target.value } })} rows={3} className="w-full px-3 py-2 border rounded-lg" />
-              <select value={showEditCourseModal.course.status} onChange={e => setShowEditCourseModal({ show: true, course: { ...showEditCourseModal.course, status: e.target.value } })} className="w-full px-3 py-2 border rounded-lg">
-                <option value="active">Active</option>
-                <option value="draft">Draft</option>
+              <input type="text" value={showEditCourseModal.course.title} onChange={e => setShowEditCourseModal({ show: true, course: { ...showEditCourseModal.course, title: e.target.value } })} className="w-full px-3 py-2 border rounded-lg bg-background text-foreground border-border text-sm focus:outline-none focus:ring-2 focus:ring-primary/50" />
+              <textarea value={showEditCourseModal.course.description || ""} onChange={e => setShowEditCourseModal({ show: true, course: { ...showEditCourseModal.course, description: e.target.value } })} rows={3} className="w-full px-3 py-2 border rounded-lg bg-background text-foreground border-border text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 resize-none" />
+              <select value={showEditCourseModal.course.status} onChange={e => setShowEditCourseModal({ show: true, course: { ...showEditCourseModal.course, status: e.target.value } })} className="w-full px-3 py-2 border rounded-lg bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 border-border text-sm focus:outline-none focus:ring-2 focus:ring-primary/50">
+                <option value="active" className="bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100">Active</option>
+                <option value="draft" className="bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100">Draft</option>
               </select>
               <div className="flex gap-2">
                 <button onClick={updateCourse} className="flex-1 btn-primary text-sm py-2">Save Changes</button>
@@ -268,8 +268,8 @@ export default function TrainerDashboard() {
               <button onClick={() => setShowGradeModal({ show: false, assessment: null })}><X className="w-5 h-5" /></button>
             </div>
             <div className="space-y-4">
-              <input type="text" value={gradeData.grade} onChange={e => setGradeData({...gradeData, grade: e.target.value})} placeholder="Grade (e.g., 85%)" className="w-full px-3 py-2 border rounded-lg" />
-              <textarea value={gradeData.feedback} onChange={e => setGradeData({...gradeData, feedback: e.target.value})} placeholder="Feedback to student" rows={3} className="w-full px-3 py-2 border rounded-lg" />
+              <input type="text" value={gradeData.grade} onChange={e => setGradeData({...gradeData, grade: e.target.value})} placeholder="Grade (e.g., 85%)" className="w-full px-3 py-2 border rounded-lg bg-background text-foreground border-border text-sm focus:outline-none focus:ring-2 focus:ring-primary/50" />
+              <textarea value={gradeData.feedback} onChange={e => setGradeData({...gradeData, feedback: e.target.value})} placeholder="Feedback to student" rows={3} className="w-full px-3 py-2 border rounded-lg bg-background text-foreground border-border text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 resize-none" />
               <div className="flex gap-2">
                 <button onClick={gradeSubmission} className="flex-1 btn-primary text-sm py-2">Submit Grade</button>
                 <button onClick={() => setShowGradeModal({ show: false, assessment: null })} className="px-4 py-2 text-sm border rounded-lg">Cancel</button>

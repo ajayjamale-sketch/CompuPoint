@@ -204,10 +204,10 @@ export default function BusinessDashboard() {
               <button onClick={() => setShowServiceModal(false)}><X className="w-5 h-5" /></button>
             </div>
             <div className="space-y-3">
-              <input type="text" placeholder="Service Type" value={newService.type} onChange={e => setNewService({...newService, type: e.target.value})} className="w-full px-3 py-2 border rounded-lg" />
-              <textarea placeholder="Scope / Description" value={newService.scope} onChange={e => setNewService({...newService, scope: e.target.value})} rows={2} className="w-full px-3 py-2 border rounded-lg" />
-              <input type="number" placeholder="Budget (₹)" value={newService.budget} onChange={e => setNewService({...newService, budget: e.target.value})} className="w-full px-3 py-2 border rounded-lg" />
-              <input type="text" placeholder="SLA Date (e.g., Feb 15, 2026)" value={newService.sla} onChange={e => setNewService({...newService, sla: e.target.value})} className="w-full px-3 py-2 border rounded-lg" />
+              <input type="text" placeholder="Service Type" value={newService.type} onChange={e => setNewService({...newService, type: e.target.value})} className="w-full px-3 py-2 border rounded-lg bg-background text-foreground border-border text-sm focus:outline-none focus:ring-2 focus:ring-primary/50" />
+              <textarea placeholder="Scope / Description" value={newService.scope} onChange={e => setNewService({...newService, scope: e.target.value})} rows={2} className="w-full px-3 py-2 border rounded-lg bg-background text-foreground border-border text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 resize-none" />
+              <input type="number" placeholder="Budget (₹)" value={newService.budget} onChange={e => setNewService({...newService, budget: e.target.value})} className="w-full px-3 py-2 border rounded-lg bg-background text-foreground border-border text-sm focus:outline-none focus:ring-2 focus:ring-primary/50" />
+              <input type="text" placeholder="SLA Date (e.g., Feb 15, 2026)" value={newService.sla} onChange={e => setNewService({...newService, sla: e.target.value})} className="w-full px-3 py-2 border rounded-lg bg-background text-foreground border-border text-sm focus:outline-none focus:ring-2 focus:ring-primary/50" />
               <div className="flex gap-2">
                 <button onClick={addService} className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg transition-colors">Create</button>
                 <button onClick={() => setShowServiceModal(false)} className="px-4 py-2 border rounded-lg">Cancel</button>
@@ -222,7 +222,7 @@ export default function BusinessDashboard() {
           <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-2xl max-w-md w-full p-6">
             <h3 className="text-lg font-bold mb-2">Escalate Service</h3>
             <p className="text-sm text-slate-500 mb-3">{showEscalateModal.service.type}</p>
-            <textarea rows={3} placeholder="Reason for escalation..." value={showEscalateModal.message} onChange={e => setShowEscalateModal({ ...showEscalateModal, message: e.target.value })} className="w-full px-3 py-2 border rounded-lg mb-4" />
+            <textarea rows={3} placeholder="Reason for escalation..." value={showEscalateModal.message} onChange={e => setShowEscalateModal({ ...showEscalateModal, message: e.target.value })} className="w-full px-3 py-2 border rounded-lg mb-4 bg-background text-foreground border-border text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 resize-none" />
             <div className="flex gap-2">
               <button onClick={() => escalateService(showEscalateModal.service, showEscalateModal.message)} className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg">Submit Escalation</button>
               <button onClick={() => setShowEscalateModal({ show: false, service: null, message: "" })} className="flex-1 border rounded-lg py-2">Cancel</button>
@@ -257,7 +257,7 @@ export default function BusinessDashboard() {
           <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-2xl max-w-md w-full p-6">
             <h3 className="text-lg font-bold mb-2">Renew Contract</h3>
             <p className="text-sm mb-2">{showRenewModal.contract.type}</p>
-            <input type="text" placeholder="New Renewal Date (e.g., Dec 31, 2027)" value={showRenewModal.newDate} onChange={e => setShowRenewModal({ ...showRenewModal, newDate: e.target.value })} className="w-full px-3 py-2 border rounded-lg mb-4" />
+            <input type="text" placeholder="New Renewal Date (e.g., Dec 31, 2027)" value={showRenewModal.newDate} onChange={e => setShowRenewModal({ ...showRenewModal, newDate: e.target.value })} className="w-full px-3 py-2 border rounded-lg mb-4 bg-background text-foreground border-border text-sm focus:outline-none focus:ring-2 focus:ring-primary/50" />
             <div className="flex gap-2">
               <button onClick={() => renewContract(showRenewModal.contract, showRenewModal.newDate)} className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg">Renew</button>
               <button onClick={() => setShowRenewModal({ show: false, contract: null, newDate: "" })} className="flex-1 border rounded-lg py-2">Cancel</button>
@@ -274,11 +274,11 @@ export default function BusinessDashboard() {
               <button onClick={() => setShowNewContractModal(false)}><X className="w-5 h-5" /></button>
             </div>
             <div className="space-y-3">
-              <input type="text" placeholder="Contract Type" value={newContract.type} onChange={e => setNewContract({...newContract, type: e.target.value})} className="w-full px-3 py-2 border rounded-lg" />
-              <input type="number" placeholder="Number of Systems" value={newContract.systems} onChange={e => setNewContract({...newContract, systems: e.target.value})} className="w-full px-3 py-2 border rounded-lg" />
-              <input type="number" placeholder="Annual Value (₹)" value={newContract.value} onChange={e => setNewContract({...newContract, value: e.target.value})} className="w-full px-3 py-2 border rounded-lg" />
-              <input type="text" placeholder="Coverage Description" value={newContract.covered} onChange={e => setNewContract({...newContract, covered: e.target.value})} className="w-full px-3 py-2 border rounded-lg" />
-              <input type="text" placeholder="Renewal Date (e.g., Dec 31, 2027)" value={newContract.renewalDate} onChange={e => setNewContract({...newContract, renewalDate: e.target.value})} className="w-full px-3 py-2 border rounded-lg" />
+              <input type="text" placeholder="Contract Type" value={newContract.type} onChange={e => setNewContract({...newContract, type: e.target.value})} className="w-full px-3 py-2 border rounded-lg bg-background text-foreground border-border text-sm focus:outline-none focus:ring-2 focus:ring-primary/50" />
+              <input type="number" placeholder="Number of Systems" value={newContract.systems} onChange={e => setNewContract({...newContract, systems: e.target.value})} className="w-full px-3 py-2 border rounded-lg bg-background text-foreground border-border text-sm focus:outline-none focus:ring-2 focus:ring-primary/50" />
+              <input type="number" placeholder="Annual Value (₹)" value={newContract.value} onChange={e => setNewContract({...newContract, value: e.target.value})} className="w-full px-3 py-2 border rounded-lg bg-background text-foreground border-border text-sm focus:outline-none focus:ring-2 focus:ring-primary/50" />
+              <input type="text" placeholder="Coverage Description" value={newContract.covered} onChange={e => setNewContract({...newContract, covered: e.target.value})} className="w-full px-3 py-2 border rounded-lg bg-background text-foreground border-border text-sm focus:outline-none focus:ring-2 focus:ring-primary/50" />
+              <input type="text" placeholder="Renewal Date (e.g., Dec 31, 2027)" value={newContract.renewalDate} onChange={e => setNewContract({...newContract, renewalDate: e.target.value})} className="w-full px-3 py-2 border rounded-lg bg-background text-foreground border-border text-sm focus:outline-none focus:ring-2 focus:ring-primary/50" />
               <div className="flex gap-2">
                 <button onClick={addContract} className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg">Add Contract</button>
                 <button onClick={() => setShowNewContractModal(false)} className="px-4 py-2 border rounded-lg">Cancel</button>
@@ -296,9 +296,9 @@ export default function BusinessDashboard() {
               <button onClick={() => setShowQuoteModal(false)}><X className="w-5 h-5" /></button>
             </div>
             <div className="space-y-3">
-              <input type="text" placeholder="Service / Product" value={newQuote.service} onChange={e => setNewQuote({...newQuote, service: e.target.value})} className="w-full px-3 py-2 border rounded-lg" />
-              <input type="text" placeholder="Vendor Name" value={newQuote.vendor} onChange={e => setNewQuote({...newQuote, vendor: e.target.value})} className="w-full px-3 py-2 border rounded-lg" />
-              <input type="number" placeholder="Estimated Amount (₹)" value={newQuote.amount} onChange={e => setNewQuote({...newQuote, amount: e.target.value})} className="w-full px-3 py-2 border rounded-lg" />
+              <input type="text" placeholder="Service / Product" value={newQuote.service} onChange={e => setNewQuote({...newQuote, service: e.target.value})} className="w-full px-3 py-2 border rounded-lg bg-background text-foreground border-border text-sm focus:outline-none focus:ring-2 focus:ring-primary/50" />
+              <input type="text" placeholder="Vendor Name" value={newQuote.vendor} onChange={e => setNewQuote({...newQuote, vendor: e.target.value})} className="w-full px-3 py-2 border rounded-lg bg-background text-foreground border-border text-sm focus:outline-none focus:ring-2 focus:ring-primary/50" />
+              <input type="number" placeholder="Estimated Amount (₹)" value={newQuote.amount} onChange={e => setNewQuote({...newQuote, amount: e.target.value})} className="w-full px-3 py-2 border rounded-lg bg-background text-foreground border-border text-sm focus:outline-none focus:ring-2 focus:ring-primary/50" />
               <div className="flex gap-2">
                 <button onClick={addQuote} className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg">Submit Request</button>
                 <button onClick={() => setShowQuoteModal(false)} className="px-4 py-2 border rounded-lg">Cancel</button>

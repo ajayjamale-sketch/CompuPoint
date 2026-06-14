@@ -280,7 +280,7 @@ export default function TechnicianDashboard() {
         <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-[100] p-4">
           <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-2xl max-w-md w-full p-6">
             <h3 className="text-lg font-bold mb-2">Reschedule Job</h3>
-            <input type="text" value={showRescheduleModal.newSchedule} onChange={e => setShowRescheduleModal({ ...showRescheduleModal, newSchedule: e.target.value })} placeholder="e.g., Tomorrow 11AM" className="w-full px-3 py-2 border rounded-lg mb-4" />
+            <input type="text" value={showRescheduleModal.newSchedule} onChange={e => setShowRescheduleModal({ ...showRescheduleModal, newSchedule: e.target.value })} placeholder="e.g., Tomorrow 11AM" className="w-full px-3 py-2 border rounded-lg mb-4 bg-background text-foreground border-border text-sm focus:outline-none focus:ring-2 focus:ring-primary/50" />
             <div className="flex gap-2">
               <button onClick={() => rescheduleJob(showRescheduleModal.job, showRescheduleModal.newSchedule)} className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg">Save</button>
               <button onClick={() => setShowRescheduleModal({ show: false, job: null, newSchedule: "" })} className="flex-1 border rounded-lg py-2">Cancel</button>
@@ -297,14 +297,17 @@ export default function TechnicianDashboard() {
               <button onClick={() => setShowAddJobModal(false)}><X className="w-5 h-5" /></button>
             </div>
             <div className="space-y-3">
-              <input type="text" placeholder="Customer Name" value={newJobForm.customer} onChange={e => setNewJobForm({...newJobForm, customer: e.target.value})} className="w-full px-3 py-2 border rounded-lg" />
-              <input type="text" placeholder="Job Type" value={newJobForm.type} onChange={e => setNewJobForm({...newJobForm, type: e.target.value})} className="w-full px-3 py-2 border rounded-lg" />
-              <input type="text" placeholder="Device Model" value={newJobForm.device} onChange={e => setNewJobForm({...newJobForm, device: e.target.value})} className="w-full px-3 py-2 border rounded-lg" />
-              <select value={newJobForm.priority} onChange={e => setNewJobForm({...newJobForm, priority: e.target.value})} className="w-full px-3 py-2 border rounded-lg">
-                <option value="low">Low</option><option value="medium">Medium</option><option value="high">High</option><option value="urgent">Urgent</option>
+              <input type="text" placeholder="Customer Name" value={newJobForm.customer} onChange={e => setNewJobForm({...newJobForm, customer: e.target.value})} className="w-full px-3 py-2 border rounded-lg bg-background text-foreground border-border text-sm focus:outline-none focus:ring-2 focus:ring-primary/50" />
+              <input type="text" placeholder="Job Type" value={newJobForm.type} onChange={e => setNewJobForm({...newJobForm, type: e.target.value})} className="w-full px-3 py-2 border rounded-lg bg-background text-foreground border-border text-sm focus:outline-none focus:ring-2 focus:ring-primary/50" />
+              <input type="text" placeholder="Device Model" value={newJobForm.device} onChange={e => setNewJobForm({...newJobForm, device: e.target.value})} className="w-full px-3 py-2 border rounded-lg bg-background text-foreground border-border text-sm focus:outline-none focus:ring-2 focus:ring-primary/50" />
+              <select value={newJobForm.priority} onChange={e => setNewJobForm({...newJobForm, priority: e.target.value})} className="w-full px-3 py-2 border rounded-lg bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 border-border text-sm focus:outline-none focus:ring-2 focus:ring-primary/50">
+                <option value="low" className="bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100">Low</option>
+                <option value="medium" className="bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100">Medium</option>
+                <option value="high" className="bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100">High</option>
+                <option value="urgent" className="bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100">Urgent</option>
               </select>
-              <input type="text" placeholder="Scheduled Date/Time" value={newJobForm.scheduled} onChange={e => setNewJobForm({...newJobForm, scheduled: e.target.value})} className="w-full px-3 py-2 border rounded-lg" />
-              <input type="text" placeholder="Contact Number" value={newJobForm.contact} onChange={e => setNewJobForm({...newJobForm, contact: e.target.value})} className="w-full px-3 py-2 border rounded-lg" />
+              <input type="text" placeholder="Scheduled Date/Time" value={newJobForm.scheduled} onChange={e => setNewJobForm({...newJobForm, scheduled: e.target.value})} className="w-full px-3 py-2 border rounded-lg bg-background text-foreground border-border text-sm focus:outline-none focus:ring-2 focus:ring-primary/50" />
+              <input type="text" placeholder="Contact Number" value={newJobForm.contact} onChange={e => setNewJobForm({...newJobForm, contact: e.target.value})} className="w-full px-3 py-2 border rounded-lg bg-background text-foreground border-border text-sm focus:outline-none focus:ring-2 focus:ring-primary/50" />
               <div className="flex gap-2">
                 <button onClick={addNewJob} className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg">Add to Queue</button>
                 <button onClick={() => setShowAddJobModal(false)} className="px-4 py-2 border rounded-lg">Cancel</button>
@@ -322,10 +325,10 @@ export default function TechnicianDashboard() {
               <button onClick={() => setShowAddPartModal(false)}><X className="w-5 h-5" /></button>
             </div>
             <div className="space-y-3">
-              <input type="text" placeholder="Part Name" value={newPartForm.name} onChange={e => setNewPartForm({...newPartForm, name: e.target.value})} className="w-full px-3 py-2 border rounded-lg" />
-              <input type="number" placeholder="Stock Quantity" value={newPartForm.stock} onChange={e => setNewPartForm({...newPartForm, stock: e.target.value})} className="w-full px-3 py-2 border rounded-lg" />
-              <input type="text" placeholder="Unit" value={newPartForm.unit} onChange={e => setNewPartForm({...newPartForm, unit: e.target.value})} className="w-full px-3 py-2 border rounded-lg" />
-              <input type="number" placeholder="Min Threshold" value={newPartForm.threshold} onChange={e => setNewPartForm({...newPartForm, threshold: e.target.value})} className="w-full px-3 py-2 border rounded-lg" />
+              <input type="text" placeholder="Part Name" value={newPartForm.name} onChange={e => setNewPartForm({...newPartForm, name: e.target.value})} className="w-full px-3 py-2 border rounded-lg bg-background text-foreground border-border text-sm focus:outline-none focus:ring-2 focus:ring-primary/50" />
+              <input type="number" placeholder="Stock Quantity" value={newPartForm.stock} onChange={e => setNewPartForm({...newPartForm, stock: e.target.value})} className="w-full px-3 py-2 border rounded-lg bg-background text-foreground border-border text-sm focus:outline-none focus:ring-2 focus:ring-primary/50" />
+              <input type="text" placeholder="Unit" value={newPartForm.unit} onChange={e => setNewPartForm({...newPartForm, unit: e.target.value})} className="w-full px-3 py-2 border rounded-lg bg-background text-foreground border-border text-sm focus:outline-none focus:ring-2 focus:ring-primary/50" />
+              <input type="number" placeholder="Min Threshold" value={newPartForm.threshold} onChange={e => setNewPartForm({...newPartForm, threshold: e.target.value})} className="w-full px-3 py-2 border rounded-lg bg-background text-foreground border-border text-sm focus:outline-none focus:ring-2 focus:ring-primary/50" />
               <div className="flex gap-2">
                 <button onClick={addNewPart} className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg">Add Part</button>
                 <button onClick={() => setShowAddPartModal(false)} className="px-4 py-2 border rounded-lg">Cancel</button>
@@ -339,7 +342,7 @@ export default function TechnicianDashboard() {
         <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-[100] p-4">
           <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-2xl max-w-md w-full p-6">
             <h3 className="text-lg font-bold mb-2">Reorder {showReorderModal.part.name}</h3>
-            <input type="number" value={showReorderModal.quantity} onChange={e => setShowReorderModal({ ...showReorderModal, quantity: parseInt(e.target.value) || 1 })} min="1" className="w-full px-3 py-2 border rounded-lg mb-4" />
+            <input type="number" value={showReorderModal.quantity} onChange={e => setShowReorderModal({ ...showReorderModal, quantity: parseInt(e.target.value) || 1 })} min="1" className="w-full px-3 py-2 border rounded-lg mb-4 bg-background text-foreground border-border text-sm focus:outline-none focus:ring-2 focus:ring-primary/50" />
             <div className="flex gap-2">
               <button onClick={() => reorderPart(showReorderModal.part, showReorderModal.quantity)} className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg">Order</button>
               <button onClick={() => setShowReorderModal({ show: false, part: null, quantity: 1 })} className="flex-1 border rounded-lg py-2">Cancel</button>

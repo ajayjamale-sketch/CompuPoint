@@ -266,15 +266,15 @@ export default function InstituteDashboard() {
               <button onClick={() => setShowNewBatchModal(false)}><X className="w-5 h-5" /></button>
             </div>
             <div className="space-y-3">
-              <input type="text" placeholder="Batch Name" value={newBatch.name} onChange={e => setNewBatch({...newBatch, name: e.target.value})} className="w-full px-3 py-2 border rounded-lg" />
-              <input type="text" placeholder="Course" value={newBatch.course} onChange={e => setNewBatch({...newBatch, course: e.target.value})} className="w-full px-3 py-2 border rounded-lg" />
-              <input type="text" placeholder="Instructor" value={newBatch.instructor} onChange={e => setNewBatch({...newBatch, instructor: e.target.value})} className="w-full px-3 py-2 border rounded-lg" />
-              <input type="text" placeholder="Start Date (e.g., Jan 1, 2026)" value={newBatch.startDate} onChange={e => setNewBatch({...newBatch, startDate: e.target.value})} className="w-full px-3 py-2 border rounded-lg" />
-              <input type="text" placeholder="End Date" value={newBatch.endDate} onChange={e => setNewBatch({...newBatch, endDate: e.target.value})} className="w-full px-3 py-2 border rounded-lg" />
-              <select value={newBatch.status} onChange={e => setNewBatch({...newBatch, status: e.target.value})} className="w-full px-3 py-2 border rounded-lg">
-                <option value="active">Active</option>
-                <option value="completing">Completing</option>
-                <option value="upcoming">Upcoming</option>
+              <input type="text" placeholder="Batch Name" value={newBatch.name} onChange={e => setNewBatch({...newBatch, name: e.target.value})} className="w-full px-3 py-2 border rounded-lg bg-background text-foreground border-border text-sm focus:outline-none focus:ring-2 focus:ring-primary/50" />
+              <input type="text" placeholder="Course" value={newBatch.course} onChange={e => setNewBatch({...newBatch, course: e.target.value})} className="w-full px-3 py-2 border rounded-lg bg-background text-foreground border-border text-sm focus:outline-none focus:ring-2 focus:ring-primary/50" />
+              <input type="text" placeholder="Instructor" value={newBatch.instructor} onChange={e => setNewBatch({...newBatch, instructor: e.target.value})} className="w-full px-3 py-2 border rounded-lg bg-background text-foreground border-border text-sm focus:outline-none focus:ring-2 focus:ring-primary/50" />
+              <input type="text" placeholder="Start Date (e.g., Jan 1, 2026)" value={newBatch.startDate} onChange={e => setNewBatch({...newBatch, startDate: e.target.value})} className="w-full px-3 py-2 border rounded-lg bg-background text-foreground border-border text-sm focus:outline-none focus:ring-2 focus:ring-primary/50" />
+              <input type="text" placeholder="End Date" value={newBatch.endDate} onChange={e => setNewBatch({...newBatch, endDate: e.target.value})} className="w-full px-3 py-2 border rounded-lg bg-background text-foreground border-border text-sm focus:outline-none focus:ring-2 focus:ring-primary/50" />
+              <select value={newBatch.status} onChange={e => setNewBatch({...newBatch, status: e.target.value})} className="w-full px-3 py-2 border rounded-lg bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 border-border text-sm focus:outline-none focus:ring-2 focus:ring-primary/50">
+                <option value="active" className="bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100">Active</option>
+                <option value="completing" className="bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100">Completing</option>
+                <option value="upcoming" className="bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100">Upcoming</option>
               </select>
               <div className="flex gap-2">
                 <button onClick={addBatch} className="flex-1 btn-primary">Create Batch</button>
@@ -294,17 +294,17 @@ export default function InstituteDashboard() {
               <button onClick={() => setShowEnrollModal(false)}><X className="w-5 h-5" /></button>
             </div>
             <div className="space-y-3">
-              <input type="text" placeholder="Full Name" value={newStudent.name} onChange={e => setNewStudent({...newStudent, name: e.target.value})} className="w-full px-3 py-2 border rounded-lg" />
-              <select value={newStudent.batchId} onChange={e => setNewStudent({...newStudent, batchId: e.target.value})} className="w-full px-3 py-2 border rounded-lg">
-                {batches.map(b => <option key={b.id} value={b.id}>{b.name}</option>)}
+              <input type="text" placeholder="Full Name" value={newStudent.name} onChange={e => setNewStudent({...newStudent, name: e.target.value})} className="w-full px-3 py-2 border rounded-lg bg-background text-foreground border-border text-sm focus:outline-none focus:ring-2 focus:ring-primary/50" />
+              <select value={newStudent.batchId} onChange={e => setNewStudent({...newStudent, batchId: e.target.value})} className="w-full px-3 py-2 border rounded-lg bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 border-border text-sm focus:outline-none focus:ring-2 focus:ring-primary/50">
+                {batches.map(b => <option key={b.id} value={b.id} className="bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100">{b.name}</option>)}
               </select>
-              <select value={newStudent.fees} onChange={e => setNewStudent({...newStudent, fees: e.target.value})} className="w-full px-3 py-2 border rounded-lg">
-                <option value="Paid">Paid</option>
-                <option value="Pending">Pending</option>
-                <option value="Overdue">Overdue</option>
+              <select value={newStudent.fees} onChange={e => setNewStudent({...newStudent, fees: e.target.value})} className="w-full px-3 py-2 border rounded-lg bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 border-border text-sm focus:outline-none focus:ring-2 focus:ring-primary/50">
+                <option value="Paid" className="bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100">Paid</option>
+                <option value="Pending" className="bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100">Pending</option>
+                <option value="Overdue" className="bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100">Overdue</option>
               </select>
-              <select value={newStudent.grade} onChange={e => setNewStudent({...newStudent, grade: e.target.value})} className="w-full px-3 py-2 border rounded-lg">
-                <option value="A+">A+</option><option value="A">A</option><option value="B+">B+</option><option value="B">B</option><option value="C">C</option>
+              <select value={newStudent.grade} onChange={e => setNewStudent({...newStudent, grade: e.target.value})} className="w-full px-3 py-2 border rounded-lg bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 border-border text-sm focus:outline-none focus:ring-2 focus:ring-primary/50">
+                <option value="A+" className="bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100">A+</option><option value="A" className="bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100">A</option><option value="B+" className="bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100">B+</option><option value="B" className="bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100">B</option><option value="C" className="bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100">C</option>
               </select>
               <div className="flex gap-2">
                 <button onClick={enrollStudent} className="flex-1 btn-primary">Enroll</button>
@@ -324,14 +324,14 @@ export default function InstituteDashboard() {
               <button onClick={() => setShowManageBatchModal({ show: false, batch: null })}><X className="w-5 h-5" /></button>
             </div>
             <div className="space-y-3">
-              <input type="text" value={editBatch.name !== "" ? editBatch.name : showManageBatchModal.batch.name} onChange={e => setEditBatch({...editBatch, name: e.target.value})} placeholder="Batch Name" className="w-full px-3 py-2 border rounded-lg" />
-              <input type="text" value={editBatch.instructor !== "" ? editBatch.instructor : showManageBatchModal.batch.instructor} onChange={e => setEditBatch({...editBatch, instructor: e.target.value})} placeholder="Instructor" className="w-full px-3 py-2 border rounded-lg" />
-              <input type="text" value={editBatch.startDate !== "" ? editBatch.startDate : showManageBatchModal.batch.startDate} onChange={e => setEditBatch({...editBatch, startDate: e.target.value})} placeholder="Start Date" className="w-full px-3 py-2 border rounded-lg" />
-              <input type="text" value={editBatch.endDate !== "" ? editBatch.endDate : showManageBatchModal.batch.endDate} onChange={e => setEditBatch({...editBatch, endDate: e.target.value})} placeholder="End Date" className="w-full px-3 py-2 border rounded-lg" />
-              <select value={editBatch.status !== "" ? editBatch.status : showManageBatchModal.batch.status} onChange={e => setEditBatch({...editBatch, status: e.target.value})} className="w-full px-3 py-2 border rounded-lg">
-                <option value="active">Active</option>
-                <option value="completing">Completing</option>
-                <option value="upcoming">Upcoming</option>
+              <input type="text" value={editBatch.name !== "" ? editBatch.name : showManageBatchModal.batch.name} onChange={e => setEditBatch({...editBatch, name: e.target.value})} placeholder="Batch Name" className="w-full px-3 py-2 border rounded-lg bg-background text-foreground border-border text-sm focus:outline-none focus:ring-2 focus:ring-primary/50" />
+              <input type="text" value={editBatch.instructor !== "" ? editBatch.instructor : showManageBatchModal.batch.instructor} onChange={e => setEditBatch({...editBatch, instructor: e.target.value})} placeholder="Instructor" className="w-full px-3 py-2 border rounded-lg bg-background text-foreground border-border text-sm focus:outline-none focus:ring-2 focus:ring-primary/50" />
+              <input type="text" value={editBatch.startDate !== "" ? editBatch.startDate : showManageBatchModal.batch.startDate} onChange={e => setEditBatch({...editBatch, startDate: e.target.value})} placeholder="Start Date" className="w-full px-3 py-2 border rounded-lg bg-background text-foreground border-border text-sm focus:outline-none focus:ring-2 focus:ring-primary/50" />
+              <input type="text" value={editBatch.endDate !== "" ? editBatch.endDate : showManageBatchModal.batch.endDate} onChange={e => setEditBatch({...editBatch, endDate: e.target.value})} placeholder="End Date" className="w-full px-3 py-2 border rounded-lg bg-background text-foreground border-border text-sm focus:outline-none focus:ring-2 focus:ring-primary/50" />
+              <select value={editBatch.status !== "" ? editBatch.status : showManageBatchModal.batch.status} onChange={e => setEditBatch({...editBatch, status: e.target.value})} className="w-full px-3 py-2 border rounded-lg bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 border-border text-sm focus:outline-none focus:ring-2 focus:ring-primary/50">
+                <option value="active" className="bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100">Active</option>
+                <option value="completing" className="bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100">Completing</option>
+                <option value="upcoming" className="bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100">Upcoming</option>
               </select>
               <div className="flex gap-2">
                 <button onClick={updateBatch} className="flex-1 btn-primary">Save Changes</button>
@@ -354,7 +354,7 @@ export default function InstituteDashboard() {
               {showAttendanceModal.students.map((student: any) => (
                 <div key={student.id} className="flex items-center justify-between p-2 border rounded-lg">
                   <span className="text-sm">{student.name}</span>
-                  <input type="number" min="0" max="100" value={attendanceMarks[student.id] || 0} onChange={e => setAttendanceMarks({...attendanceMarks, [student.id]: parseInt(e.target.value) || 0})} className="w-20 px-2 py-1 border rounded text-center" />
+                  <input type="number" min="0" max="100" value={attendanceMarks[student.id] || 0} onChange={e => setAttendanceMarks({...attendanceMarks, [student.id]: parseInt(e.target.value) || 0})} className="w-20 px-2 py-1 border rounded text-center bg-background text-foreground border-border focus:outline-none focus:ring-2 focus:ring-primary/50" />
                   <span className="text-xs text-slate-400">%</span>
                 </div>
               ))}
@@ -373,7 +373,7 @@ export default function InstituteDashboard() {
           <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-2xl max-w-md w-full p-6">
             <h3 className="text-lg font-bold mb-2">Record Payment</h3>
             <p className="text-sm mb-2">Student: {showRecordPaymentModal.student.name}</p>
-            <input type="number" placeholder="Amount (₹)" value={showRecordPaymentModal.amount} onChange={e => setShowRecordPaymentModal({ ...showRecordPaymentModal, amount: e.target.value })} className="w-full px-3 py-2 border rounded-lg mb-4" />
+            <input type="number" placeholder="Amount (₹)" value={showRecordPaymentModal.amount} onChange={e => setShowRecordPaymentModal({ ...showRecordPaymentModal, amount: e.target.value })} className="w-full px-3 py-2 border rounded-lg mb-4 bg-background text-foreground border-border text-sm focus:outline-none focus:ring-2 focus:ring-primary/50" />
             <div className="flex gap-2">
               <button onClick={() => recordPayment(showRecordPaymentModal.student, showRecordPaymentModal.amount)} className="flex-1 btn-primary">Record</button>
               <button onClick={() => setShowRecordPaymentModal({ show: false, student: null, amount: "" })} className="flex-1 border rounded-lg py-2">Cancel</button>
@@ -388,7 +388,7 @@ export default function InstituteDashboard() {
           <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-2xl max-w-md w-full p-6">
             <h3 className="text-lg font-bold mb-2">Send Fee Reminder</h3>
             <p className="text-sm mb-2">To: {showSendReminderModal.student.name}</p>
-            <textarea rows={3} value={showSendReminderModal.message} onChange={e => setShowSendReminderModal({ ...showSendReminderModal, message: e.target.value })} placeholder="Reminder message..." className="w-full px-3 py-2 border rounded-lg mb-4" />
+            <textarea rows={3} value={showSendReminderModal.message} onChange={e => setShowSendReminderModal({ ...showSendReminderModal, message: e.target.value })} placeholder="Reminder message..." className="w-full px-3 py-2 border rounded-lg mb-4 bg-background text-foreground border-border text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 resize-none" />
             <div className="flex gap-2">
               <button onClick={() => sendReminder(showSendReminderModal.student, showSendReminderModal.message)} className="flex-1 btn-primary">Send</button>
               <button onClick={() => setShowSendReminderModal({ show: false, student: null, message: "" })} className="flex-1 border rounded-lg py-2">Cancel</button>
@@ -403,7 +403,7 @@ export default function InstituteDashboard() {
           <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-2xl max-w-md w-full p-6">
             <h3 className="text-lg font-bold mb-2">Send Attendance Notice</h3>
             <p className="text-sm mb-2">To: {showSendNoticeModal.student.name}</p>
-            <textarea rows={3} value={showSendNoticeModal.message} onChange={e => setShowSendNoticeModal({ ...showSendNoticeModal, message: e.target.value })} placeholder="Notice message..." className="w-full px-3 py-2 border rounded-lg mb-4" />
+            <textarea rows={3} value={showSendNoticeModal.message} onChange={e => setShowSendNoticeModal({ ...showSendNoticeModal, message: e.target.value })} placeholder="Notice message..." className="w-full px-3 py-2 border rounded-lg mb-4 bg-background text-foreground border-border text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 resize-none" />
             <div className="flex gap-2">
               <button onClick={() => sendNotice(showSendNoticeModal.student, showSendNoticeModal.message)} className="flex-1 btn-primary">Send</button>
               <button onClick={() => setShowSendNoticeModal({ show: false, student: null, message: "" })} className="flex-1 border rounded-lg py-2">Cancel</button>

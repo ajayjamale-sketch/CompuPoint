@@ -224,9 +224,9 @@ export default function ProfessionalDashboard() {
               <button onClick={() => setShowJobApplicationModal({ job: null, show: false })}><X className="w-5 h-5" /></button>
             </div>
             <div className="space-y-4">
-              <input type="text" value={jobApplication.name} onChange={e => setJobApplication({...jobApplication, name: e.target.value})} placeholder="Full Name" className="w-full px-3 py-2 border rounded-lg bg-transparent text-sm" />
-              <input type="email" value={jobApplication.email} onChange={e => setJobApplication({...jobApplication, email: e.target.value})} placeholder="Email" className="w-full px-3 py-2 border rounded-lg bg-transparent text-sm" />
-              <textarea value={jobApplication.resume} onChange={e => setJobApplication({...jobApplication, resume: e.target.value})} placeholder="Resume link or summary of experience" rows={3} className="w-full px-3 py-2 border rounded-lg bg-transparent text-sm" />
+              <input type="text" value={jobApplication.name} onChange={e => setJobApplication({...jobApplication, name: e.target.value})} placeholder="Full Name" className="w-full px-3 py-2 border rounded-lg bg-background text-foreground border-border text-sm focus:outline-none focus:ring-2 focus:ring-primary/50" />
+              <input type="email" value={jobApplication.email} onChange={e => setJobApplication({...jobApplication, email: e.target.value})} placeholder="Email" className="w-full px-3 py-2 border rounded-lg bg-background text-foreground border-border text-sm focus:outline-none focus:ring-2 focus:ring-primary/50" />
+              <textarea value={jobApplication.resume} onChange={e => setJobApplication({...jobApplication, resume: e.target.value})} placeholder="Resume link or summary of experience" rows={3} className="w-full px-3 py-2 border rounded-lg bg-background text-foreground border-border text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 resize-none" />
               <div className="flex gap-2">
                 <button onClick={submitJobApplication} className="flex-1 bg-blue-600 text-white text-sm py-2 rounded-lg flex items-center justify-center gap-1 hover:bg-blue-700 transition"><Send className="w-4 h-4" /> Submit Application</button>
                 <button onClick={() => setShowJobApplicationModal({ job: null, show: false })} className="px-4 py-2 text-sm border rounded-lg">Cancel</button>
@@ -277,9 +277,9 @@ export default function ProfessionalDashboard() {
               <button onClick={() => setShowAddCertModal(false)}><X className="w-5 h-5" /></button>
             </div>
             <div className="space-y-4">
-              <input type="text" value={newCert.title} onChange={e => setNewCert({...newCert, title: e.target.value})} placeholder="Certification Title" className="w-full px-3 py-2 border rounded-lg bg-transparent text-sm" />
-              <input type="text" value={newCert.issuer} onChange={e => setNewCert({...newCert, issuer: e.target.value})} placeholder="Issuing Organization" className="w-full px-3 py-2 border rounded-lg bg-transparent text-sm" />
-              <input type="date" value={newCert.issueDate} onChange={e => setNewCert({...newCert, issueDate: e.target.value})} className="w-full px-3 py-2 border rounded-lg bg-transparent text-sm" />
+              <input type="text" value={newCert.title} onChange={e => setNewCert({...newCert, title: e.target.value})} placeholder="Certification Title" className="w-full px-3 py-2 border rounded-lg bg-background text-foreground border-border text-sm focus:outline-none focus:ring-2 focus:ring-primary/50" />
+              <input type="text" value={newCert.issuer} onChange={e => setNewCert({...newCert, issuer: e.target.value})} placeholder="Issuing Organization" className="w-full px-3 py-2 border rounded-lg bg-background text-foreground border-border text-sm focus:outline-none focus:ring-2 focus:ring-primary/50" />
+              <input type="date" value={newCert.issueDate} onChange={e => setNewCert({...newCert, issueDate: e.target.value})} className="w-full px-3 py-2 border rounded-lg bg-background text-foreground border-border text-sm focus:outline-none focus:ring-2 focus:ring-primary/50" />
               <div className="flex gap-2">
                 <button onClick={addNewCertification} className="flex-1 bg-blue-600 text-white text-sm py-2 rounded-lg hover:bg-blue-700 transition">Add Certification</button>
                 <button onClick={() => setShowAddCertModal(false)} className="px-4 py-2 text-sm border rounded-lg">Cancel</button>
@@ -298,12 +298,12 @@ export default function ProfessionalDashboard() {
               <button onClick={() => setShowAddProjectModal(false)}><X className="w-5 h-5" /></button>
             </div>
             <div className="space-y-4">
-              <input type="text" value={newProject.name} onChange={e => setNewProject({...newProject, name: e.target.value})} placeholder="Project Name" className="w-full px-3 py-2 border rounded-lg bg-transparent text-sm" />
-              <input type="text" value={newProject.tech} onChange={e => setNewProject({...newProject, tech: e.target.value})} placeholder="Tech Stack (e.g., React, Node.js)" className="w-full px-3 py-2 border rounded-lg bg-transparent text-sm" />
-              <select value={newProject.status} onChange={e => setNewProject({...newProject, status: e.target.value})} className="w-full px-3 py-2 border rounded-lg bg-transparent text-sm">
-                <option value="Live">Live</option>
-                <option value="Private">Private</option>
-                <option value="In Progress">In Progress</option>
+              <input type="text" value={newProject.name} onChange={e => setNewProject({...newProject, name: e.target.value})} placeholder="Project Name" className="w-full px-3 py-2 border rounded-lg bg-background text-foreground border-border text-sm focus:outline-none focus:ring-2 focus:ring-primary/50" />
+              <input type="text" value={newProject.tech} onChange={e => setNewProject({...newProject, tech: e.target.value})} placeholder="Tech Stack (e.g., React, Node.js)" className="w-full px-3 py-2 border rounded-lg bg-background text-foreground border-border text-sm focus:outline-none focus:ring-2 focus:ring-primary/50" />
+              <select value={newProject.status} onChange={e => setNewProject({...newProject, status: e.target.value})} className="w-full px-3 py-2 border rounded-lg bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 border-border text-sm focus:outline-none focus:ring-2 focus:ring-primary/50">
+                <option value="Live" className="bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100">Live</option>
+                <option value="Private" className="bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100">Private</option>
+                <option value="In Progress" className="bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100">In Progress</option>
               </select>
               <div className="flex gap-2">
                 <button onClick={addNewProject} className="flex-1 bg-blue-600 text-white text-sm py-2 rounded-lg hover:bg-blue-700 transition">Add Project</button>

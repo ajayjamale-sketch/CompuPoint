@@ -40,6 +40,7 @@ export default {
           700: "#4338CA",
           800: "#3730A3",
           900: "#312E81",
+          950: "#1e1b4b",
         },
         secondary: {
           DEFAULT: "#0F172A",
@@ -50,6 +51,7 @@ export default {
           foreground: "#FFFFFF",
           50: "#ECFDF5",
           100: "#D1FAE5",
+          400: "#34D399",
           500: "#10B981",
           600: "#059669",
         },

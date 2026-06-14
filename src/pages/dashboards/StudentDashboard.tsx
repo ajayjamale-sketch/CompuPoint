@@ -795,7 +795,7 @@ export default function StudentDashboard() {
             <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-xl mb-4">
               <p className="text-sm font-semibold">{activeInterview.questions[activeInterview.currentQuestionIndex]}</p>
             </div>
-            <textarea value={activeInterview.answers[activeInterview.currentQuestionIndex]} onChange={e => handleAnswerChange(e.target.value)} placeholder="Type your answer here..." className="w-full p-3 border rounded-xl min-h-[120px] text-sm" />
+            <textarea value={activeInterview.answers[activeInterview.currentQuestionIndex]} onChange={e => handleAnswerChange(e.target.value)} placeholder="Type your answer here..." className="w-full p-3 border rounded-xl min-h-[120px] text-sm bg-background text-foreground border-border focus:outline-none focus:ring-2 focus:ring-primary/50 resize-none" />
             <div className="flex justify-end gap-2 mt-4">
               <button onClick={() => setActiveInterview(null)} className="px-4 py-2 text-sm border rounded-lg">Cancel</button>
               <button onClick={handleNextQuestion} className="bg-blue-600 hover:bg-blue-700 text-white py-2 px-5 rounded-lg text-sm flex items-center gap-1">{activeInterview.currentQuestionIndex < activeInterview.questions.length - 1 ? "Next Question" : "Submit"} <Send className="w-3.5 h-3.5" /></button>
@@ -848,7 +848,7 @@ export default function StudentDashboard() {
               <h3 className="text-lg font-bold flex items-center gap-2"><Brain className="w-5 h-5 text-cyan-500" /> Skill Gap Analysis</h3>
               <button onClick={() => setShowSkillGapModal(false)}><X className="w-5 h-5" /></button>
             </div>
-            <input type="text" value={skillGapRole} onChange={e => setSkillGapRole(e.target.value)} placeholder="Desired role (e.g., AI Engineer)" className="w-full px-3 py-2 border rounded-lg mb-4 text-sm" />
+            <input type="text" value={skillGapRole} onChange={e => setSkillGapRole(e.target.value)} placeholder="Desired role (e.g., AI Engineer)" className="w-full px-3 py-2 border rounded-lg mb-4 text-sm bg-background text-foreground border-border focus:outline-none focus:ring-2 focus:ring-primary/50" />
             <div className="bg-slate-50 dark:bg-slate-800/50 p-3 rounded-lg text-xs mb-4">
               <p className="font-semibold mb-1">Based on your profile:</p>
               <ul className="list-disc list-inside"><li>Current courses: {enrolledCourses.length}</li><li>Completed certs: {certifications.length}</li><li>CompuPoints: {userPoints}</li></ul>
@@ -898,7 +898,7 @@ export default function StudentDashboard() {
                 <div className="p-3 border-b bg-slate-50 dark:bg-slate-800/60"><h4 className="text-xs font-semibold">Course Content</h4><p className="text-[11px] text-slate-500">{lectures.length} lectures</p></div>
                 <div className="flex-1 overflow-y-auto p-2 space-y-1">
                   {lectures.map((lect, idx) => (
-                    <div key={idx} onClick={() => { if (idx <= currentLectureIndex || lect.completed) { setCurrentLectureIndex(idx); setVideoProgress(0); setIsPlaying(false); if (videoInterval) clearInterval(videoInterval); } else showNotification("Complete previous lectures first", "error"); }} className={cn("flex items-center gap-2 p-2 rounded-lg cursor-pointer", currentLectureIndex === idx ? "bg-blue-50 border border-blue-200" : "hover:bg-slate-50 dark:hover:bg-slate-800/40", lect.completed && "opacity-70")}>
+                    <div key={idx} onClick={() => { if (idx <= currentLectureIndex || lect.completed) { setCurrentLectureIndex(idx); setVideoProgress(0); setIsPlaying(false); if (videoInterval) clearInterval(videoInterval); } else showNotification("Complete previous lectures first", "error"); }} className={cn("flex items-center gap-2 p-2 rounded-lg cursor-pointer", currentLectureIndex === idx ? "bg-blue-50 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-900/50" : "hover:bg-slate-50 dark:hover:bg-slate-800/40", lect.completed && "opacity-70")}>
                       {lect.completed ? <CheckCircle2 className="w-4 h-4 text-green-500" /> : <Play className="w-3.5 h-3.5 text-slate-400" />}
                       <div className="flex-1"><p className="text-xs truncate">{lect.title}</p><p className="text-[10px] text-slate-400">{lect.duration}</p></div>
                       {currentLectureIndex === idx && !lect.completed && <ChevronRight className="w-3.5 h-3.5 text-blue-500" />}

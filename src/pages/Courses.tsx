@@ -119,13 +119,13 @@ export default function Courses() {
       {/* 2. Featured Courses Carousel/Section */}
       <section className="py-12 px-4 bg-white dark:bg-slate-900 border-b border-border">
         <div className="max-w-7xl mx-auto">
-          <div className="flex items-center gap-2 mb-6 text-primary font-heading font-bold text-lg">
+          <div className="flex items-center gap-2 mb-6 text-primary dark:text-primary-400 font-heading font-bold text-lg">
             <Zap className="w-5 h-5 text-accent animate-pulse" />
             <h2>Trending & Hot Courses</h2>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {COURSES.slice(0, 3).map((course) => (
-              <div key={`featured-${course.id}`} className="card-base p-5 hover:border-primary/20 transition-all border border-primary-100 dark:border-primary-950 bg-gradient-to-br from-primary-50/10 to-transparent dark:from-slate-950/20 relative overflow-hidden group flex flex-col justify-between">
+              <div key={`featured-${course.id}`} className="card-base p-5 hover:border-primary/20 transition-all border border-primary-100 dark:border-primary-900/30 bg-gradient-to-br from-primary-50/10 to-transparent dark:from-primary-900/10 dark:to-transparent relative overflow-hidden group flex flex-col justify-between">
                 <div>
                   <div className="absolute top-3 right-3 z-10">
                     <span className="px-2.5 py-0.5 bg-accent text-white text-[10px] uppercase font-bold rounded-full shadow-emerald">
@@ -133,19 +133,19 @@ export default function Courses() {
                     </span>
                   </div>
                   <div className="flex items-center gap-3 mb-3">
-                    <div className="w-10 h-10 rounded-xl bg-primary-100 dark:bg-primary-950/45 flex items-center justify-center text-primary">
+                    <div className="w-10 h-10 rounded-xl bg-primary-100 dark:bg-primary-900/30 flex items-center justify-center text-primary dark:text-primary-400">
                       <BookOpen className="w-5 h-5" />
                     </div>
                     <div>
                       <h3 className="font-heading font-bold text-slate-900 dark:text-white text-sm line-clamp-1">{course.title}</h3>
-                      <p className="text-[10px] text-slate-400">{course.category}</p>
+                      <p className="text-[10px] text-slate-500 dark:text-slate-400 font-medium">{course.category}</p>
                     </div>
                   </div>
                   <p className="text-xs text-slate-500 dark:text-slate-400 mb-4 line-clamp-2">{course.description}</p>
                 </div>
                 <div className="flex items-center justify-between border-t border-border/40 pt-3">
-                  <span className="text-base font-bold text-primary">{formatCurrency(course.price)}</span>
-                  <button onClick={() => handleEnrollClick(course)} className="text-xs font-semibold text-primary hover:underline flex items-center gap-1">
+                  <span className="text-base font-bold text-primary dark:text-primary-400">{formatCurrency(course.price)}</span>
+                  <button onClick={() => handleEnrollClick(course)} className="text-xs font-semibold text-primary dark:text-primary-400 hover:underline flex items-center gap-1">
                     Enroll Free <ArrowRight className="w-3.5 h-3.5" />
                   </button>
                 </div>
@@ -161,13 +161,13 @@ export default function Courses() {
           {/* Controls */}
           <div className="card-base p-6 mb-8 flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="relative w-full md:w-80">
-              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 dark:text-slate-500" />
               <input
                 type="text"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder="Search courses or topics..."
-                className="w-full pl-10 pr-4 py-2 bg-background border border-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
+                className="w-full pl-10 pr-4 py-2 bg-background border border-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500"
               />
             </div>
 
@@ -175,10 +175,10 @@ export default function Courses() {
               <select
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
-                className="px-3 py-2 bg-background border border-border rounded-xl text-sm text-slate-700 dark:text-slate-300 focus:outline-none focus:ring-2 focus:ring-primary/50"
+                className="px-3 py-2 bg-background border border-border rounded-xl text-sm text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-primary/50"
               >
                 {categories.map((cat) => (
-                  <option key={cat} value={cat}>
+                  <option key={cat} value={cat} className="bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100">
                     {cat === "All" ? "All Categories" : cat}
                   </option>
                 ))}
@@ -187,10 +187,10 @@ export default function Courses() {
               <select
                 value={level}
                 onChange={(e) => setLevel(e.target.value)}
-                className="px-3 py-2 bg-background border border-border rounded-xl text-sm text-slate-700 dark:text-slate-300 focus:outline-none focus:ring-2 focus:ring-primary/50 capitalize"
+                className="px-3 py-2 bg-background border border-border rounded-xl text-sm text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-primary/50 capitalize"
               >
                 {levels.map((lvl) => (
-                  <option key={lvl} value={lvl}>
+                  <option key={lvl} value={lvl} className="bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100">
                     {lvl === "All" ? "All Levels" : lvl}
                   </option>
                 ))}
@@ -202,7 +202,7 @@ export default function Courses() {
           {filtered.length > 0 ? (
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {filtered.map((course) => (
-                <div key={course.id} className="card-base overflow-hidden hover:-translate-y-1 group cursor-pointer flex flex-col h-full bg-white dark:bg-slate-900 border border-border">
+                <div key={course.id} className="card-base overflow-hidden hover:-translate-y-1 group cursor-pointer flex flex-col h-full">
                   <div className="relative overflow-hidden">
                     <img
                       src={course.image}
@@ -224,7 +224,7 @@ export default function Courses() {
                       <div className="flex items-center gap-2 mb-2">
                         <span className="tag text-xs">{course.category}</span>
                       </div>
-                      <h3 className="font-heading font-bold text-slate-900 dark:text-white mb-2 leading-snug group-hover:text-primary transition-colors">
+                      <h3 className="font-heading font-bold text-slate-900 dark:text-white mb-2 leading-snug group-hover:text-primary dark:group-hover:text-primary-400 transition-colors">
                         {course.title}
                       </h3>
                       <p className="text-xs text-slate-500 dark:text-slate-400 mb-4 line-clamp-2">{course.description}</p>
@@ -241,7 +241,7 @@ export default function Courses() {
                         </span>
                       </div>
                       <div className="flex items-center justify-between">
-                        <span className="text-xl font-heading font-bold text-primary">
+                        <span className="text-xl font-heading font-bold text-primary dark:text-primary-400">
                           {formatCurrency(course.price)}
                         </span>
                         <button onClick={() => handleEnrollClick(course)} className="btn-primary text-xs px-4 py-2">
@@ -254,8 +254,8 @@ export default function Courses() {
               ))}
             </div>
           ) : (
-            <div className="card-base p-16 text-center bg-white dark:bg-slate-900 border">
-              <BookOpen className="w-12 h-12 text-slate-300 dark:text-slate-700 mx-auto mb-4" />
+            <div className="card-base p-16 text-center">
+              <BookOpen className="w-12 h-12 text-slate-300 dark:text-slate-600 mx-auto mb-4" />
               <h3 className="text-lg font-heading font-bold text-slate-900 dark:text-white mb-2">No courses found</h3>
               <p className="text-slate-500 dark:text-slate-400 text-sm max-w-md mx-auto mb-6">
                 Try adjusting your search terms or filters to discover other courses in our academy.
@@ -283,7 +283,7 @@ export default function Courses() {
               { icon: CheckCircle, title: "Lab Projects", desc: "Build standard web portfolios and diagnostic test sets." }
             ].map(({ icon: Icon, title, desc }) => (
               <div key={title} className="p-5 rounded-2xl bg-slate-50 dark:bg-slate-950/45 border border-border">
-                <div className="w-10 h-10 rounded-xl bg-primary-50 dark:bg-primary-950 flex items-center justify-center text-primary mb-4">
+                <div className="w-10 h-10 rounded-xl bg-primary-50 dark:bg-primary-900/30 flex items-center justify-center text-primary dark:text-primary-400 mb-4">
                   <Icon className="w-5 h-5" />
                 </div>
                 <h3 className="font-heading font-bold text-slate-900 dark:text-white text-sm mb-1.5">{title}</h3>
@@ -297,7 +297,7 @@ export default function Courses() {
       {/* 5. Interactive Skill Quiz CTA Banner */}
       <section className="py-16 px-4 bg-slate-50 dark:bg-slate-950">
         <div className="max-w-4xl mx-auto">
-          <div className="card-base p-8 border-primary-200 dark:border-primary-900 bg-gradient-to-br from-primary-50 to-indigo-50/10 dark:from-primary-950/10 dark:to-transparent flex flex-col md:flex-row items-center justify-between gap-8">
+          <div className="card-base p-8 border-primary-200 dark:border-primary-900 bg-gradient-to-br from-primary-50 to-indigo-50/10 dark:from-primary-900/10 dark:to-transparent flex flex-col md:flex-row items-center justify-between gap-8">
             <div className="max-w-md">
               <h2 className="font-heading text-xl font-bold text-slate-900 dark:text-white mb-2">Unsure which path to choose?</h2>
               <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
@@ -308,13 +308,13 @@ export default function Courses() {
                 <select
                   value={selectedInterest}
                   onChange={(e) => { setSelectedInterest(e.target.value); setQuizScore(null); }}
-                  className="px-3.5 py-2.5 bg-background border border-border rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-primary/50"
+                  className="px-3.5 py-2.5 bg-background border border-border rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-primary/50 text-slate-900 dark:text-slate-100"
                   required
                 >
-                  <option value="">Select Interest...</option>
-                  <option value="coding">Coding & Web Dev</option>
-                  <option value="office">Business & Accounts</option>
-                  <option value="marketing">SEO & Ads</option>
+                  <option value="" className="bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100">Select Interest...</option>
+                  <option value="coding" className="bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100">Coding & Web Dev</option>
+                  <option value="office" className="bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100">Business & Accounts</option>
+                  <option value="marketing" className="bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100">SEO & Ads</option>
                 </select>
                 <button type="submit" className="btn-primary text-xs py-2.5 px-5">
                   Get Recommendation
@@ -322,7 +322,7 @@ export default function Courses() {
               </form>
 
               {quizScore && (
-                <div className="mt-4 p-3.5 rounded-xl border border-primary-200/50 bg-white/80 dark:bg-slate-900/60 text-xs font-semibold text-primary">
+                <div className="mt-4 p-3.5 rounded-xl border border-primary-200/50 dark:border-primary-900/30 bg-white/80 dark:bg-slate-900/60 text-xs font-semibold text-primary dark:text-primary-400">
                   {quizScore}
                 </div>
               )}
@@ -361,7 +361,7 @@ export default function Courses() {
                   value={enrollName}
                   onChange={(e) => setEnrollName(e.target.value)}
                   placeholder="e.g. Arjun Verma"
-                  className="w-full px-3 py-2 text-xs bg-background border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/50 text-slate-800 dark:text-slate-100 font-medium"
+                  className="w-full px-3 py-2 text-xs bg-background border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/50 text-slate-800 dark:text-slate-100 font-medium placeholder-slate-400 dark:placeholder-slate-500"
                 />
               </div>
               <div>
@@ -375,7 +375,7 @@ export default function Courses() {
                     value={enrollEmail}
                     onChange={(e) => setEnrollEmail(e.target.value)}
                     placeholder="name@example.com"
-                    className="w-full pl-8 pr-3 py-2 text-xs bg-background border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/50 text-slate-800 dark:text-slate-100 font-medium"
+                    className="w-full pl-8 pr-3 py-2 text-xs bg-background border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/50 text-slate-800 dark:text-slate-100 font-medium placeholder-slate-400 dark:placeholder-slate-500"
                   />
                 </div>
               </div>
@@ -392,7 +392,7 @@ export default function Courses() {
                   value={enrollPhone}
                   onChange={(e) => setEnrollPhone(e.target.value)}
                   placeholder="98765 43210"
-                  className="w-full pl-8 pr-3 py-2 text-xs bg-background border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/50 text-slate-800 dark:text-slate-100 font-medium"
+                  className="w-full pl-8 pr-3 py-2 text-xs bg-background border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/50 text-slate-800 dark:text-slate-100 font-medium placeholder-slate-400 dark:placeholder-slate-500"
                 />
               </div>
             </div>
@@ -405,9 +405,9 @@ export default function Courses() {
                 onChange={(e) => setEnrollType(e.target.value)}
                 className="w-full px-3 py-2 text-xs bg-background border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/50 text-slate-800 dark:text-slate-100 font-medium"
               >
-                <option value="free-trial">Free 7-Day Trial (Access to base contents)</option>
-                <option value="premium">Premium Track (Includes assignments & projects)</option>
-                <option value="certified">Certification Fast-Track (Includes exam registration)</option>
+                <option value="free-trial" className="bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100">Free 7-Day Trial (Access to base contents)</option>
+                <option value="premium" className="bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100">Premium Track (Includes assignments & projects)</option>
+                <option value="certified" className="bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100">Certification Fast-Track (Includes exam registration)</option>
               </select>
             </div>
 
